@@ -29,6 +29,9 @@ public class User {
 	@Column(name = "email_address", nullable = false, length = 50)
 	private String emailAddress;
 	
+	@Column(name = "enabled", nullable = false)
+	private Boolean enabled;
+	
 	@Column(name = "created_timestamp", nullable = false)
 	private LocalDateTime createdTimestamp;
 
@@ -64,6 +67,14 @@ public class User {
 		this.emailAddress = emailAddress;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public LocalDateTime getCreatedTimestamp() {
 		return createdTimestamp;
 	}
@@ -75,6 +86,6 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", displayName=" + displayName + ", role=" + role + ", emailAddress="
-				+ emailAddress + ", createdTimestamp=" + createdTimestamp + "]";
+				+ emailAddress + ", enabled=" + enabled + ", createdTimestamp=" + createdTimestamp + "]";
 	}
 }
