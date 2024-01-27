@@ -33,16 +33,11 @@ CREATE TABLE user (
     FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
-INSERT INTO user VALUES(NULL, "stephan", 2, "stephan.bissoon@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "stephan_admin", 1, "stephan.bissoon+admin@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "zafrin", 2, "zafrin.rahman@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "zafrin_admin", 1, "zafrin.rahman+admin@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "alishba", 2, "alishba.aamir@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "alishba_admin", 1, "alishba.aamir+admin@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "shruti", 2, "s12sharma@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "shruti_admin", 1, "s12sharma+admin@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "karanvir", 2, "karanvir.heer@torontomu.ca", NULL, 0, NOW());
-INSERT INTO user VALUES(NULL, "karanvir_admin", 1, "karanvir.heer+admin@torontomu.ca", NULL, 0, NOW());
+INSERT INTO user VALUES(NULL, "stephan", 1, "stephan.bissoon@torontomu.ca", NULL, 1, NOW());
+INSERT INTO user VALUES(NULL, "zafrin", 1, "zafrin.rahman@torontomu.ca", NULL, 1, NOW());
+INSERT INTO user VALUES(NULL, "alishba", 1, "alishba.aamir@torontomu.ca", NULL, 1, NOW());
+INSERT INTO user VALUES(NULL, "shruti", 1, "s12sharma@torontomu.ca", NULL, 1, NOW());
+INSERT INTO user VALUES(NULL, "karanvir", 1, "karanvir.heer@torontomu.ca", NULL, 1, NOW());
 
 CREATE TABLE category (
     category_id INT NOT NULL AUTO_INCREMENT,

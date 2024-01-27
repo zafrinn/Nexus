@@ -3,7 +3,15 @@ package com.cps630.nexus.request;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class PasswordUpdateRequest {
+public class UserCreateRequest {
+	@NotEmpty
+	@Size(max = 25)
+	private String displayName;
+	
+	@NotEmpty
+	@Size(max = 50)
+	private String emailAddress;
+	
 	@NotEmpty
 	@Size(min = 8, max = 25)
 	private String password1;
@@ -11,6 +19,22 @@ public class PasswordUpdateRequest {
 	@NotEmpty
 	@Size(min = 8, max = 25)
 	private String password2;
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
 
 	public String getPassword1() {
 		return password1;

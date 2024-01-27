@@ -29,6 +29,9 @@ public class User {
 	@Column(name = "email_address", nullable = false, length = 50)
 	private String emailAddress;
 	
+	@Column(name = "password", nullable = true, length = 60)
+	private String password;
+	
 	@Column(name = "enabled", nullable = false)
 	private Boolean enabled;
 	
@@ -67,6 +70,14 @@ public class User {
 		this.emailAddress = emailAddress;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public Boolean getEnabled() {
 		return enabled;
 	}
@@ -86,6 +97,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", displayName=" + displayName + ", role=" + role + ", emailAddress="
-				+ emailAddress + ", enabled=" + enabled + ", createdTimestamp=" + createdTimestamp + "]";
+				+ emailAddress + ", password=" + password + ", enabled=" + enabled + ", createdTimestamp="
+				+ createdTimestamp + "]";
 	}
 }
