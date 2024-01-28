@@ -1,5 +1,6 @@
 package com.cps630.nexus.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,16 +11,21 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cps630.nexus.entity.User;
+import com.cps630.nexus.projection.UserProjection;
 import com.cps630.nexus.security.LoginDetailsInterface;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value =	"SELECT u.user_id AS userId, u.email_address AS emailAddress, u.enabled AS enabled, r.name AS roleName, u.password AS password "
-					+ "FROM user u JOIN role r ON u.role_id = r.role_id WHERE u.email_address = :emailAddress", nativeQuery = true)
+				+	"FROM user u JOIN role r ON u.role_id = r.role_id WHERE u.email_address = :emailAddress", nativeQuery = true)
 	public LoginDetailsInterface getLoginInfoByEmailAddress(@Param("emailAddress") String emailAddress);
 	
 	@Query(value =	"SELECT * FROM user WHERE email_address = :emailAddress", nativeQuery = true)
-	public Optional<User> findUserByEmailAddress(@Param("emailAddress") String emailAddress);
+	public Optional<User> findByEmailAddress(@Param("emailAddress") String emailAddress);
+	
+	@Query(value =	"SELECT user_id AS userId, display_name AS displayName, r.name AS roleName, email_address AS emailAddress, enabled "
+				+	"FROM user u JOIN role r ON u.role_id = r.role_id", nativeQuery = true)
+	public List<UserProjection> getUserList();
 	
 	@Modifying
 	@Transactional

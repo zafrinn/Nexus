@@ -25,8 +25,8 @@ public class SecurityConfig {
 		http.cors(Customizer.withDefaults())
 			.csrf(csrf -> csrf.disable())
 			.headers(headers -> headers
-				.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK)))
-					//.contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self'")))
+				.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
+				.contentSecurityPolicy(cps -> cps.policyDirectives("script-src 'self'")))
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers("api/v1/external/**").permitAll()
 				.requestMatchers("api/v1/internal/admin/**").hasAnyAuthority(ConstantUtil.ADMIN)
