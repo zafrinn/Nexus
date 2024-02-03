@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.cps630.nexus.entity.ErrorInfo;
 import com.cps630.nexus.entity.Role;
 import com.cps630.nexus.entity.User;
 import com.cps630.nexus.repository.RoleRepository;
@@ -38,11 +39,11 @@ public class UserService {
 	
 	public ResponseEntity<Object> updatePassword(PasswordUpdateRequest request) {
 		if(!StringUtils.isAsciiPrintable(request.getPassword1()) || !StringUtils.isAsciiPrintable(request.getPassword2())) {
-			return new ResponseEntity<>(ConstantUtil.INVALID_PASSWORD, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
 		}
 		
 		if(!StringUtils.equals(request.getPassword1(), request.getPassword2())) {
-			return new ResponseEntity<>(ConstantUtil.PASSWORD_MISMATCH, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.PASSWORD_MISMATCH), HttpStatus.BAD_REQUEST);
 		}
 		
 		userRepo.updatePassword(SecurityConfig.getPasswordEncoder().encode(request.getPassword1()), Utility.getAuthenticatedUser().getUserId());
@@ -54,7 +55,7 @@ public class UserService {
 		Optional<User> userOpt = userRepo.findByEmailAddress(request.getUsername());
 		
 		if(userOpt.isEmpty()) {
-			return new ResponseEntity<>(ConstantUtil.INVALID_USERNAME, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USERNAME), HttpStatus.BAD_REQUEST);
 		}
 		
 		String[] alphabet = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
@@ -83,27 +84,27 @@ public class UserService {
 	@Modifying
 	public ResponseEntity<Object> createUser(UserCreateRequest request) {
 		if(!StringUtils.isAlphanumeric(request.getDisplayName())) {
-			return new ResponseEntity<>(ConstantUtil.INVALID_DISPLAY_NAME, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_DISPLAY_NAME), HttpStatus.BAD_REQUEST);
 		}
 		
 		if(!StringUtils.isAsciiPrintable(request.getPassword1()) || !StringUtils.isAsciiPrintable(request.getPassword2())) {
-			return new ResponseEntity<>(ConstantUtil.INVALID_PASSWORD, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
 		}
 		
 		if(!StringUtils.equals(request.getPassword1(), request.getPassword2())) {
-			return new ResponseEntity<>(ConstantUtil.PASSWORD_MISMATCH, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.PASSWORD_MISMATCH), HttpStatus.BAD_REQUEST);
 		}
 		
 		Optional<User> userOpt = userRepo.findByEmailAddress(request.getEmailAddress());
 		
 		if(userOpt.isPresent()) {
-			return new ResponseEntity<>(ConstantUtil.USER_ALREADY_EXISTS, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_ALREADY_EXISTS), HttpStatus.BAD_REQUEST);
 		}
 		
 		Optional<Role> roleOpt = roleRepo.findById(1);
 		
 		if(roleOpt.isEmpty()) {
-			return new ResponseEntity<>(ConstantUtil.ROLE_NOT_FOUND, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.ROLE_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
 		User user = new User();
@@ -126,7 +127,7 @@ public class UserService {
 		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
 		
 		if(userOpt.isEmpty()) {
-			return new ResponseEntity<>(ConstantUtil.USER_NOT_FOUND, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
 		User user = userOpt.get();
@@ -145,13 +146,13 @@ public class UserService {
 		Optional<User> userOpt = userRepo.findById(request.getUserId());
 		
 		if(userOpt.isEmpty()) {
-			return new ResponseEntity<>(ConstantUtil.USER_NOT_FOUND, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
 		Optional<Role> roleOpt = roleRepo.findById(request.getRoleId());
 		
 		if(roleOpt.isEmpty()) {
-			return new ResponseEntity<>(ConstantUtil.ROLE_NOT_FOUND, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.ROLE_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
 		User user = userOpt.get();
