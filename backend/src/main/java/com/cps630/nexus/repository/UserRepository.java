@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value =	"SELECT * FROM user WHERE email_address = :emailAddress", nativeQuery = true)
 	public Optional<User> findByEmailAddress(@Param("emailAddress") String emailAddress);
 	
-	@Query(value =	"SELECT user_id AS userId, display_name AS displayName, r.name AS roleName, email_address AS emailAddress, enabled "
+	@Query(value =	"SELECT u.user_id AS userId, u.display_name AS displayName, r.name AS roleName, u.email_address AS emailAddress, u.enabled AS enabled "
 				+	"FROM user u JOIN role r ON u.role_id = r.role_id", nativeQuery = true)
 	public List<UserProjection> getUserList();
 	

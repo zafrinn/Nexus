@@ -60,6 +60,7 @@ CREATE TABLE advertisement (
     category_id INT NOT NULL,
     price DECIMAL(10, 2) NULL,
     location VARCHAR(100) NULL,
+    enabled TINYINT(1) NOT NULL,
 
     PRIMARY KEY(advertisement_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id),
@@ -69,7 +70,8 @@ CREATE TABLE advertisement (
 CREATE TABLE advertisement_image (
     advertisement_image_id INT NOT NULL AUTO_INCREMENT,
     advertisement_id INT NOT NULL,
-    file_name VARCHAR(50), -- UUID name with .jpg/jpeg/png etc...
+    mime_type VARCHAR(10) NOT NULL,
+    data MEDIUMBLOB NOT NULL,
 
     PRIMARY KEY (advertisement_image_id),
     FOREIGN KEY (advertisement_id) REFERENCES advertisement(advertisement_id)

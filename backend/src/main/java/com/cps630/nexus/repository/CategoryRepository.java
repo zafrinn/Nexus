@@ -3,9 +3,9 @@ package com.cps630.nexus.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.cps630.nexus.entity.Advertisement;
+import com.cps630.nexus.entity.Category;
 
 @Repository
-public interface AdvertisementRepository extends JpaRepository<Advertisement, Integer> {
-	
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
 }

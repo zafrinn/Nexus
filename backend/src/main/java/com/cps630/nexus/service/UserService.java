@@ -6,6 +6,7 @@ import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ import com.cps630.nexus.request.UserCreateRequest;
 import com.cps630.nexus.security.SecurityConfig;
 import com.cps630.nexus.util.ConstantUtil;
 import com.cps630.nexus.util.Utility;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -76,6 +79,8 @@ public class UserService {
 		return new ResponseEntity<>(userRepo.getUserList(), HttpStatus.OK);
 	}
 
+	@Transactional
+	@Modifying
 	public ResponseEntity<Object> createUser(UserCreateRequest request) {
 		if(!StringUtils.isAlphanumeric(request.getDisplayName())) {
 			return new ResponseEntity<>(ConstantUtil.INVALID_DISPLAY_NAME, HttpStatus.BAD_REQUEST);
@@ -115,6 +120,8 @@ public class UserService {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@Transactional
+	@Modifying
 	public ResponseEntity<Object> updateUserBasic(BasicUserUpdateRequest request) {
 		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
 		
@@ -132,6 +139,8 @@ public class UserService {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
+	@Transactional
+	@Modifying
 	public ResponseEntity<Object> updateUserAdmin(AdminUserUpdateRequest request) {
 		Optional<User> userOpt = userRepo.findById(request.getUserId());
 		
