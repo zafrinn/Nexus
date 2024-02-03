@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -21,6 +22,42 @@ public class AdvertisementImage {
 	@JoinColumn(name = "advertisement_id", nullable = false)
 	private Advertisement advertisement;
 	
-	@Column(name = "file_name", nullable = false, length = 50)
-	private String fileName;
+	@Column(name = "mime_type", nullable = false, length = 10)
+	private String mimeType;
+	
+	@Lob
+	@Column(name = "data", nullable = false)
+	private byte[] data;
+
+	public Integer getAdvertisementImageId() {
+		return advertisementImageId;
+	}
+
+	public void setAdvertisementImageId(Integer advertisementImageId) {
+		this.advertisementImageId = advertisementImageId;
+	}
+
+	public Advertisement getAdvertisement() {
+		return advertisement;
+	}
+
+	public void setAdvertisement(Advertisement advertisement) {
+		this.advertisement = advertisement;
+	}
+
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
 }

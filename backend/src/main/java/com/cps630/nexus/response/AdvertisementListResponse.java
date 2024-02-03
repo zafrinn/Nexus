@@ -1,50 +1,19 @@
-package com.cps630.nexus.entity;
+package com.cps630.nexus.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "advertisement")
-public class Advertisement {
-	@Id
-	@Column(name = "advertisement_id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AdvertisementListResponse {
 	private Integer advertisementId;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-	
-	@Column(name = "title", nullable = false, length = 50)
+	private String displayName;
 	private String title;
-	
-	@Column(name = "description", nullable = false, length = 1000)
 	private String description;
-	
-	@Column(name = "created_timestamp", nullable = false)
 	private LocalDateTime createdTimestamp;
-	
-	@ManyToOne
-	@JoinColumn(name = "category_id", nullable = false)
-	private Category category;
-	
-	@Column(name = "price", nullable = true)
 	private BigDecimal price;
-	
-	@Column(name = "location", nullable = true, length = 100)
 	private String location;
-	
-	@Column(name = "enabled", nullable = false)
 	private Boolean enabled;
+	private String posterMimeType;
+	private byte[] poster;
 
 	public Integer getAdvertisementId() {
 		return advertisementId;
@@ -54,12 +23,12 @@ public class Advertisement {
 		this.advertisementId = advertisementId;
 	}
 
-	public User getUser() {
-		return user;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public String getTitle() {
@@ -86,14 +55,6 @@ public class Advertisement {
 		this.createdTimestamp = createdTimestamp;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -116,5 +77,21 @@ public class Advertisement {
 
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public String getPosterMimeType() {
+		return posterMimeType;
+	}
+
+	public void setPosterMimeType(String posterMimeType) {
+		this.posterMimeType = posterMimeType;
+	}
+
+	public byte[] getPoster() {
+		return poster;
+	}
+
+	public void setPoster(byte[] poster) {
+		this.poster = poster;
 	}
 }
