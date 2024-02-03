@@ -1,5 +1,7 @@
 package com.cps630.nexus.request;
 
+import java.math.BigDecimal;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,6 +17,11 @@ public class AdvertisementCreateRequest {
 	
 	@NotNull
 	private Integer categoryId;
+	
+	private BigDecimal price;
+	
+	@Size(max = 100)
+	private String location;
 
 	public String getTitle() {
 		return title;
@@ -38,5 +45,21 @@ public class AdvertisementCreateRequest {
 
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }
