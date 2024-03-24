@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+.container {
+    margin: 0;
+    height: 100vh; /* Take up 100% of the viewport height */
+    width: 100vw; /* Take up 100% of the viewport width */
+}
+
+.row{
+    height: 100vh; /* Take up 100% of the viewport height */
+    width: 100vw; /* Take up 100% of the viewport width */
+}
+
+
+#left-container{
+    background-color: #E1F1FF;
+    /*background-color: #FBFFE1*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+#logo{
+    width:60%;
+    height:35%;
+}
+
+#slogan{
+    width:55%;
+    height:25%;
+}
+
+#right-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading-container{
+    width:50%;
+    font-size: 5vh;
+    display: flex;
+    text-align: left;
+    margin-bottom: 4vh;
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+}
+
+.form-container {
+    width:50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#password{
+    margin-bottom:5px;
+    
+}
+
+#pass-instructions{
+    margin:0px;
+    font-size:10px ;
+    text-align: left;
+    margin-bottom: 10px;
+    color: #666666;
+    font-family: 'Poppins', sans-serif;
+}
+
+#forgotpass-instructions{
+    margin:0px;
+    font-size:10px ;
+    text-align: right;
+    margin-bottom: 10px;
+    color: #666666;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Apply styles to labels */
+label {
+
+    text-align: left;
+    display: block; /* Make labels display as block elements */
+    margin-bottom: 5px; /* Add space below labels */
+    font-weight:500; /* Make labels bold */
+    color: #666666;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+/* Apply styles to all input elements */
+input {
+    border: 1px solid #ccc; /* Add a border with color */
+    width: 100%;
+    border-radius: 10px; /* Add rounded corners */
+    padding: 10px; /* Add padding inside the input box */
+    margin-bottom: 20px; /* Add space between input boxes */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Apply styles to all input elements with type="submit" */
+input[type="submit"] {
+    background-color: #007bff; /* Set background color */
+    color: #fff; /* Set text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add rounded corners */
+    padding: 10px 20px; /* Add padding */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+/* Apply styles when hovering over input elements with type="submit" */
+input[type="submit"]:hover {
+    background-color: #0056b3; /* Darken background color on hover */
+}
+
+/* Button styles */
+button {
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 2.5vh;
+    width:180px;
+    margin-top:10px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 30px; /* Oval shape */
+    background-color: #003FA7; /* Blue button background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    float: left;
+  }
+  
+/* Button hover effect */
+button:hover {
+    background-color: #0056b3; /* Darker background color on hover */
+}
+
+#account{
+    display: flex;
+    font-size: small;
+    color: #666666;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+    .col-md-6 {
+        width: 100%; /* Each column takes full width on smaller screens */
+      }
+    
+    #left-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        width: fit-content;
+        width: 100%;
+        height: 10vh; /* Adjust the height as needed */
+    }
+    
+    #logo{
+        width: 80px;
+        height: 50px;
+        margin-right:15px;
+    }
+    
+    #slogan{
+        width: 90px;
+        height: 50px;
+    }
+
+
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 780px) {
+    
+    .col-md-6 {
+        width: 100%; /* Each column takes full width on smaller screens */
+      }
+    
+    #left-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        width: fit-content;
+        width: 100%;
+        height: 10vh; /* Adjust the height as needed */
+    }
+    
+    #logo{
+        width: 80px;
+        height: 50px;
+        margin-right:15px;
+    }
+    
+    #slogan{
+        width: 90px;
+        height: 50px;
+    }
+    
+}
+
+
+/* For mobile and Tablets - form */
+@media screen and (max-width: 780px){
+    
+    
+    
+    .row{
+        height: 70vh; /* Take up 100% of the viewport height */
+        width: 100vw; /* Take up 100% of the viewport width */
+    }
+
+      .heading-container{
+        width:80%;
+        font-size: 40px;
+        margin-top: 4vh;
+        
+    }
+
+    .form-container {
+        width:80%;
+        display: flex;
+        flex-direction: column;
+    }
+    button {
+        padding: 10px 20px; /* Adjust padding as needed */
+        font-size: 15px;
+    }
+
+    label {
+        font-size: 25px;;
+    
+    }
+    
+    /* Apply styles to all input elements */
+    input {
+
+        height:50px;
+
+    }
+
+}
+  
+
