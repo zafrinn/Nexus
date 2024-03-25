@@ -98,6 +98,9 @@ const SignupPage = () => {
             </form>
             <div id="account">
               <p>Already have an account?&nbsp;</p>
+              <NavLink to="/">
+                <p style={{ marginTop: '3px', fontStyle: 'italic' }}>Sign In</p>
+              </NavLink>
             </div>
             
           </div>

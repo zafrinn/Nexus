@@ -9,7 +9,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 const LoginPage = (userId, setUserId ) => {
     
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const [captchaValue, setCaptchaValue] = useState(null);
     
   const handleCaptchaChange = (value) => {
@@ -35,6 +35,7 @@ const LoginPage = (userId, setUserId ) => {
     if (captchaValue) {
       console.log('Form submitted with captcha value:', captchaValue);
       
+      /*
       const formData = {
         username: e.target.username.value,
         password: e.target.Password.value,
@@ -54,12 +55,23 @@ const LoginPage = (userId, setUserId ) => {
       });
   
       const responseData = await response.json();
-  
+      */
+
+
+      const responseData = {
+        "message": "User Logged In successfully",
+        "user_info": {
+          "userId": "123456",
+          "username": "example_user",
+          "email": "example@example.com"
+        }
+      }
+      
       if (responseData.message === "User Logged In successfully") {
         console.log(responseData.user_info.userId);
-        setUserId(responseData.user_info.userId);
-        sessionStorage.setItem("userId", responseData.user_info.userId);
-        //navigate("/landing");
+        //setUserId(responseData.user_info.userId);
+        //sessionStorage.setItem("userId", responseData.user_info.userId);
+        navigate("/dashboard");
       } else if (
         responseData.message === "User does not exist or Incorrect Password"
       ) {
@@ -116,15 +128,15 @@ const LoginPage = (userId, setUserId ) => {
               />
               <div>
                 <button type="submit" className="submit-btn">
-                  Sign Up
+                  Sign In
                 </button>
               </div>
             </form>
             <div id="account">
-              <p>Don't have an account?&nbsp;</p>
-              <a href="/">
-                <i>Sign up</i>
-              </a>
+              <p>Don't have an account yet?&nbsp;</p>
+              <NavLink to="/signup">
+                <p style={{ marginTop: '3px', fontStyle: 'italic' }}>Sign Up</p>
+              </NavLink>
             </div>
           </div>
         </div>

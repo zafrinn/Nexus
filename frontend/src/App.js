@@ -1,24 +1,14 @@
-import React from 'react';
-import './App.css';
-import SignupPage from './components/signup-login/Signup.js';
-import LoginPage from './components/signup-login/Login.js';
-import Navbar from './components/navbar/Navbar.js'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import "./App.css";
+import React, { useState, useEffect } from "react";
 
+export function App() {
+  const [data, setData] = useState({});
 
-function App() {
+ 
+
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-      <Route
-            path='/'
-          />
-      </Routes>
-    </Router>
-      
-   
+    <div className="App">
+      <p></p>
+    </div>
   );
 }
-
-export default App;
