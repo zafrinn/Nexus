@@ -1,0 +1,4 @@
+react-google-recaptcha
+react-icons
+react-router-dom
+bootstrap
