@@ -1,5 +1,12 @@
 # NEXUS
 
+## Installing Dependencies
+1. Ensure all dependencies are installed
+
+pip install -r requirements.txt
+          OR
+pip freeze > requirements.txt
+
 ## Running Backend
 
 
