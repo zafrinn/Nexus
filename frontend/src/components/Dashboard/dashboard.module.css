@@ -1,0 +1,230 @@
+/* dashboard.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+.dashboardConatiner{
+    margin:0;
+    padding:0;
+}
+.dashBoardColFirst {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.colorBackground{
+    margin:50px 10px 0px;
+    height:500px;
+    border-radius: 20px;;
+    background-color: #FAFAFA;
+
+}
+
+.dashBoardColSecond {
+    padding: 0;
+}
+
+/* dashboard.module.css */
+
+.accountDisplay {
+    margin:25px 60px 20px;
+    /*background-color: aliceblue;*/
+    border-radius: 10px;;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+  }
+  
+.accountInfo {
+    width: 100%; /* Make the container fill the available width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center text horizontally */
+}
+
+
+.tmuLogo {
+    width: 180px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Add spacing between logo and name */
+}
+
+.account{
+    display: flex;
+    flex-direction: column;
+    text-align: left; 
+
+}
+.accountName {
+    font-size: 20px; /* Adjust font size as needed */
+    
+    margin-bottom: 5px; /* Add spacing between name and email */
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+}
+
+.accountEmail {
+    font-size: 12px; /* Adjust font size as needed */
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+}
+
+
+/* Vertical navigation bar styles */
+.navbar {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height:250px;
+    padding: 20px;
+}
+  
+.navItem {
+    margin-bottom: 10px;
+    background-color: #FFFFFF;
+
+    border-radius: 10px;
+}
+
+.navItem button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 15px; /* Adjust font size as needed */
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+}
+
+
+.navItem:hover {
+    background-color: #e0e0e0;
+}
+
+.active {
+    background-color: #003FA7; /* Change to the desired background color */
+  }
+  
+.active button {
+    color: aliceblue;/* Add any additional styles for the active button */
+}
+
+.arrow{
+    float:right;
+}
+
+/*CSS FOR EDIT ACCOUNT*/
+.EditAccountContainer{
+    width: 100%; /* Make the container fill the available width */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.EditAccountHeading{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    font-size: 30px; 
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    color: #333333;
+    margin:45px 0px 10px 10px;
+    width: 80%;
+}
+
+.EditAccountCard{
+    width:80%;
+    padding-top:10px;
+    display: flex;
+    flex-direction: column;
+    margin-top:10px;
+    background-color: #ebe4e4;
+    border-radius: 20px;;
+  
+    
+}
+
+
+.EditAccountLabel{
+    margin: 20px 10px 0px 20px;
+    text-align: left;
+    display: inline-flexbox; /* Make labels display as block elements */
+    font-weight:500; /* Make labels bold */
+    color: #666666;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+.EditAccountBtn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* CSS FOR USER POSTS*/
+
+.userPostsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(225px, 1fr));
+    gap: 30px;
+    margin: 60px 80px;
+    
+  }
+  
+
+
+.userPostEditBtn{
+    display: flex;
+    flex-direction: column;
+
+}
+
+/*CSS FOR CHANGE PASSWORD*/
+  
+.changePassContainer{
+    margin: 60px 80px;
+    padding:20px;
+}
+
+.changePassBtn button {
+    margin: 20px;
+    background-color: #003FA7;
+    font-size: 15px;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+/* Extra small devices (phones) */
+@media (max-width: 576px) {
+    .accountName {
+      font-size: 10px ;
+    }
+    .accountEmail {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* Small devices (tablets) */
+  @media (min-width: 576px) and (max-width: 768px) {
+    .accountName {
+      font-size: 3rem;
+    }
+    .accountEmail {
+      font-size: 1.5rem;
+    }
+  }
+  
+
+  
+
+
