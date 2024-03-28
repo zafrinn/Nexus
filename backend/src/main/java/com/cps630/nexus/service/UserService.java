@@ -52,7 +52,7 @@ public class UserService {
 	}
 	
 	public ResponseEntity<Object> resetPassword(PasswordResetRequest request) {
-		Optional<User> userOpt = userRepo.findByEmailAddress(request.getUsername());
+		Optional<User> userOpt = userRepo.getByEmailAddress(request.getUsername());
 		
 		if(userOpt.isEmpty()) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USERNAME), HttpStatus.BAD_REQUEST);
@@ -79,6 +79,10 @@ public class UserService {
 	public ResponseEntity<Object> getUserList() {
 		return new ResponseEntity<>(userRepo.getUserList(), HttpStatus.OK);
 	}
+	
+	public ResponseEntity<Object> getAutheticatedUser() {
+		return new ResponseEntity<>(userRepo.getUserById(Utility.getAuthenticatedUser().getUserId()), HttpStatus.OK);
+	}
 
 	@Transactional
 	@Modifying
@@ -95,7 +99,7 @@ public class UserService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.PASSWORD_MISMATCH), HttpStatus.BAD_REQUEST);
 		}
 		
-		Optional<User> userOpt = userRepo.findByEmailAddress(request.getEmailAddress());
+		Optional<User> userOpt = userRepo.getByEmailAddress(request.getEmailAddress());
 		
 		if(userOpt.isPresent()) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_ALREADY_EXISTS), HttpStatus.BAD_REQUEST);

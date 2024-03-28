@@ -304,7 +304,39 @@ public class AdvertisementService {
 		
 		List<AdvertisementListResponse> responseList = new ArrayList<>();
 		
-		List<Advertisement> adList = adRepo.findAllByCategoryId(request.getCategoryId());
+		List<Advertisement> adList = adRepo.getAllByCategoryId(request.getCategoryId());
+		
+		for(Advertisement ad : adList) {
+			AdvertisementListResponse responseObj = new AdvertisementListResponse();
+			
+			responseObj.setAdvertisementId(ad.getAdvertisementId());
+			responseObj.setDisplayName(ad.getUser().getDisplayName());
+			responseObj.setTitle(ad.getTitle());
+			responseObj.setDescription(ad.getDescription());
+			responseObj.setCreatedTimestamp(ad.getCreatedTimestamp());
+			responseObj.setPrice(ad.getPrice());
+			responseObj.setLocation(ad.getLocation());
+			responseObj.setEnabled(ad.getEnabled());
+			
+			Optional<AdvertisementImage> posterImageOpt = adImageRepo.getPosterImageByAdvertisementId(ad.getAdvertisementId());
+			
+			if(posterImageOpt.isPresent()) {
+				AdvertisementImage posterImage = posterImageOpt.get();
+				
+				responseObj.setPosterMimeType(posterImage.getMimeType());
+				responseObj.setPoster(posterImage.getData());
+			}
+			
+			responseList.add(responseObj);
+		}
+		
+		return new ResponseEntity<>(responseList, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Object> getAuthenticatedUserAdList() {
+		List<AdvertisementListResponse> responseList = new ArrayList<>();
+		
+		List<Advertisement> adList = adRepo.getAllByUserId(Utility.getAuthenticatedUser().getUserId());
 		
 		for(Advertisement ad : adList) {
 			AdvertisementListResponse responseObj = new AdvertisementListResponse();

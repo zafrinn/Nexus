@@ -1,10 +1,8 @@
 package com.cps630.nexus.security;
 
-import java.util.Arrays;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,7 +25,7 @@ public class SecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain filterSecurity(HttpSecurity http) throws Exception {
-		http.cors(Customizer.withDefaults())
+		http.cors(cors ->  cors.configurationSource(corsConfig()))
 			.csrf(csrf -> csrf.disable())
 			.headers(headers -> headers
 				.xssProtection(xss -> xss.headerValue(XXssProtectionHeaderWriter.HeaderValue.ENABLED_MODE_BLOCK))
@@ -42,9 +40,10 @@ public class SecurityConfig {
 	
 	public CorsConfigurationSource corsConfig() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-		config.setAllowedMethods(Arrays.asList("POST"));
-		config.setAllowedHeaders(Arrays.asList("Content-Type"));
+
+		config.addAllowedOrigin("http://localhost:3000");
+		config.addAllowedMethod(HttpMethod.POST);
+		config.addAllowedHeader("Content-Type");
 		
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", config);
