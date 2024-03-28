@@ -1,29 +1,41 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import styles from './dashboard.module.css'; 
-import TmuLogo from '../../assets/TMU_LOGO.png';
-import databaseImage from '../../assets/car.jpg';
-import mockData  from "./mockData.js";
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import styles from "./dashboard.module.css";
+import TmuLogo from "../../assets/TMU_LOGO.png";
+import databaseImage from "../../assets/car.jpg";
+import mockData from "./mockData.js";
 import { IoIosArrowForward } from "react-icons/io";
-import { Card, CardContent, CardActions, CardMedia, Typography, Button, Dialog, DialogContent, DialogActions, TextField, MenuItem, DialogTitle } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardActions,
+  CardMedia,
+  Typography,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem,
+  DialogTitle,
+} from "@mui/material";
+import axios from "axios";
 
-
-
-function UserProfile(props){
+function UserProfile(props) {
   const data = props.data;
 
   return (
     <div className={styles.accountInfo}>
       <img src={TmuLogo} alt="Logo" className={styles.tmuLogo} />
       <div className={styles.account}>
-        <h3 className= {styles.accountName}>{data.FName}&nbsp;{data.LName}</h3>
-        <p className={styles.accountEmail} >{data.email}</p>
+        <h3 className={styles.accountName}>
+          {data.FName}&nbsp;{data.LName}
+        </h3>
+        <p className={styles.accountEmail}>{data.email}</p>
       </div>
-      
     </div>
   );
-
-};
+}
 
 function EditAccount(props) {
   const { data } = props;
@@ -39,9 +51,8 @@ function EditAccount(props) {
   };
 
   const handleDelete = () => {
-    alert("Are you sure you want to delete your account?")
+    alert("Are you sure you want to delete your account?");
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,29 +60,47 @@ function EditAccount(props) {
     if (formElement instanceof HTMLFormElement) {
       const formData = new FormData(formElement);
       const formDataObject = Object.fromEntries(formData.entries());
-      console.log('New Account Info: ', formDataObject);
+      console.log("New Account Info: ", formDataObject);
       setEditedData(formDataObject);
     }
     handleClose();
   };
 
   return (
-    <div >
+    <div>
       <h1 className={styles.EditAccountHeading}>Account Info</h1>
-      <Card sx={{ maxWidth: 345, backgroundColor: '#FAFAFA', borderRadius:'20px' }}>
-      <CardContent>
-        <Typography gutterBottom variant="h6" component="div" className={styles.EditAccountLabel}>
-          <strong>First Name:</strong> {editedData.FName}
-        </Typography>
-        <Typography gutterBottom variant="h6" component="div" className={styles.EditAccountLabel}>
-          <strong>Last Name:</strong> {editedData.LName}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" className={styles.EditAccountLabel}>
-          <strong>Email Address:</strong> {editedData.email}
-        </Typography>
-      </CardContent>
+      <Card
+        sx={{ maxWidth: 345, backgroundColor: "#FAFAFA", borderRadius: "20px" }}
+      >
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            className={styles.EditAccountLabel}
+          >
+            <strong>First Name:</strong> {editedData.FName}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h6"
+            component="div"
+            className={styles.EditAccountLabel}
+          >
+            <strong>Last Name:</strong> {editedData.LName}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            className={styles.EditAccountLabel}
+          >
+            <strong>Email Address:</strong> {editedData.email}
+          </Typography>
+        </CardContent>
         <CardActions className={styles.EditAccountBtn}>
-          <Button size="small" onClick={handleEditClick}>Edit</Button>
+          <Button size="small" onClick={handleEditClick}>
+            Edit
+          </Button>
         </CardActions>
       </Card>
       <Dialog open={open} onClose={handleClose}>
@@ -84,7 +113,7 @@ function EditAccount(props) {
               fullWidth
               autoFocus
               required
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <TextField
               label="Last Name"
@@ -92,7 +121,7 @@ function EditAccount(props) {
               defaultValue={editedData.LName}
               fullWidth
               required
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <TextField
               label="Email Address"
@@ -101,15 +130,25 @@ function EditAccount(props) {
               fullWidth
               required
               InputProps={{
-                pattern: '^[a-zA-Z0-9._%+-]+@torontomu\\.ca$',
+                pattern: "^[a-zA-Z0-9._%+-]+@torontomu\\.ca$",
               }}
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
 
             <DialogActions>
-              <Button onClick={handleClose} variant="outlined" color="inherit">Cancel</Button>
-              <Button onClick={handleDelete} variant="outlined" color="secondary">Delete</Button>
-              <Button type="submit" variant="contained" >Save</Button>
+              <Button onClick={handleClose} variant="outlined" color="inherit">
+                Cancel
+              </Button>
+              <Button
+                onClick={handleDelete}
+                variant="outlined"
+                color="secondary"
+              >
+                Delete
+              </Button>
+              <Button type="submit" variant="contained">
+                Save
+              </Button>
             </DialogActions>
           </form>
         </DialogContent>
@@ -117,7 +156,6 @@ function EditAccount(props) {
     </div>
   );
 }
-
 
 function UserPosts2(props) {
   const data = props.data.posts;
@@ -137,15 +175,15 @@ function UserPosts2(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formElement = e.target;
-    if (formElement.tagName !== 'FORM') {
-      console.error('Expected form element, got:', formElement.tagName);
+    if (formElement.tagName !== "FORM") {
+      console.error("Expected form element, got:", formElement.tagName);
       return;
     }
     const formData = new FormData(formElement);
     const formDataObject = Object.fromEntries(formData.entries());
     const updatedData = { ...editedPost, ...formDataObject }; // Merge editedPost with form data
     setEditedPost(updatedData); // Update the state with the updated data
-    console.log('Updated Post: ', formDataObject);
+    console.log("Updated Post: ", formDataObject);
     handleClose();
   };
 
@@ -160,14 +198,22 @@ function UserPosts2(props) {
         location: post.location,
         category: post.category,
         description: post.description,
-        picture: post.picture
+        picture: post.picture,
       });
     }
     return postsData;
   };
 
-  const Post = ({ id, title, price, location, category, description, picture }) => (
-    <Card sx={{ maxWidth: 345, backgroundColor: '#FAFAFA' }}>
+  const Post = ({
+    id,
+    title,
+    price,
+    location,
+    category,
+    description,
+    picture,
+  }) => (
+    <Card sx={{ maxWidth: 345, backgroundColor: "#FAFAFA" }}>
       <CardMedia
         sx={{ height: 140 }}
         image={databaseImage}
@@ -182,14 +228,29 @@ function UserPosts2(props) {
         </Typography>
       </CardContent>
       <CardActions className={styles.userPostEditBtn}>
-        <Button size="small" onClick={() => handleEditClick({ id, title, price, location, category, description, picture })}>Edit</Button>
+        <Button
+          size="small"
+          onClick={() =>
+            handleEditClick({
+              id,
+              title,
+              price,
+              location,
+              category,
+              description,
+              picture,
+            })
+          }
+        >
+          Edit
+        </Button>
       </CardActions>
     </Card>
   );
 
   return (
     <div className={styles.userPostsContainer}>
-      {generatePostsData().map(post => (
+      {generatePostsData().map((post) => (
         <Post key={post.id} {...post} />
       ))}
 
@@ -202,8 +263,8 @@ function UserPosts2(props) {
               defaultValue={editedPost?.title}
               fullWidth
               autoFocus
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <TextField
               label="Price"
@@ -211,8 +272,8 @@ function UserPosts2(props) {
               defaultValue={editedPost?.price}
               fullWidth
               autoFocus
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <TextField
               label="Location"
@@ -220,23 +281,25 @@ function UserPosts2(props) {
               defaultValue={editedPost?.location}
               fullWidth
               autoFocus
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
-            />           
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
+            />
             <TextField
               label="Category"
               name="category"
-              value={editedPost?.category || ''}
+              value={editedPost?.category || ""}
               fullWidth
               autoFocus
               required
               select
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             >
               {/* Menu items for categories */}
               <MenuItem value="Electronics">Electronics</MenuItem>
               <MenuItem value="Vehicles">Vehicles</MenuItem>
-              <MenuItem value="Clothing & Accessories">Clothing & Accessories</MenuItem>
+              <MenuItem value="Clothing & Accessories">
+                Clothing & Accessories
+              </MenuItem>
               <MenuItem value="Gardening">Gardening</MenuItem>
               <MenuItem value="Furniture">Furniture</MenuItem>
               <MenuItem value="Home Decor">Home Decor</MenuItem>
@@ -250,8 +313,8 @@ function UserPosts2(props) {
               fullWidth
               multiline
               rows={4}
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
@@ -263,8 +326,6 @@ function UserPosts2(props) {
     </div>
   );
 }
-
-
 
 function UserPosts(props) {
   const data = props.data.posts;
@@ -284,16 +345,16 @@ function UserPosts(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formElement = e.target;
-    if (formElement.tagName !== 'FORM') {
-      console.error('Expected form element, got:', formElement.tagName);
+    if (formElement.tagName !== "FORM") {
+      console.error("Expected form element, got:", formElement.tagName);
       return;
     }
     const formData = new FormData(formElement);
     const formDataObject = Object.fromEntries(formData.entries());
     const updatedData = { ...editedPost, ...formDataObject }; // Merge editedPost with form data
-    console.log("here:", updatedData )
+    console.log("here:", updatedData);
     setEditedPost(updatedData); // Update the state with the updated data
-    console.log('Updated Post: ', formDataObject);
+    console.log("Updated Post: ", formDataObject);
     handleClose();
   };
 
@@ -308,14 +369,22 @@ function UserPosts(props) {
         location: post.location,
         category: post.category,
         description: post.description,
-        picture: post.picture
+        picture: post.picture,
       });
     }
     return postsData;
   };
 
-  const Post = ({ id, title, price, location, category, description, picture }) => (
-    <Card sx={{ maxWidth: 345, backgroundColor: '#FAFAFA'  }}>
+  const Post = ({
+    id,
+    title,
+    price,
+    location,
+    category,
+    description,
+    picture,
+  }) => (
+    <Card sx={{ maxWidth: 345, backgroundColor: "#FAFAFA" }}>
       <CardMedia
         sx={{ height: 140 }}
         image={databaseImage}
@@ -329,15 +398,30 @@ function UserPosts(props) {
           {description}
         </Typography>
       </CardContent>
-      <CardActions className= {styles.userPostEditBtn}>
-        <Button size="small" onClick={() => handleEditClick({ id, title, price, location, category, description, picture })}>Edit</Button>
+      <CardActions className={styles.userPostEditBtn}>
+        <Button
+          size="small"
+          onClick={() =>
+            handleEditClick({
+              id,
+              title,
+              price,
+              location,
+              category,
+              description,
+              picture,
+            })
+          }
+        >
+          Edit
+        </Button>
       </CardActions>
     </Card>
   );
 
   return (
-    <div className= {styles.userPostsContainer}>
-      {generatePostsData().map(post => (
+    <div className={styles.userPostsContainer}>
+      {generatePostsData().map((post) => (
         <Post key={post.id} {...post} />
       ))}
 
@@ -348,11 +432,13 @@ function UserPosts(props) {
               label="Title"
               name="title"
               defaultValue={editedPost?.title}
-              onChange={(e) => setEditedPost({ ...editedPost, title: e.target.value })}
+              onChange={(e) =>
+                setEditedPost({ ...editedPost, title: e.target.value })
+              }
               fullWidth
               autoFocus
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <TextField
               label="Price"
@@ -360,8 +446,8 @@ function UserPosts(props) {
               defaultValue={editedPost?.price}
               fullWidth
               autoFocus
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <TextField
               label="Location"
@@ -369,29 +455,29 @@ function UserPosts(props) {
               defaultValue={editedPost?.location}
               fullWidth
               autoFocus
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
-            />           
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
+            />
             <TextField
               label="Category"
               name="category"
-          
-              value={editedPost?.category || ''}
+              value={editedPost?.category || ""}
               fullWidth
               autoFocus
               required
               select
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             >
               {/* Menu items for  categories */}
               <MenuItem value="Electronics">Electronics</MenuItem>
               <MenuItem value="Vehicles">Vehicles</MenuItem>
-              <MenuItem value="Clothing & Accessories">Clothing & Accessories</MenuItem>
+              <MenuItem value="Clothing & Accessories">
+                Clothing & Accessories
+              </MenuItem>
               <MenuItem value="Gardening">Gardening</MenuItem>
               <MenuItem value="Furniture">Furniture</MenuItem>
               <MenuItem value="Home Decor">Home Decor</MenuItem>
               <MenuItem value="Sports">Sports</MenuItem>
-              
             </TextField>
 
             <TextField
@@ -401,8 +487,8 @@ function UserPosts(props) {
               fullWidth
               multiline
               rows={4}
-              required 
-              style={{ marginTop: '5px', marginBottom: '10px' }}
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
@@ -410,20 +496,17 @@ function UserPosts(props) {
             </DialogActions>
           </form>
         </DialogContent>
-        
       </Dialog>
     </div>
   );
 }
 
-
-
 function ChangeUserPass(props) {
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({
-    oldPassword: '',
-    newPassword: '',
-    confirmNewPassword: ''
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
   });
 
   const handleOpen = () => {
@@ -440,46 +523,48 @@ function ChangeUserPass(props) {
     const oldPassword = form.oldPassword.value;
     const newPassword = form.newPassword.value;
     const confirmNewPassword = form.confirmNewPassword.value;
-  
+
     let newErrors = {};
-  
+
     // Perform validation
-    if (oldPassword.trim() === '') {
-      newErrors.oldPassword = 'Old password is required';
+    if (oldPassword.trim() === "") {
+      newErrors.oldPassword = "Old password is required";
     }
 
-    if (newPassword.trim() === '') {
-      newErrors.newPassword = 'New password is required';
+    if (newPassword.trim() === "") {
+      newErrors.newPassword = "New password is required";
     }
 
-    if (confirmNewPassword.trim() === '') {
-      newErrors.confirmNewPassword = 'Confirm New Password is required';
+    if (confirmNewPassword.trim() === "") {
+      newErrors.confirmNewPassword = "Confirm New Password is required";
     }
 
     if (newPassword.trim() !== confirmNewPassword.trim()) {
-      newErrors.confirmNewPassword = 'Passwords don\'t match.';
+      newErrors.confirmNewPassword = "Passwords don't match.";
     }
     // Add more validation rules as needed...
-  
+
     // Update errors state
     setErrors(newErrors);
-  
+
     // If there are no errors, proceed with handling the password change
     if (Object.keys(newErrors).length === 0) {
       // Perform password change logic here
       console.log("Old Password:", oldPassword);
       console.log("New Password:", newPassword);
       console.log("Confirm New Password:", confirmNewPassword);
-  
+
       handleClose();
     }
   };
   return (
     <div>
       <Card className={styles.changePassContainer}>
-        <CardContent className={styles.changePassBtn} >
+        <CardContent className={styles.changePassBtn}>
           <h1>Change Password</h1>
-          <Button onClick={handleOpen} variant="contained" >Change Password</Button>
+          <Button onClick={handleOpen} variant="contained">
+            Change Password
+          </Button>
         </CardContent>
       </Card>
       <Dialog open={open} onClose={handleClose}>
@@ -519,7 +604,9 @@ function ChangeUserPass(props) {
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" variant="contained" color="primary">Change Password</Button>
+              <Button type="submit" variant="contained" color="primary">
+                Change Password
+              </Button>
             </DialogActions>
           </form>
         </DialogContent>
@@ -528,41 +615,56 @@ function ChangeUserPass(props) {
   );
 }
 
-function DashBoardNavBar({ selectedTab, handleTabClick}) {
+function DashBoardNavBar({ selectedTab, handleTabClick }) {
   return (
     <div className={styles.navbar}>
-      <div className={`${styles.navItem} ${selectedTab === 'EditAccount' ? styles.active : ''}`}>
-        <button onClick={() => handleTabClick('EditAccount')}>
-          Account Info <span className={styles.arrow}><IoIosArrowForward /></span>
+      <div
+        className={`${styles.navItem} ${
+          selectedTab === "EditAccount" ? styles.active : ""
+        }`}
+      >
+        <button onClick={() => handleTabClick("EditAccount")}>
+          Account Info{" "}
+          <span className={styles.arrow}>
+            <IoIosArrowForward />
+          </span>
         </button>
       </div>
-      <div className={`${styles.navItem} ${selectedTab === 'UserPosts' ? styles.active : ''}`}>
-        <button onClick={() => handleTabClick('UserPosts')}>
-          Posts  <span className={styles.arrow}><IoIosArrowForward /></span>
+      <div
+        className={`${styles.navItem} ${
+          selectedTab === "UserPosts" ? styles.active : ""
+        }`}
+      >
+        <button onClick={() => handleTabClick("UserPosts")}>
+          Posts{" "}
+          <span className={styles.arrow}>
+            <IoIosArrowForward />
+          </span>
         </button>
       </div>
-      <div className={`${styles.navItem} ${selectedTab === 'ChangeUserPass' ? styles.active : ''}`}>
-        <button onClick={() => handleTabClick('ChangeUserPass')}>
-          Change Password <span className={styles.arrow}><IoIosArrowForward /></span>
+      <div
+        className={`${styles.navItem} ${
+          selectedTab === "ChangeUserPass" ? styles.active : ""
+        }`}
+      >
+        <button onClick={() => handleTabClick("ChangeUserPass")}>
+          Change Password{" "}
+          <span className={styles.arrow}>
+            <IoIosArrowForward />
+          </span>
         </button>
       </div>
     </div>
   );
 }
 
-
-
-
-
-
 function Dashboard() {
-  const [selectedTab, setSelectedTab] = useState('EditAccount');
+  const [selectedTab, setSelectedTab] = useState("EditAccount");
   const data = mockData;
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
-
 
   return (
     <div className={`${styles.dashboardConatiner} container`}>
@@ -576,22 +678,19 @@ function Dashboard() {
               <DashBoardNavBar
                 selectedTab={selectedTab}
                 handleTabClick={handleTabClick}
-      
               />
             </div>
           </div>
         </div>
 
         <div className={`${styles.dashBoardColSecond} col-md-9`}>
-          {selectedTab === 'EditAccount' && <EditAccount  data={data} />}
-          {selectedTab === 'UserPosts' && <UserPosts  data={data} />}
-          {selectedTab === 'ChangeUserPass' && <ChangeUserPass  data={data} />}
+          {selectedTab === "EditAccount" && <EditAccount data={data} />}
+          {selectedTab === "UserPosts" && <UserPosts data={data} />}
+          {selectedTab === "ChangeUserPass" && <ChangeUserPass data={data} />}
         </div>
       </div>
     </div>
   );
 }
 
-
 export default Dashboard;
-
