@@ -14,7 +14,7 @@ pip freeze > requirements.txt
 ## Running Frontend
 
 1. Clone repo
-2. Go to launchpad-frontend directory `cd launchpad-frontend`
+2. Go to launchpad-frontend directory `cd frontend`
 3. Run `npm install` in the terminal to install all required dependencies
 4. Ensure the backend server is running (see above) [CAN IGNORE FOR NOW]
 5. Run `npm start` in terminal
