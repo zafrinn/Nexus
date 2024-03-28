@@ -5,4 +5,8 @@ bootstrap
 @mui/material
 @emotion/react
 @emotion/styled
+@mui/icons-material
+@mui/x-data-grid
+@mui/x-data-grid-generator
+
 

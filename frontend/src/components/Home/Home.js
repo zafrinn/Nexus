@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import * as React from "react";
+
 
 function HomePage() {
-
-
   return (
-    <h1>This is the Home Page</h1>
-    
+    <h1> THIS IS THE HOME PAGE</h1>
   );
 }
+
+
 
 export default HomePage;
