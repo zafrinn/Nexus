@@ -65,6 +65,11 @@ public class AdvertisementController {
 		return service.getAdListByCategory(request);
 	}
 	
+	@PostMapping("/internal/basic/advertisement/list/current/get")
+	public ResponseEntity<Object> getAuthenticatedUserAdList() {
+		return service.getAuthenticatedUserAdList();
+	}
+	
 	@PostMapping("/internal/basic/advertisement/get")
 	public ResponseEntity<Object> getAdvertisementBasic(@RequestBody @Valid AdvertisementGetRequest request) {
 		return service.getAdvertisementBasic(request);

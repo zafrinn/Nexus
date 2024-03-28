@@ -37,6 +37,11 @@ public class UserController {
 		return service.getUserList();
 	}
 	
+	@PostMapping("/internal/basic/user/get")
+	public ResponseEntity<Object> getAutheticatedUser() {
+		return service.getAutheticatedUser();
+	}
+	
 	@PostMapping("/external/user/create")
 	public ResponseEntity<Object> createUser(@RequestBody @Valid UserCreateRequest request) {
 		return service.createUser(request);

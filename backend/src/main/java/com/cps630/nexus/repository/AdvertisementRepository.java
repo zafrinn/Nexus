@@ -12,5 +12,8 @@ import com.cps630.nexus.entity.Advertisement;
 @Repository
 public interface AdvertisementRepository extends JpaRepository<Advertisement, Integer> {
 	@Query(value =	"SELECT * FROM advertisement WHERE category_id = :categoryId", nativeQuery = true)
-	public List<Advertisement> findAllByCategoryId(@Param("categoryId") Integer categoryId);
+	public List<Advertisement> getAllByCategoryId(@Param("categoryId") Integer categoryId);
+	
+	@Query(value =	"SELECT * FROM advertisement WHERE user_id = :userId", nativeQuery = true)
+	public List<Advertisement> getAllByUserId(@Param("userId") Integer userId);
 }
