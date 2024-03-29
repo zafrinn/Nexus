@@ -47,7 +47,7 @@ const LoginPage = ({ setUserId }) => {
           // setUserId(responseData.user_info.userId);
           navigate("/dashboard");
         } else {
-          // alert(responseData.error || "Login failed. Please try again.");
+          alert("Login failed. Please try again.");
         }
       } catch (error) {
         console.error("Error:", error);
@@ -92,7 +92,9 @@ const LoginPage = ({ setUserId }) => {
                 />
 
                 <a href="/" id="forgotpass-instructions">
-                  <p id="forgotpass-instructions">Forgot your password</p>
+                  <NavLink to="/password-reset">
+                    <p id="forgotpass-instructions">Forgot your password</p>
+                  </NavLink>
                 </a>
               </div>
               <ReCAPTCHA
