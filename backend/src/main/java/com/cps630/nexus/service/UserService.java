@@ -23,6 +23,7 @@ import com.cps630.nexus.request.PasswordUpdateRequest;
 import com.cps630.nexus.request.UserCreateRequest;
 import com.cps630.nexus.security.SecurityConfig;
 import com.cps630.nexus.util.ConstantUtil;
+import com.cps630.nexus.util.EmailUtility;
 import com.cps630.nexus.util.Utility;
 
 import jakarta.transaction.Transactional;
@@ -58,6 +59,8 @@ public class UserService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USERNAME), HttpStatus.BAD_REQUEST);
 		}
 		
+		User user = userOpt.get();
+		
 		String[] alphabet = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 		StringBuilder password = new StringBuilder();
 
@@ -69,9 +72,9 @@ public class UserService {
         	password.append(random.nextInt(9));
         }		
         
-		userRepo.updatePassword(SecurityConfig.getPasswordEncoder().encode(password.toString()), userOpt.get().getUserId());
+		userRepo.updatePassword(SecurityConfig.getPasswordEncoder().encode(password.toString()), user.getUserId());
 		
-		System.out.println("Random password: " + password);
+		EmailUtility.sendEmail(user.getEmailAddress(), "Nexus: Temporary Password", "Your password has been reset to: " + password);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
