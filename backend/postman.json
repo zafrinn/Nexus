@@ -1,0 +1,528 @@
+{
+	"info": {
+		"_postman_id": "dcdb8a02-a3dd-4bc6-bd16-bbc0fe1823ed",
+		"name": "Nexus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30716640"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "api/v1/external/user/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"stephanbissoonadmin\",\n    \"emailAddress\":\"stephan.bissoon+admin@ryerson.ca\",\n    \"password1\": \"stephanexus\",\n    \"password2\": \"stephanexus\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/external/user/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"external",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/user/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"stephanbissoonadmin\",\n    \"emailAddress\": \"stephan.bissoon@torontomu.ca\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/user/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/user/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/user/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"user",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/admin/user/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"displayName\": \"stephanbissoonadmin\",\n    \"emailAddress\": \"stephan.bissoon@torontomu.ca\",\n    \"roleId\": \"1\",\n    \"userId\": \"1\",\n    \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/admin/user/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"admin",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/admin/user/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/admin/user/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"admin",
+								"user",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Advertisement",
+			"item": [
+				{
+					"name": "api/v1/internal/basic/advertisement/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"contentType": "",
+									"type": "file",
+									"src": [
+										"/home/stephan/Pictures/Screenshots/lab3-task2-1.png",
+										"/home/stephan/Pictures/Screenshots/lab3-task2-2.png",
+										"/home/stephan/Pictures/Screenshots/lab3-task2-3.png"
+									]
+								},
+								{
+									"key": "body",
+									"value": "{\n    \"title\": \"some title\",\n    \"description\": \"some description\",\n    \"categoryId\": 1\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1//internal/basic/advertisement/list/current/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/list/current/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"list",
+								"current",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/advertisement/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"advertisementId\": 1,\n    \"title\": \"some title\",\n    \"description\": \"some description\",\n    \"price\": 5.99,\n    \"location\": \"toronto\",\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/advertisement/image/add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": [
+										"/home/stephan/Pictures/Screenshots/6.png",
+										"/home/stephan/Pictures/Screenshots/7.png",
+										"/home/stephan/Pictures/Screenshots/8.png"
+									]
+								},
+								{
+									"key": "body",
+									"value": "{\n    \"advertisementId\": 1\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/image/add",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"image",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/advertisement/image/delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"advertisementId\": 1,\n    \"advertisementImageId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/image/delete",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"image",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/advertisement/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/advertisement/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"advertisementId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "api/v1/external/password/reset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"stephan.bissoon@torontomu.ca\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/external/password/reset",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"external",
+						"password",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/internal/basic/password/update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password1\": \"stephanexus\",\n    \"password2\": \"stephanexus\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/internal/basic/password/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"internal",
+						"basic",
+						"password",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/external/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"stephan.bissoon@torontomu.ca\",\n    \"password\": \"stephanexus\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/external/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"external",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api/v1/external/logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/external/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"external",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
