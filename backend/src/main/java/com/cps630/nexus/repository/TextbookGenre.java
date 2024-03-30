@@ -1,0 +1,9 @@
+package com.cps630.nexus.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface TextbookGenre extends JpaRepository<TextbookGenre, Integer> {
+
+}
