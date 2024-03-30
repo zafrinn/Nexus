@@ -21,8 +21,8 @@ const SignupPage = () => {
     if (captchaValue) {
       console.log("Form submitted with captcha value:", captchaValue);
       const formData = {
-        displayName: e.target.Fname.value + "0" + e.target.Lname.value,
-        emailAddress: e.target.username.value,
+        displayName: e.target.username.value,
+        emailAddress: e.target.email.value,
         password1: e.target.Password.value,
         password2: e.target.Password.value,
       };
@@ -66,22 +66,12 @@ const SignupPage = () => {
           <div className="form-container">
             <form onSubmit={handleSubmit}>
               <div className="input">
-                <label className="label">First Name</label>
+                <label className="label">Username</label>
                 <input
                   className="input"
                   type="text"
-                  name="Fname"
-                  placeholder="Jane"
-                  required
-                />
-              </div>
-              <div className="input">
-                <label className="label">Last Name</label>
-                <input
-                  className="input"
-                  type="text"
-                  name="Lname"
-                  placeholder="Doe"
+                  name="username"
+                  placeholder="johndoe77"
                   required
                 />
               </div>
@@ -91,7 +81,7 @@ const SignupPage = () => {
                 <input
                   className="input"
                   type="email"
-                  name="username"
+                  name="email"
                   placeholder="example@torontomu.ca"
                   required
                 />
