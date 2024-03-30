@@ -1,6 +1,8 @@
 package com.cps630.nexus.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -21,6 +23,7 @@ import com.cps630.nexus.request.BasicUserUpdateRequest;
 import com.cps630.nexus.request.PasswordResetRequest;
 import com.cps630.nexus.request.PasswordUpdateRequest;
 import com.cps630.nexus.request.UserCreateRequest;
+import com.cps630.nexus.response.UserResponse;
 import com.cps630.nexus.security.SecurityConfig;
 import com.cps630.nexus.util.ConstantUtil;
 import com.cps630.nexus.util.EmailUtility;
@@ -80,11 +83,41 @@ public class UserService {
 	}
 	
 	public ResponseEntity<Object> getUserList() {
-		return new ResponseEntity<>(userRepo.getUserList(), HttpStatus.OK);
+		List<User> userList = userRepo.getUserList();
+		
+		List<UserResponse> userResponseList = new ArrayList<>();
+		
+		for(User user : userList) {
+			UserResponse responseObj = new UserResponse();
+			responseObj.setUserId(user.getUserId());
+			responseObj.setDisplayName(user.getDisplayName());
+			responseObj.setRoleName(user.getRole().getName());
+			responseObj.setEmailAddress(user.getEmailAddress());
+			responseObj.setEnabled(user.getEnabled());
+			
+			userResponseList.add(responseObj);
+		}
+		
+		return new ResponseEntity<>(userResponseList, HttpStatus.OK);
 	}
 	
 	public ResponseEntity<Object> getAutheticatedUser() {
-		return new ResponseEntity<>(userRepo.getUserById(Utility.getAuthenticatedUser().getUserId()), HttpStatus.OK);
+		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
+		
+		if(userOpt.isPresent()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		User user = userOpt.get();
+		
+		UserResponse responseObj = new UserResponse();
+		responseObj.setUserId(user.getUserId());
+		responseObj.setDisplayName(user.getDisplayName());
+		responseObj.setRoleName(user.getRole().getName());
+		responseObj.setEmailAddress(user.getEmailAddress());
+		responseObj.setEnabled(user.getEnabled());
+		
+		return new ResponseEntity<>(responseObj, HttpStatus.OK);
 	}
 
 	@Transactional

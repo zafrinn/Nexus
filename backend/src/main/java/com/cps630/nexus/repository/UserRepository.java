@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cps630.nexus.entity.User;
-import com.cps630.nexus.projection.UserProjection;
 import com.cps630.nexus.security.LoginDetailsInterface;
 
 @Repository
@@ -23,13 +22,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value =	"SELECT * FROM user WHERE email_address = :emailAddress", nativeQuery = true)
 	public Optional<User> getByEmailAddress(@Param("emailAddress") String emailAddress);
 	
-	@Query(value =	"SELECT u.user_id AS userId, u.display_name AS displayName, r.name AS roleName, u.email_address AS emailAddress, u.enabled AS enabled "
-				+ 	"FROM user u JOIN role r ON u.role_id = r.role_id WHERE u.user_id = :userId", nativeQuery = true)
-	public UserProjection getUserById(@Param("userId") Integer userId);
-	
-	@Query(value =	"SELECT u.user_id AS userId, u.display_name AS displayName, r.name AS roleName, u.email_address AS emailAddress, u.enabled AS enabled "
-				+	"FROM user u JOIN role r ON u.role_id = r.role_id", nativeQuery = true)
-	public List<UserProjection> getUserList();
+	@Query(value =	"SELECT u.* FROM user u JOIN role r ON u.role_id = r.role_id", nativeQuery = true)
+	public List<User> getUserList();
 	
 	@Modifying
 	@Transactional

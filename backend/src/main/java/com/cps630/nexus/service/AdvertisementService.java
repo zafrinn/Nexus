@@ -32,9 +32,9 @@ import com.cps630.nexus.request.AdvertisementGetRequest;
 import com.cps630.nexus.request.AdvertisementImageAddRequest;
 import com.cps630.nexus.request.AdvertisementImageDeleteRequest;
 import com.cps630.nexus.request.AdvertisementUpdateRequest;
-import com.cps630.nexus.response.AdvertisementListResponse;
+import com.cps630.nexus.response.AdvertisementFullResponse;
+import com.cps630.nexus.response.AdvertisementFullResponse.AdvertisementImageResponse;
 import com.cps630.nexus.response.AdvertisementResponse;
-import com.cps630.nexus.response.AdvertisementResponse.AdvertisementImageResponse;
 import com.cps630.nexus.util.ConstantUtil;
 import com.cps630.nexus.util.Utility;
 
@@ -168,6 +168,7 @@ public class AdvertisementService {
 		ad.setCategory(categoryOpt.get());
 		ad.setPrice(request.getPrice());
 		ad.setLocation(request.getLocation());
+		ad.setEnabled(request.getEnabled());
 		
 		adRepo.save(ad);
 		
@@ -302,12 +303,12 @@ public class AdvertisementService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.CATEGORY_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
-		List<AdvertisementListResponse> responseList = new ArrayList<>();
+		List<AdvertisementResponse> responseList = new ArrayList<>();
 		
 		List<Advertisement> adList = adRepo.getAllByCategoryId(request.getCategoryId());
 		
 		for(Advertisement ad : adList) {
-			AdvertisementListResponse responseObj = new AdvertisementListResponse();
+			AdvertisementResponse responseObj = new AdvertisementResponse();
 			
 			responseObj.setAdvertisementId(ad.getAdvertisementId());
 			responseObj.setDisplayName(ad.getUser().getDisplayName());
@@ -334,12 +335,12 @@ public class AdvertisementService {
 	}
 	
 	public ResponseEntity<Object> getAuthenticatedUserAdList() {
-		List<AdvertisementListResponse> responseList = new ArrayList<>();
+		List<AdvertisementResponse> responseList = new ArrayList<>();
 		
 		List<Advertisement> adList = adRepo.getAllByUserId(Utility.getAuthenticatedUser().getUserId());
 		
 		for(Advertisement ad : adList) {
-			AdvertisementListResponse responseObj = new AdvertisementListResponse();
+			AdvertisementResponse responseObj = new AdvertisementResponse();
 			
 			responseObj.setAdvertisementId(ad.getAdvertisementId());
 			responseObj.setDisplayName(ad.getUser().getDisplayName());
@@ -392,7 +393,7 @@ public class AdvertisementService {
 	}
 	
 	private ResponseEntity<Object> getAdvertisement(Advertisement ad) {
-		AdvertisementResponse response = new AdvertisementResponse();
+		AdvertisementFullResponse response = new AdvertisementFullResponse();
 		
 		response.setAdvertisementId(ad.getAdvertisementId());
 		response.setDisplayName(ad.getUser().getDisplayName());

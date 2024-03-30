@@ -26,8 +26,11 @@ public class DiscussionReply {
 	@Column(name = "reply", nullable = false, length = 1000)
 	private String reply;
 	
-	@Column(name = "timestamp", nullable = false)
-	private LocalDateTime timestamp;
+	@Column(name = "created_timestamp", nullable = false)
+	private LocalDateTime createdTimestamp;
+	
+	@Column(name = "updated_timestamp", nullable = false)
+	private LocalDateTime updatedTimestamp;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
@@ -57,12 +60,20 @@ public class DiscussionReply {
 		this.reply = reply;
 	}
 
-	public LocalDateTime getTimestamp() {
-		return timestamp;
+	public LocalDateTime getCreatedTimestamp() {
+		return createdTimestamp;
 	}
 
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
+	}
+
+	public LocalDateTime getUpdatedTimestamp() {
+		return updatedTimestamp;
+	}
+
+	public void setUpdatedTimestamp(LocalDateTime updatedTimestamp) {
+		this.updatedTimestamp = updatedTimestamp;
 	}
 
 	public User getUser() {
@@ -76,6 +87,7 @@ public class DiscussionReply {
 	@Override
 	public String toString() {
 		return "DiscussionReply [discussionReplyId=" + discussionReplyId + ", discussion=" + discussion + ", reply="
-				+ reply + ", timestamp=" + timestamp + ", user=" + user + "]";
+				+ reply + ", createdTimestamp=" + createdTimestamp + ", updatedTimestamp=" + updatedTimestamp
+				+ ", user=" + user + "]";
 	}
 }

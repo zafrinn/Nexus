@@ -411,6 +411,572 @@
 			]
 		},
 		{
+			"name": "Tutor Session",
+			"item": [
+				{
+					"name": "api/v1/internal/basic/tutorsession/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"courseName\": \"CPS630 - Web Applications\",\n    \"tutorLevelId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/tutorsession/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"tutorsession",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/tutorsession/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tutorSessionId\": 1,\n    \"courseName\": \"CPS630 - Web Apps\",\n    \"tutorLevelId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/tutorsession/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"tutorsession",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/tutorsession/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/tutorsession/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"tutorsession",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Textbook",
+			"item": [
+				{
+					"name": "api/v1/internal/basic/textbook/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Some textbook\",\n    \"location\": \"350 Victoria Street, Toronto, ON\",\n    \"genreId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/textbook/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"textbook",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/textbook/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"textbookId\": 1,\n    \"name\": \"Web app textbook\",\n    \"location\": \"350 Victoria Street, Toronto, ON\",\n    \"enabled\": true,\n    \"genreId\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/textbook/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"textbook",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/textbook/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/textbook/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"textbook",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Study Group",
+			"item": [
+				{
+					"name": "api/v1/internal/basic/studygroup/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"timestamp\": \"2024-03-30T08:00\",\n    \"room\": \"ENG202\",\n    \"courseName\": \"CPS630 - Web Applications\",\n    \"seatLimit\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/studygroup/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"studygroup",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/studygroup/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studyGroupId\": 1,\n    \"timestamp\": \"2024-03-30T08:00\",\n    \"room\": \"ENG206\",\n    \"courseName\": \"CPS630 - Web Applications\",\n    \"seatLimit\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/studygroup/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"studygroup",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/studygroup/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studyGroupId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/studygroup/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"studygroup",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/studygroup/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/studygroup/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"studygroup",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/studygroup/join",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studyGroupId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/studygroup/join",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"studygroup",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/studygroup/leave",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studyGroupId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/studygroup/leave",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"studygroup",
+								"leave"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Discussion",
+			"item": [
+				{
+					"name": "api/v1/internal/basic/discussion/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"My first discussion post!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/discussion/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"discussion",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/discussion/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discussionId\": 1,\n    \"description\": \"My first discussion post with more text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/discussion/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"discussion",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/discussion/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discussionId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/discussion/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"discussion",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/discussion/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/discussion/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"discussion",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/discussion/reply/create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discussionId\": 1,\n    \"reply\":\"My second response!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/discussion/reply/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"discussion",
+								"reply",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/discussion/reply/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discussionReplyId\": 1,\n    \"reply\": \"My first response with more text\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/discussion/reply/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"discussion",
+								"reply",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "api/v1/external/password/reset",
 			"request": {
 				"method": "POST",
@@ -504,12 +1070,12 @@
 			"response": []
 		},
 		{
-			"name": "api/v1/external/logout",
+			"name": "api/v1/internal/basic/logout",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/v1/external/logout",
+					"raw": "localhost:8080/api/v1/internal/basic/logout",
 					"host": [
 						"localhost"
 					],
@@ -517,7 +1083,8 @@
 					"path": [
 						"api",
 						"v1",
-						"external",
+						"internal",
+						"basic",
 						"logout"
 					]
 				}

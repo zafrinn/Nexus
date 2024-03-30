@@ -1,5 +1,7 @@
 package com.cps630.nexus.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,12 @@ public class Discussion {
 	
 	@Column(name = "description", nullable = false, length = 1000)
 	private String description;
+	
+	@Column(name = "created_timestamp", nullable = false)
+	private LocalDateTime createdTimestamp;
+	
+	@Column(name = "updated_timestamp", nullable = false)
+	private LocalDateTime updatedTimestamp;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
@@ -40,6 +48,22 @@ public class Discussion {
 		this.description = description;
 	}
 
+	public LocalDateTime getCreatedTimestamp() {
+		return createdTimestamp;
+	}
+
+	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
+		this.createdTimestamp = createdTimestamp;
+	}
+
+	public LocalDateTime getUpdatedTimestamp() {
+		return updatedTimestamp;
+	}
+
+	public void setUpdatedTimestamp(LocalDateTime updatedTimestamp) {
+		this.updatedTimestamp = updatedTimestamp;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -50,6 +74,7 @@ public class Discussion {
 
 	@Override
 	public String toString() {
-		return "Discussion [discussionId=" + discussionId + ", description=" + description + ", user=" + user + "]";
+		return "Discussion [discussionId=" + discussionId + ", description=" + description + ", createdTimestamp="
+				+ createdTimestamp + ", updatedTimestamp=" + updatedTimestamp + ", user=" + user + "]";
 	}
 }
