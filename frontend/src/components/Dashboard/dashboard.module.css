@@ -4,10 +4,9 @@
 
 .dashboardConatiner{
     margin:0;
-    padding:0;
+    padding:5px 10px 5px 10px;
 }
 .dashBoardColFirst {
-    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +14,7 @@
 }
 
 .colorBackground{
-    margin:50px 10px 0px;
+    margin:50px 10px 0px 10px;
     height:500px;
     border-radius: 20px;;
     background-color: #FAFAFA;
@@ -23,7 +22,8 @@
 }
 
 .dashBoardColSecond {
-    padding: 0;
+    padding-left: 50px;
+    
 }
 
 /* dashboard.module.css */
@@ -80,6 +80,7 @@
     width: 300px;
     height:250px;
     padding: 20px;
+
 }
   
 .navItem {
@@ -121,11 +122,11 @@
 
 /*CSS FOR EDIT ACCOUNT*/
 .EditAccountContainer{
-    width: 100%; /* Make the container fill the available width */
-    height: 100%;
+    width: auto; /* Make the container fill the available width */
+    height: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin: 20px;
 }
 
 .EditAccountHeading{
@@ -174,7 +175,7 @@
 
 .userPostsContainer {
     display: grid;
-    grid-template-columns: repeat(3, minmax(225px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     gap: 30px;
     margin: 60px 80px;
     
@@ -203,9 +204,50 @@
 
 }
 
+/* Phones */
+@media only screen and (max-width: 767px) {
+    .navbar{
+        flex-direction: row;
+        width: auto;
+        height :auto;
+        justify-content: center;
+        align-items: center;
+        
+    } 
+
+    .navItem button {
+        width:160px;
+        text-align: center;
+    }
+
+    .arrow{
+        display: none;
+    }
+    
+
+    .colorBackground{
+        margin:50px 10px 0px;
+        height:auto;
+        border-radius: 20px;;
+        background-color: #FAFAFA;
+    
+    }
+}
+
 
 /* Extra small devices (phones) */
 @media (max-width: 576px) {
+    .navbar{
+        flex-direction: row;
+        width: auto;
+        height :auto;
+        justify-content: center;
+        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(225px, 1fr));
+        
+    } 
+    
     .accountName {
       font-size: 10px ;
     }
@@ -223,6 +265,8 @@
       font-size: 1.5rem;
     }
   }
+
+
   
 
   

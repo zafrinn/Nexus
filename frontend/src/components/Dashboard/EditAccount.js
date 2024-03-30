@@ -39,7 +39,7 @@ function EditAccount(props) {
     };
   
     return (
-      <div >
+      <div className={styles.EditAccountContainer}>
         <h1 className={styles.EditAccountHeading}>Account Info</h1>
         <Card sx={{ maxWidth: 345, backgroundColor: '#FAFAFA', borderRadius:'20px' }}>
         <CardContent>

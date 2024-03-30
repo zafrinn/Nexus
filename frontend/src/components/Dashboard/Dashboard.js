@@ -32,42 +32,6 @@ function UserProfile(props) {
 
 
 
-function DashBoardNavBar2({ selectedTab, handleTabClick}) {
-  return (
-    <div className={styles.navbar}>
-      <div
-        className={`${styles.navItem} ${
-          selectedTab === "EditAccount" ? styles.active : ""
-        }`}
-      >
-        <button onClick={() => handleTabClick("EditAccount")}>
-          Account Info{" "}
-          <span className={styles.arrow}>
-            <IoIosArrowForward />
-          </span>
-        </button>
-      </div>
-      <div
-        className={`${styles.navItem} ${
-          selectedTab === "UserPosts" ? styles.active : ""
-        }`}
-      >
-        <button onClick={() => handleTabClick("UserPosts")}>
-          Posts{" "}
-          <span className={styles.arrow}>
-            <IoIosArrowForward />
-          </span>
-        </button>
-      </div>
-      <div className={`${styles.navItem} ${selectedTab === 'ChangeUserPass' ? styles.active : ''}`}>
-        <button onClick={() => handleTabClick('ChangeUserPass')}>
-          Change Password <span className={styles.arrow}><IoIosArrowForward /></span>
-        </button>
-      </div>
-    </div>
-  );
-}
-
 function DashBoardNavBar({ selectedTab, handleTabClick, isAdmin}) {
 
   return (
@@ -139,19 +103,6 @@ function Dashboard() {
     </div>
   );
 }
-
-function AdminTab(){
-  return(
-    <h1>ADMIN</h1>
-  )
-}
-
-function AnotherAdminTab(){
-  return(
-    <h1>ADMIN</h1>
-  )
-}
-
 
 
 export default Dashboard;
