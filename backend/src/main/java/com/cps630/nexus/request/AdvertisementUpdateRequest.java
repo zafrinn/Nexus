@@ -6,6 +6,7 @@ public class AdvertisementUpdateRequest extends AdvertisementCreateRequest {
 	@NotNull
 	private Integer advertisementId;
 	
+	@NotNull
 	private Boolean enabled;
 
 	public Integer getAdvertisementId() {

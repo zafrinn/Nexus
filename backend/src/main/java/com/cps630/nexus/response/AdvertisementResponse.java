@@ -2,9 +2,6 @@ package com.cps630.nexus.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 public class AdvertisementResponse {
 	private Integer advertisementId;
@@ -15,37 +12,8 @@ public class AdvertisementResponse {
 	private BigDecimal price;
 	private String location;
 	private Boolean enabled;
-	private List<AdvertisementImageResponse> imageList;
-	
-	public record AdvertisementImageResponse(Integer advertisementImageId, String mimeType, byte[] data) {
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + Arrays.hashCode(data);
-			result = prime * result + Objects.hash(advertisementImageId, mimeType);
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			AdvertisementImageResponse other = (AdvertisementImageResponse) obj;
-			return Objects.equals(advertisementImageId, other.advertisementImageId) && Arrays.equals(data, other.data)
-					&& Objects.equals(mimeType, other.mimeType);
-		}
-
-		@Override
-		public String toString() {
-			return "AdvertisementImageResponse [advertisementImageId=" + advertisementImageId + ", mimeType=" + mimeType
-					+ ", data=" + Arrays.toString(data) + "]";
-		}
-	}
+	private String posterMimeType;
+	private byte[] poster;
 
 	public Integer getAdvertisementId() {
 		return advertisementId;
@@ -111,11 +79,19 @@ public class AdvertisementResponse {
 		this.enabled = enabled;
 	}
 
-	public List<AdvertisementImageResponse> getImageList() {
-		return imageList;
+	public String getPosterMimeType() {
+		return posterMimeType;
 	}
 
-	public void setImageList(List<AdvertisementImageResponse> imageList) {
-		this.imageList = imageList;
+	public void setPosterMimeType(String posterMimeType) {
+		this.posterMimeType = posterMimeType;
+	}
+
+	public byte[] getPoster() {
+		return poster;
+	}
+
+	public void setPoster(byte[] poster) {
+		this.poster = poster;
 	}
 }

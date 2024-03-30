@@ -33,7 +33,7 @@ CREATE TABLE user (
     role_id INT NOT NULL,
     email_address VARCHAR(50) NOT NULL,
     password CHAR(60) NULL,
-    enabled TINYINT(1) NOT NULL,
+    enabled BOOLEAN NOT NULL,
     created_timestamp DATETIME NOT NULL,
 
     PRIMARY KEY (user_id),
@@ -104,7 +104,7 @@ INSERT INTO textbook_genre VALUES(NULL, "Yeates School of Graduate and Postdocto
 CREATE TABLE textbook (
     textbook_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    enabled TINYINT NOT NULL,
+    enabled BOOLEAN NOT NULL,
     location VARCHAR(100) NOT NULL,
     user_id INT NOT NULL,
     textbook_genre_id INT NOT NULL,
@@ -161,6 +161,8 @@ CREATE TABLE tutor_session (
 CREATE TABLE discussion (
     discussion_id INT NOT NULL AUTO_INCREMENT,
     description VARCHAR(1000) NOT NULL,
+    created_timestamp DATETIME NOT NULL,
+    updated_timestamp DATETIME NOT NULL,
     user_id INT NOT NULL,
     
     PRIMARY KEY(discussion_id),
@@ -171,7 +173,8 @@ CREATE TABLE discussion_reply (
     discussion_reply_id INT NOT NULL AUTO_INCREMENT,
     discussion_id INT NOT NULL,
     reply VARCHAR(1000) NOT NULL,
-    timestamp DATETIME NOT NULL,
+    created_timestamp DATETIME NOT NULL,
+    updated_timestamp DATETIME NOT NULL,
     user_id INT NOT NULL,
     
     PRIMARY KEY (discussion_reply_id),

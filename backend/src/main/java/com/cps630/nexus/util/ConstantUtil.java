@@ -22,4 +22,14 @@ public class ConstantUtil {
 	public static final String ADVERTISEMENT_NOT_FOUND = "ADVERTISEMENT_NOT_FOUND";
 	public static final String ADVERTISEMENT_IMAGE_NOT_FOUND = "ADVERTISEMENT_IMAGE_NOT_FOUND";
 	public static final String ADVERTISEMENT_DISABLED = "ADVERTISEMENT_DISABLED";
+	public static final String TEXTBOOK_GENRE_NOT_FOUND = "TEXTBOOK_GENRE_NOT_FOUND";
+	public static final String TEXTBOOK_NOT_FOUND = "TEXTBOOK_NOT_FOUND";
+	public static final String TUTOR_LEVEL_NOT_FOUND = "TUTOR_LEVEL_NOT_FOUND";
+	public static final String TUTOR_SESSION_NOT_FOUND = "TUTOR_SESSION_NOT_FOUND";
+	public static final String STUDY_GROUP_NOT_FOUND = "STUDY_GROUP_NOT_FOUND";
+	public static final String MAX_STUDY_GROUP_SEATS_REACHED = "MAX_STUDY_GROUP_SEATS_REACHED";
+	public static final String ALREADY_IN_STUDY_GROUP = "ALREADY_IN_STUDY_GROUP";
+	public static final String NOT_IN_STUDY_GROUP = "NOT_IN_STUDY_GROUP";
+	public static final String DISCUSSION_NOT_FOUND = "DISCUSSION_NOT_FOUND";
+	public static final String STUDY_GROUP_HOST = "STUDY_GROUP_HOST";
 }
