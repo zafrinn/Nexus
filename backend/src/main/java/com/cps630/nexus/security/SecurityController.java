@@ -29,7 +29,7 @@ public class SecurityController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@PostMapping("/external/logout")
+	@PostMapping("/internal/basic/logout")
 	public ResponseEntity<Object> logout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
 		if(auth == null) {
 			return new ResponseEntity<>(HttpStatus.FORBIDDEN);

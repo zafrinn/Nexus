@@ -125,6 +125,11 @@ public class UserService {
 		
 		userRepo.save(user);
 		
+		String message = "Welcome to Nexus! Your account has been successfully created. Please log in with the credentials you have specified. "
+				+ "If you can't remember them, no worries! You can reset your password.";
+		
+		EmailUtility.sendEmail(request.getEmailAddress(), "Nexus: Welcome!", message);
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
