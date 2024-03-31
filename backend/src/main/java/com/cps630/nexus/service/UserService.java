@@ -104,7 +104,7 @@ public class UserService {
 	public ResponseEntity<Object> getAutheticatedUser() {
 		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
 		
-		if(userOpt.isPresent()) {
+		if(userOpt.isEmpty()) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
