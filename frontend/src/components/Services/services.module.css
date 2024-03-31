@@ -74,6 +74,193 @@
     float:right;
 }
 
+
+
+/*CSS FOR TEXTBOOK EXCHANGE*/
+.TxtExchangeContainer{
+    margin: 20px;
+}
+
+.searchBar{
+    margin-top:30px;
+}
+  
+.TxtExchangeTable{
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh; /* Adjust the height as needed */
+    overflow-y: auto;
+}
+
+.TxtExchangeForm{
+    margin-bottom: 20px;
+}
+
+/* CSS */
+.exchangeBtn {
+    align-items: center;
+    appearance: none;
+    background-color: #fff;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #3c4043;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 90%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+  }
+  
+  .exchangeBtn:hover {
+    background: #F6F9FE;
+    color: #174ea6;
+  }
+  
+  .exchangeBtn:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+  }
+  
+  .exchangeBtn:focus {
+    outline: none;
+    border: 2px solid #4285f4;
+  }
+  
+  .exchangeBtn:not(:disabled) {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+  
+  .exchangeBtn:not(:disabled):hover {
+    box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+  }
+  
+  .exchangeBtn:not(:disabled):focus {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+  
+  .exchangeBtn:not(:disabled):active {
+    box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+  }
+  
+  .exchangeBtn:disabled {
+    box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+  }
+
+.responsiveTable {
+    width:100%;
+
+
+    tbody tr:hover{
+        background:#BDC3C7;
+          color:#FFFFFF;
+    }
+
+    tr{
+        border-radius: 3px;
+        padding: 0px 5px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+    .tableHeader {
+        background-color: #95A5A6;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+    .tableRow {
+        background-color: #ffffff;
+        box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+    }
+    th{
+        justify-content: space-between;
+        padding: 5px 30px 0px 50px;
+    }
+
+    .col-1 {
+        flex-basis: 30%;
+        display: flex;
+        justify-content:left;
+        align-items: center;
+        
+    }
+    .col-2 {
+        flex-basis: 20%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        
+        
+    }
+    .col-3 {
+        flex-basis: 20%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+    }
+    .col-4 {
+        flex-basis: 20%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+    }
+
+    .col-5 {
+        flex-basis: 10%;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+    }
+
+    @media all and (max-width: 767px) {
+        .tableHeader {
+        display: none;
+        }
+
+        li {
+        display: block;
+        }
+        .col {
+        
+        flex-basis: 100%;
+        
+        }
+        .col {
+        display: flex;
+        padding: 10px 0;
+        &:before {
+            color: #6C7A89;
+            padding-right: 10px;
+            content: attr(data-label);
+            flex-basis: 50%;
+            text-align: right;
+        }
+        }
+    }
+}
+
 /* Phones */
 @media only screen and (max-width: 767px) {
     .navbar{
