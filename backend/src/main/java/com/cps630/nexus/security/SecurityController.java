@@ -18,6 +18,10 @@ import jakarta.validation.Valid;
 public class SecurityController {	
 	@PostMapping("/external/login")
 	public ResponseEntity<Object> login(@RequestBody @Valid LoginRequest request, HttpServletRequest httpRequest) {
+		if(httpRequest.getUserPrincipal() != null) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		
 		try {
 			httpRequest.login(request.getUsername(), request.getPassword());
 		}
@@ -31,10 +35,6 @@ public class SecurityController {
 	
 	@PostMapping("/internal/basic/logout")
 	public ResponseEntity<Object> logout(Authentication auth, HttpServletRequest request, HttpServletResponse response) {
-		if(auth == null) {
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-		}
-		
 		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 		
 		logoutHandler.logout(request, response, auth);
