@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './services.module.css';
 import ExchangeTable from './Table';
 import data from "./mockTextBooks.json";
-
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { dividerClasses } from '@mui/material';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   border: '1px solid', // Add a border
-  boxShadow: '5px 5px 5px #A9A9A9',
+  boxShadow: '2px 2px 5px #A9A9A9',
   borderColor: theme.palette.primary.main, // Set border color to primary color
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),

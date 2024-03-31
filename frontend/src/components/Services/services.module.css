@@ -75,6 +75,12 @@
 }
 
 
+/*CSS FOR STUDY GROUP*/
+.StudyGroupForm{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
 
 /*CSS FOR TEXTBOOK EXCHANGE*/
 .TxtExchangeContainer{
@@ -83,6 +89,7 @@
 
 .searchBar{
     margin-top:30px;
+    width:100%;
 }
   
 .TxtExchangeTable{
@@ -94,7 +101,8 @@
 }
 
 .TxtExchangeForm{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    border: 1px solid rgb(181, 178, 178) ;
 }
 
 /* CSS */

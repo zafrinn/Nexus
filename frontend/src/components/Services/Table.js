@@ -49,12 +49,11 @@ function ExchangeTable(props) {
     return (
       <>
       <div className={styles.TxtExchangeForm}>
-        <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={12}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} >
           <Paper elevation={3} style={{ padding: '20px' }}>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={2} alignItems="center">
-
                 <Grid item xs={12} sm={4}>
                   <TextField
                     fullWidth

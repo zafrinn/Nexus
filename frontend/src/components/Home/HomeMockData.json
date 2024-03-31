@@ -1,0 +1,134 @@
+[
+  {
+    "id": 123,
+    "userId": 1,
+    "displayName": "John Doe",
+    "title": "BasketBall",
+    "price": "$123",
+    "location": "123 Street",
+    "category": "Sports",
+    "description": "A great basketball for sale!",
+    "picture": "basketball.jpg"
+  },
+  {
+    "id": 124,
+    "userId": 2,
+    "displayName": "Jane Smith",
+    "title": "Car",
+    "price": "$50",
+    "location": "456 Avenue",
+    "category": "Vehicles",
+    "description": "Brand new car for sale.",
+    "picture": "car.jpg"
+  },
+  {
+    "id": 125,
+    "userId": 3,
+    "displayName": "David Brown",
+    "title": "Flower Pot",
+    "price": "$200",
+    "location": "789 Boulevard",
+    "category": "Gardening",
+    "description": "Beautiful flower pot for your garden.",
+    "picture": "flower_pot.jpg"
+  },
+  {
+    "id": 126,
+    "userId": 4,
+    "displayName": "Emily Johnson",
+    "title": "Vintage Chair",
+    "price": "$150",
+    "location": "456 Street",
+    "category": "Furniture",
+    "description": "Classic vintage chair in excellent condition.",
+    "picture": "vintage_chair.jpg"
+  },
+  {
+    "id": 127,
+    "userId": 5,
+    "displayName": "Michael Wilson",
+    "title": "Antique Mirror",
+    "price": "$300",
+    "location": "101 Avenue",
+    "category": "Home Decor",
+    "description": "Beautiful antique mirror from the 18th century.",
+    "picture": "antique_mirror.jpg"
+  },
+  {
+    "id": 128,
+    "userId": 6,
+    "displayName": "Sarah Miller",
+    "title": "Modern Sofa",
+    "price": "$500",
+    "location": "222 Road",
+    "category": "Furniture",
+    "description": "Contemporary leather sofa with reclining feature.",
+    "picture": "modern_sofa.jpg"
+  },
+  {
+    "id": 129,
+    "userId": 7,
+    "displayName": "Daniel Wilson",
+    "title": "Vintage Lamp",
+    "price": "$50",
+    "location": "777 Lane",
+    "category": "Home Decor",
+    "description": "Elegant vintage lamp with brass finish.",
+    "picture": "vintage_lamp.jpg"
+  },
+  {
+    "id": 130,
+    "userId": 8,
+    "displayName": "Olivia Garcia",
+    "title": "Retro Clock",
+    "price": "$30",
+    "location": "333 Drive",
+    "category": "Home Decor",
+    "description": "Quartz wall clock with retro design.",
+    "picture": "retro_clock.jpg"
+  },
+  {
+    "id": 131,
+    "userId": 9,
+    "displayName": "James Brown",
+    "title": "Designer Rug",
+    "price": "$400",
+    "location": "888 Court",
+    "category": "Home Decor",
+    "description": "Handcrafted designer wool rug.",
+    "picture": "designer_rug.jpg"
+  },
+  {
+    "id": 132,
+    "userId": 10,
+    "displayName": "Emma Lee",
+    "title": "Antique Sideboard",
+    "price": "$700",
+    "location": "555 Lane",
+    "category": "Furniture",
+    "description": "Exquisite antique wooden sideboard.",
+    "picture": "antique_sideboard.jpg"
+  },
+  {
+    "id": 133,
+    "userId": 11,
+    "displayName": "Noah Anderson",
+    "title": "Vintage Dresser",
+    "price": "$250",
+    "location": "999 Avenue",
+    "category": "Furniture",
+    "description": "Charming vintage dresser with multiple drawers.",
+    "picture": "vintage_dresser.jpg"
+  },
+  {
+    "id": 134,
+    "userId": 12,
+    "displayName": "Ava Martinez",
+    "title": "Modern Coffee Table",
+    "price": "$150",
+    "location": "444 Street",
+    "category": "Furniture",
+    "description": "Minimalist modern coffee table with tempered glass top.",
+    "picture": "modern_coffee_table.jpg"
+  }
+]

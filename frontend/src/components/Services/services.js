@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import styles from './services.module.css'; 
-import TmuLogo from '../../assets/TMU_LOGO.png';
-import databaseImage from '../../assets/car.jpg';
-//import mockData  from "./mockData/mockData.js";
 import { IoIosArrowForward } from "react-icons/io";
-import { Card, CardContent, CardActions, CardMedia, Typography, Button, Dialog, DialogContent, DialogActions, TextField, MenuItem, DialogTitle } from '@mui/material';
-import UserTutoring from './Tutoring.js';
 import TextBookExchange from './TextBookExchange.js';
 import Tutoring from './Tutoring.js';
 import StudyGroups from './StudyGroups.js';
-//import students from './mockData/students.js'
+
 
 
 
