@@ -30,19 +30,12 @@ function Navbar() {
             <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
               <img src={logo} alt="Logo" className="navbar-brand" />
             </Link>
-            <form className="search-form" action="action_page.php">
-              <input type="text" className="search-input" placeholder="Search.." name="search" />
-              
-                <span><button class='search-button' type="submit"><FaSearch /></button></span>
-        
-            </form>
-
             <div className='menu-icon' onClick={handleClick}>
               {click ? <FaTimes /> : <FaBars />}
             </div>
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>
-                <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                <Link to='/home' className='nav-links' onClick={closeMobileMenu}>
                   Home
                 </Link>
               </li>
@@ -62,7 +55,7 @@ function Navbar() {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link to='/message' className='nav-links' onClick={closeMobileMenu}>
+                <Link to='/messages' className='nav-links' onClick={closeMobileMenu}>
                   Messages
                 </Link>
               </li>
