@@ -1,32 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './messages.css'; 
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
-
+import mockData from './mockData.json'; //For testing
 
 function MessagesPage() {
   const [newQuestion, setNewQuestion] = useState('');
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
-  const [answerInput, setAnswerInput] = useState('');
+  const [answerInputs, setAnswerInputs] = useState([]);
+
+  //Remove once backend is connected
+  useEffect(() => {
+    setUnansweredQuestions(mockData.unansweredQuestions);
+    setAnsweredQuestions(mockData.answeredQuestions);
+    setAnswerInputs(Array(mockData.unansweredQuestions.length).fill(''));
+  }, []);
 
   const handleQuestionSubmit = () => {
     if (newQuestion.trim() !== '') {
-      setUnansweredQuestions([...unansweredQuestions, newQuestion]);
+      const newQuestionObj = {
+        discussion_id: unansweredQuestions.length + 1,
+        description: newQuestion,
+        created_timestamp: new Date().toISOString(),
+        updated_timestamp: new Date().toISOString(),
+        user_id: 1 
+      };
+      setUnansweredQuestions([...unansweredQuestions, newQuestionObj]);
       setNewQuestion('');
+      setAnswerInputs([...answerInputs, '']);
     }
   };
 
-  const handleAnswerSubmit = (question) => {
+  const handleAnswerSubmit = (index) => {
+    const answerInput = answerInputs[index];
+    const question = unansweredQuestions[index];
     if (answerInput.trim() !== '') {
-      const updatedUnansweredQuestions = unansweredQuestions.filter(q => q !== question);
+      const updatedUnansweredQuestions = unansweredQuestions.filter((_, i) => i !== index);
       setUnansweredQuestions(updatedUnansweredQuestions);
+      const answeredQuestion = {
+        ...question,
+        answer: answerInput
+      };
       setAnsweredQuestions([...answeredQuestions, { question, answer: answerInput }]);
-      setAnswerInput('');
+      const updatedAnswerInputs = [...answerInputs];
+      updatedAnswerInputs.splice(index, 1);
+      setAnswerInputs(updatedAnswerInputs);
     }
+  };
+
+  const handleAnswerInputChange = (index, value) => {
+    const updatedAnswerInputs = [...answerInputs];
+    updatedAnswerInputs[index] = value; 
+    setAnswerInputs(updatedAnswerInputs);
   };
 
   return (
@@ -57,18 +86,17 @@ function MessagesPage() {
                   aria-controls={`panel${index + 1}-content`}
                   id={`panel${index + 1}-header`}
                 >
-                  {question}
+                  {question.description}
                 </AccordionSummary>
                 <AccordionDetails>
-                  {/* Textarea for answering questions */}
                   <TextField
                     placeholder="Enter your answer"
                     multiline
-                    value={answerInput}
-                    onChange={(e) => setAnswerInput(e.target.value)}
+                    value={answerInputs[index]}
+                    onChange={(e) => handleAnswerInputChange(index, e.target.value)}
                     fullWidth
                   />
-                  <button onClick={() => handleAnswerSubmit(question)}>Enter</button>
+                  <button onClick={() => handleAnswerSubmit(index)}>Enter</button>
                 </AccordionDetails>
               </Accordion>
             ))}
@@ -82,7 +110,7 @@ function MessagesPage() {
                   aria-controls={`panel${index + unansweredQuestions.length + 1}-content`}
                   id={`panel${index + unansweredQuestions.length + 1}-header`}
                 >
-                  {item.question}
+                  {item.question.description}
                 </AccordionSummary>
                 <AccordionDetails>
                   <p>{item.answer}</p>
