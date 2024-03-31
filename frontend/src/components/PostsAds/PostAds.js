@@ -85,7 +85,7 @@ const PostAdsPage = () => {
             <h4 style={{ marginBottom: '166px', marginTop: '0' }}>Upload</h4>
             <img src={uploadIcon} alt="Upload" style={{ width: '75px', height: '65px', marginBottom: '100px', marginTop: '-90px' }} onClick={handleFileUpload} />
             <span style={{ color: '#003FA7', cursor: 'pointer', textDecoration: 'underline', marginBottom: '20px', marginTop: '-60px'}} onClick={handleFileUpload}>Browse Files</span> <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileInputChange} />
-            <div style={{ fontSize: '12px', color: '#676767', marginTop: '-10px', marginBottom: '10px' }}>Supported formats: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT</div>
+            <div style={{ fontSize: '12px', color: '#676767', marginTop: '-10px', marginBottom: '10px' }}>Supported formats: JPEG, PNG, GIF, JPG</div>
             <button className="btn btn-primary mt-4"  style={{ backgroundColor: 'rgb(134, 158, 207)', border: 'none' }}>Upload Image</button>
           </div>
         </div>
