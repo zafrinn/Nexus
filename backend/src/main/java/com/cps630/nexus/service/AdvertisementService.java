@@ -175,7 +175,9 @@ public class AdvertisementService {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	public ResponseEntity<Object> addAdvertisementImageBasic(AdvertisementImageAddRequest request, MultipartFile[] images) {
+	@Transactional
+	@Modifying
+	public ResponseEntity<Object> addAdvertisementImage(AdvertisementImageAddRequest request, MultipartFile[] images) {
 		Optional<Advertisement> adOpt = adRepo.findById(request.getAdvertisementId());
 		
 		if(adOpt.isEmpty()) {
@@ -187,23 +189,7 @@ public class AdvertisementService {
 		if(!Objects.equals(Utility.getAuthenticatedUser().getUserId(), ad.getUser().getUserId())) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER), HttpStatus.UNAUTHORIZED);
 		}
-		
-		return addAdvertisementImage(request, ad, images);
-	}
-
-	public ResponseEntity<Object> addAdvertisementImageAdmin(AdvertisementImageAddRequest request, MultipartFile[] images) {
-		Optional<Advertisement> adOpt = adRepo.findById(request.getAdvertisementId());
-		
-		if(adOpt.isEmpty()) {
-			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.ADVERTISEMENT_NOT_FOUND), HttpStatus.BAD_REQUEST);
-		}
-		
-		return addAdvertisementImage(request, adOpt.get(), images);
-	}
 	
-	@Transactional
-	@Modifying
-	private ResponseEntity<Object> addAdvertisementImage(AdvertisementImageAddRequest request, Advertisement ad, MultipartFile[] images) {
 		try {
 			List<AdvertisementImage> adImageList = adImageRepo.findAllByAdvertisementId(request.getAdvertisementId());
 			
