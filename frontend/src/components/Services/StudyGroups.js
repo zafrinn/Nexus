@@ -79,8 +79,8 @@ function StudyGroups() {
     id: index + 1,
     title: course,
     user: "User",
-    days: "Days",
-    timing: "Timing",
+    date: "Date",
+    time: "Time",
     location: "Location",
     bgColor: colors[index % colors.length], 
     icon: icons[index % icons.length] 
@@ -100,11 +100,11 @@ function StudyGroups() {
               </p>
               <p>
                 <img src={calendar} alt="Calendar Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
-                <strong>Days: </strong>{box.days}
+                <strong>Date: </strong>{box.date}
               </p>
               <p>
                 <img src={clock} alt="Clock Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
-                <strong>Timing:</strong> {box.timing}
+                <strong>Time:</strong> {box.time}
               </p>
               <p>
                 <img src={location} alt="Location Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
