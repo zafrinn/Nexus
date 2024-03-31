@@ -63,9 +63,7 @@ public class DiscussionService {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@Transactional
-	@Modifying
-	public ResponseEntity<Object> updateDiscussion(DiscussionUpdateRequest request) {
+	public ResponseEntity<Object> updateDiscussionBasic(DiscussionUpdateRequest request) {
 		Optional<Discussion> discussionOpt = discussionRepo.findById(request.getDiscussionId());
 		
 		if(discussionOpt.isEmpty()) {
@@ -78,6 +76,22 @@ public class DiscussionService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER), HttpStatus.UNAUTHORIZED);
 		}
 		
+		return updateDiscussion(request, discussion);
+	}
+	
+	public ResponseEntity<Object> updateDiscussionAdmin(DiscussionUpdateRequest request) {
+		Optional<Discussion> discussionOpt = discussionRepo.findById(request.getDiscussionId());
+		
+		if(discussionOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.TEXTBOOK_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		return updateDiscussion(request, discussionOpt.get());
+	}
+	
+	@Transactional
+	@Modifying
+	private ResponseEntity<Object> updateDiscussion(DiscussionUpdateRequest request, Discussion discussion) {
 		discussion.setDescription(request.getDescription());
 		discussion.setUpdatedTimestamp(LocalDateTime.now());
 		
@@ -113,9 +127,7 @@ public class DiscussionService {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@Transactional
-	@Modifying
-	public ResponseEntity<Object> updateDiscussionReply(DiscussionReplyUpdateRequest request) {
+	public ResponseEntity<Object> updateDiscussionReplyBasic(DiscussionReplyUpdateRequest request) {
 		Optional<DiscussionReply> discussionReplyOpt = discussionReplyRepo.findById(request.getDiscussionReplyId());
 		
 		if(discussionReplyOpt.isEmpty()) {
@@ -128,6 +140,22 @@ public class DiscussionService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER), HttpStatus.UNAUTHORIZED);
 		}
 		
+		return updateDiscussionReply(request, discussionReply);
+	}
+	
+	public ResponseEntity<Object> updateDiscussionReplyAdmin(DiscussionReplyUpdateRequest request) {
+		Optional<DiscussionReply> discussionReplyOpt = discussionReplyRepo.findById(request.getDiscussionReplyId());
+		
+		if(discussionReplyOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.DISCUSSION_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		return updateDiscussionReply(request, discussionReplyOpt.get());
+	}
+	
+	@Transactional
+	@Modifying
+	private ResponseEntity<Object> updateDiscussionReply(DiscussionReplyUpdateRequest request, DiscussionReply discussionReply) {
 		discussionReply.setReply(request.getReply());
 		discussionReply.setUpdatedTimestamp(LocalDateTime.now());
 		

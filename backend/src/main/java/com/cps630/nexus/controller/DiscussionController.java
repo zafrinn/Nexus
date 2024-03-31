@@ -28,8 +28,13 @@ public class DiscussionController {
 	}
 	
 	@PostMapping("/internal/basic/discussion/update")
-	public ResponseEntity<Object> updateDiscussion(@RequestBody @Valid DiscussionUpdateRequest request) {
-		return service.updateDiscussion(request);
+	public ResponseEntity<Object> updateDiscussionBasic(@RequestBody @Valid DiscussionUpdateRequest request) {
+		return service.updateDiscussionBasic(request);
+	}
+	
+	@PostMapping("/internal/admin/discussion/update")
+	public ResponseEntity<Object> updateDiscussionAdmin(@RequestBody @Valid DiscussionUpdateRequest request) {
+		return service.updateDiscussionAdmin(request);
 	}
 	
 	@PostMapping("/internal/basic/discussion/reply/create")
@@ -38,8 +43,13 @@ public class DiscussionController {
 	}
 	
 	@PostMapping("/internal/basic/discussion/reply/update")
-	public ResponseEntity<Object> updateDiscussionReply(@RequestBody @Valid DiscussionReplyUpdateRequest request) {
-		return service.updateDiscussionReply(request);
+	public ResponseEntity<Object> updateDiscussionReplyBasic(@RequestBody @Valid DiscussionReplyUpdateRequest request) {
+		return service.updateDiscussionReplyBasic(request);
+	}
+	
+	@PostMapping("/internal/admin/discussion/reply/update")
+	public ResponseEntity<Object> updateDiscussionReplyAdmin(@RequestBody @Valid DiscussionReplyUpdateRequest request) {
+		return service.updateDiscussionReplyAdmin(request);
 	}
 	
 	@PostMapping("/internal/basic/discussion/list/get")

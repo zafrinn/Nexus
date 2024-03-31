@@ -853,6 +853,38 @@
 					"response": []
 				},
 				{
+					"name": "api/v1/internal/admin/discussion/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discussionId\": 1,\n    \"description\": \"My first discussion post with more text but as an admin now as a basic user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/admin/discussion/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"admin",
+								"discussion",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "api/v1/internal/basic/discussion/get",
 					"request": {
 						"method": "POST",
@@ -948,7 +980,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"discussionReplyId\": 1,\n    \"reply\": \"My first response with more text\"\n}",
+							"raw": "{\n    \"discussionReplyId\": 1,\n    \"reply\": \"My first response with more text now as a basic user\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -966,6 +998,39 @@
 								"v1",
 								"internal",
 								"basic",
+								"discussion",
+								"reply",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/admin/discussion/reply/update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"discussionReplyId\": 1,\n    \"reply\": \"My first response with more text as an admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/admin/discussion/reply/update",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"admin",
 								"discussion",
 								"reply",
 								"update"

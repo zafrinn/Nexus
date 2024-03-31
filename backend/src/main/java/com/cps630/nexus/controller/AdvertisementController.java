@@ -42,12 +42,7 @@ public class AdvertisementController {
 	
 	@PostMapping("/internal/basic/advertisement/image/add")
 	public ResponseEntity<Object> addAdvertisementImageBasic(@RequestPart("body") @Valid AdvertisementImageAddRequest request, @RequestPart("images") MultipartFile[] images) {
-		return service.addAdvertisementImageBasic(request, images);
-	}
-	
-	@PostMapping("/internal/admin/advertisement/image/add")
-	public ResponseEntity<Object> addAdvertisementImageAdmin(@RequestPart("body") @Valid AdvertisementImageAddRequest request, @RequestPart("images") MultipartFile[] images) {
-		return service.addAdvertisementImageAdmin(request, images);
+		return service.addAdvertisementImage(request, images);
 	}
 	
 	@PostMapping("/internal/basic/advertisement/image/delete")
