@@ -174,3 +174,26 @@ export async function getUsersList(setUsersList) {
     setUsersList([]);
   }
 }
+
+export async function updateAdminUser(userData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/admin/user/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(userData),
+      }
+    );
+    if (response.ok) {
+      console.log("Admin user data updated successfully");
+    } else {
+      console.error("Failed to update admin user data");
+    }
+  } catch (error) {
+    console.error("Error updating admin user data:", error);
+  }
+}
