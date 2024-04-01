@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import styles from './home.module.css'; 
 import { IoIosArrowForward } from "react-icons/io";
@@ -12,8 +12,6 @@ import Ads from './Ads.js';
 import { FormControlLabel, Switch } from '@mui/material';
 import Button from '@mui/material/Button';
 import TmuLogo from '../../assets/TMU_LOGO.png';
-
-
 import { Select, MenuItem } from '@mui/material';
 
 
@@ -95,70 +93,6 @@ function SearchAd() {
 }
 
 
-function ItemSwitches() {
-  const [itemsWanted, setItemsWanted] = useState(false);
-  const [itemsForSale, setItemsForSale] = useState(false);
-
-  const handleItemsWantedChange = (event) => {
-    setItemsWanted(event.target.checked);
-  };
-
-  const handleItemsForSaleChange = (event) => {
-    setItemsForSale(event.target.checked);
-  };
-
-  return (
-    <div className={styles.filterCard}   style={{ display: 'flex' , flexDirection: 'column'}}>
-      <FormControlLabel
-        control={<Switch checked={itemsWanted} onChange={handleItemsWantedChange}  sx={{ '& .MuiSwitch-track': { bgcolor: '#003FA7' } }} />}
-        label="Items Wanted"
-        
-      />
-      <FormControlLabel
-        control={<Switch checked={itemsForSale} onChange={handleItemsForSaleChange}  sx={{ '& .MuiSwitch-track': { bgcolor: '#003FA7' } }} />}
-        label="Items for Sale"
-      />
-    </div>
-  );
-}
-
-
-function LocationDropdown() {
-  const [selectedLocation, setSelectedLocation] = useState('');
-
-  const handleLocationChange = (event) => {
-    setSelectedLocation(event.target.value);
-  };
-
-  return (
-    <div className={styles.filterCard}>
-      <Select
-        value={selectedLocation}
-        onChange={handleLocationChange}
-        fullWidth
-        variant="outlined"
-        displayEmpty
-      >
-        <MenuItem value="" disabled>
-          Select Location
-        </MenuItem>
-        <MenuItem value="Toronto">Toronto</MenuItem>
-        <MenuItem value="Mississauga">Mississauga</MenuItem>
-        <MenuItem value="Brampton">Brampton</MenuItem>
-        <MenuItem value="Markham">Markham</MenuItem>
-        <MenuItem value="Vaughan">Vaughan</MenuItem>
-        <MenuItem value="Oakville">Oakville</MenuItem>
-        <MenuItem value="Richmond Hill">Richmond Hill</MenuItem>
-        <MenuItem value="Scarborough">Scarborough</MenuItem>
-        <MenuItem value="Etobicoke">Etobicoke</MenuItem>
-        <MenuItem value="North York">North York</MenuItem>
-        <MenuItem value="Ajax">Ajax</MenuItem>
-        <MenuItem value="Pickering">Pickering</MenuItem>
-      </Select>
-    </div>
-  );
-}
-
 
 function FilterSlider({ title, min, max, step, value, onChange }) {
   return (
@@ -189,61 +123,159 @@ function FilterSlider({ title, min, max, step, value, onChange }) {
   );
 }
 
-function Filters() { 
+
+
+const StyledFilterCard = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  marginBottom: '20px',
+  width: '80%',
+  marginLeft: '70px',
+  marginTop: '20px',
+  padding: '20px',
+  borderRadius: '20px',
+  boxShadow: '0px 5px 7px rgba(4, 4, 4, 0.2)',
+  backgroundColor: '#FAFAFA',
+});
+
+
+function Filter({
+  itemsWanted,
+  itemsForSale,
+  priceRange,
+  selectedLocation,
+  onItemsWantedChange,
+  onItemsForSaleChange,
+  onPriceChange,
+  onLocationChange,
+  onFormSubmit,
+}) {
+  return (
+    <Fragment>
+      <StyledFilterCard>
+        <FormControlLabel
+          control={<Switch checked={itemsWanted} onChange={onItemsWantedChange} />}
+          label="Items Wanted"
+        />
+        <FormControlLabel
+          control={<Switch checked={itemsForSale} onChange={onItemsForSaleChange} />}
+          label="Items for Sale"
+        />
+      </StyledFilterCard>
+      <StyledFilterCard>
+        <Typography id="price-range-slider" gutterBottom>
+          Price Range
+        </Typography>
+        <Slider
+          value={priceRange}
+          onChange={onPriceChange}
+          min={0}
+          max={2000}
+          step={10}
+          valueLabelDisplay="auto"
+          aria-labelledby="price-range-slider"
+        />
+      </StyledFilterCard>
+      <StyledFilterCard>
+        <Select
+          value={selectedLocation}
+          onChange={onLocationChange}
+          fullWidth
+          variant="outlined"
+          displayEmpty
+        >
+          <MenuItem value="" disabled>
+            Select Location
+          </MenuItem>
+          <MenuItem value="">All</MenuItem>
+          <MenuItem value="Toronto">Toronto</MenuItem>
+          <MenuItem value="Mississauga">Mississauga</MenuItem>
+          <MenuItem value="Brampton">Brampton</MenuItem>
+          <MenuItem value="Markham">Markham</MenuItem>
+          <MenuItem value="Vaughan">Vaughan</MenuItem>
+          <MenuItem value="Oakville">Oakville</MenuItem>
+          <MenuItem value="Richmond Hill">Richmond Hill</MenuItem>
+          <MenuItem value="Scarborough">Scarborough</MenuItem>
+          <MenuItem value="Etobicoke">Etobicoke</MenuItem>
+          <MenuItem value="North York">North York</MenuItem>
+          <MenuItem value="Ajax">Ajax</MenuItem>
+          <MenuItem value="Pickering">Pickering</MenuItem>
+        </Select>
+      </StyledFilterCard>
+    </Fragment>
+  );
+}
+
+function HomePage() {
+  const [itemsWanted, setItemsWanted] = useState(true);
+  const [itemsForSale, setItemsForSale] = useState(true);
   const [priceRange, setPriceRange] = useState([0, 500]);
-  const [locationRange, setLocationRange] = useState([0, 100]);
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [filteredData, setFilteredData] = useState(data);
+
+  const handleItemsWantedChange = (event) => {
+    console.log("items wanted: ", event.target.checked)
+    setItemsWanted(event.target.checked);
+  };
+
+  const handleItemsForSaleChange = (event) => {
+    console.log("items sale: ", event.target.checked)
+    setItemsForSale(event.target.checked);
+  };
 
   const handlePriceChange = (event, newValue) => {
     setPriceRange(newValue);
   };
 
-
-  return (
-    <>
-      <div className={styles.filterCard} >
-        <FilterSlider
-          title="Price Range"
-          min={0}
-          max={2000}
-          step={10}
-          value={priceRange}
-          onChange={handlePriceChange}
-          style={{ backgroundColor: '#003FA7' }}
-        />
-      </div>
-    </>
-  );
-}
-
-function HomePage() {
-  const [selectedTab, setSelectedTab] = useState("TextBookExchange");
-
-
-  const handleTabClick = (tab) => {
-    setSelectedTab(tab);
+  const handleLocationChange = (event) => {
+    console.log("Selected Location:", event.target.value);
+    setSelectedLocation(event.target.value);
   };
 
+  
+
+  useEffect(() => {
+    const filteredAds = data.filter(ad => {
+      const meetsItemsWantedCondition = !itemsWanted || (itemsWanted && ad.category.categoryId === 1);
+      const meetsItemsForSaleCondition = !itemsForSale || (itemsForSale && ad.category.categoryId === 2);
+      const meetsPriceRangeCondition = ad.price >= priceRange[0] && ad.price <= priceRange[1];
+      const meetsLocationCondition = !selectedLocation || ad.location === selectedLocation;
+  
+      console.log("meetsItemsWantedCondition: ", meetsItemsWantedCondition );
+      console.log("meetsItemsForSaleCondition: ", meetsItemsForSaleCondition);
+      console.log("meetsPriceRangeCondition: ", meetsPriceRangeCondition);
+      console.log("meetsLocationCondition: ", meetsLocationCondition);
+  
+      return ((itemsWanted && meetsItemsWantedCondition) || (itemsForSale && meetsItemsForSaleCondition)) && meetsPriceRangeCondition && meetsLocationCondition;
+    });
+  
+    setFilteredData(filteredAds);
+  }, [itemsWanted, itemsForSale, priceRange, selectedLocation]);
+  
+  
   return (
     <div className={`${styles.HomeContainer} container`}>
       <div className={`${styles.HomeRow} row`}>
         <div className={`${styles.homeColFirst} col-md-3`}>
-        <img src={TmuLogo} alt="Logo" className={styles.tmuLogo} />
-          <ItemSwitches />
-          <Filters />
-          <LocationDropdown />
+          <img src={TmuLogo} alt="Logo" className={styles.tmuLogo} />
+          <Filter
+            itemsWanted={itemsWanted}
+            itemsForSale={itemsForSale}
+            priceRange={priceRange}
+            selectedLocation={selectedLocation}
+            onItemsWantedChange={handleItemsWantedChange}
+            onItemsForSaleChange={handleItemsForSaleChange}
+            onPriceChange={handlePriceChange}
+            onLocationChange={handleLocationChange}
+          />
         </div>
-       
-        
-
         <div className={`${styles.homeColSecond} col-md-9`}>
-              <SearchAd />
-              <Ads data={data} />
+          <SearchAd />
+          <Ads data={filteredData} />
         </div>
       </div>
     </div>
   );
 }
 
-export default HomePage; 
-
-
+export default HomePage;

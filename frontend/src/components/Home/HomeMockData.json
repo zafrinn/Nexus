@@ -1,122 +1,152 @@
 [
   {
-      "advertisement_id": 1,
-      "user_id": 1,
-      "display_name": "JohnDoe",
-      "title": "Laptop for Sale",
-      "description": "Brand new laptop, never used. Still in box.",
-      "created_timestamp": "2024-03-31 08:00:00",
-      "category_name": "Items for Sale",
-      "price": 899.99,
-      "location": "New York",
-      "enabled": 1
+    "advertisementId": 1,
+    "displayName": "John",
+    "title": "Nike Football",
+    "description": "Brand new Nike football for sale. Perfect for practice sessions.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 1,
+      "name": "Items Wanted"
+    },
+    "price": 1000.99,
+    "location": "Brampton",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 2,
-      "user_id": 2,
-      "display_name": "JaneSmith",
-      "title": "Math Tutor Needed",
-      "description": "Looking for a math tutor for high school level calculus.",
-      "created_timestamp": "2024-03-30 15:30:00",
-      "category_name": "Items Wanted",
-      "price": null,
-      "location": "Los Angeles",
-      "enabled": 1
+    "advertisementId": 2,
+    "displayName": "Alice",
+    "title": "Adidas Baseball Bat",
+    "description": "High-quality Adidas baseball bat. Great for amateur and professional players.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 2,
+      "name": "Items for Sale"
+    },
+    "price": 150.99,
+    "location": "Toronto",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 3,
-      "user_id": 3,
-      "display_name": "RobertJohnson",
-      "title": "Sofa Set",
-      "description": "Three-piece sofa set in excellent condition.",
-      "created_timestamp": "2024-03-29 12:45:00",
-      "category_name": "Items for Sale",
-      "price": 599.99,
-      "location": "Chicago",
-      "enabled": 1
+    "advertisementId": 3,
+    "displayName": "Karanvir",
+    "title": "Wilson Basketball",
+    "description": "Wilson basketball in excellent condition. Suitable for indoor and outdoor use.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 2,
+      "name": "Items for Sale"
+    },
+    "price": 5.99,
+    "location": "Toronto",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 4,
-      "user_id": 4,
-      "display_name": "EmilyDavis",
-      "title": "Need a Biology Tutor",
-      "description": "Seeking a biology tutor for college-level biology.",
-      "created_timestamp": "2024-03-28 09:20:00",
-      "category_name": "Items for Sale",
-      "price": null,
-      "location": "Houston",
-      "enabled": 1
+    "advertisementId": 4,
+    "displayName": "Emily",
+    "title": "Head Tennis Racket",
+    "description": "Top-of-the-line Head tennis racket. Ideal for players of all skill levels.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 1,
+      "name": "Items Wanted"
+    },
+    "price": 205.99,
+    "location": "North York",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 5,
-      "user_id": 5,
-      "display_name": "MichaelBrown",
-      "title": "Used Car",
-      "description": "Looking for a reliable used car under $5000.",
-      "created_timestamp": "2024-03-27 17:10:00",
-      "category_name": "Items Wanted",
-      "price": null,
-      "location": "Miami",
-      "enabled": 1
+    "advertisementId": 5,
+    "displayName": "Michael",
+    "title": "Puma Soccer Ball",
+    "description": "Authentic Puma soccer ball for sale. Designed for optimal performance on the field.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 1,
+      "name": "Items Wanted"
+    },
+    "price": 12.99,
+    "location": "Brampton",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 6,
-      "user_id": 6,
-      "display_name": "EmmaWilson",
-      "title": "Dining Table for Sale",
-      "description": "Wooden dining table with six chairs.",
-      "created_timestamp": "2024-03-26 11:55:00",
-      "category_name": "Items for Sale",
-      "price": 399.99,
-      "location": "Seattle",
-      "enabled": 1
+    "advertisementId": 6,
+    "displayName": "Sophia",
+    "title": "Lululemon Yoga Mat",
+    "description": "Premium Lululemon yoga mat available. Enhance your yoga practice with superior comfort.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 1,
+      "name": "Items Wanted"
+    },
+    "price": 1220.99,
+    "location": "Oakville",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 7,
-      "user_id": 7,
-      "display_name": "NoahMartinez",
-      "title": "English Tutor Needed",
-      "description": "Seeking an English tutor for grammar and writing.",
-      "created_timestamp": "2024-03-25 14:30:00",
-      "category_name": "Items Wanted",
-      "price": null,
-      "location": "San Francisco",
-      "enabled": 1
+    "advertisementId": 7,
+    "displayName": "William",
+    "title": "Specialized Bicycle",
+    "description": "Specialized bicycle in excellent condition. Perfect for commuting and leisure rides.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 2,
+      "name": "Items for Sale"
+    },
+    "price": 150.99,
+    "location": "North York",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 8,
-      "user_id": 8,
-      "display_name": "OliviaAnderson",
-      "title": "Apartment for Rent",
-      "description": "One-bedroom apartment available for rent in downtown area.",
-      "created_timestamp": "2024-03-24 10:20:00",
-      "category_name": "Items for Sale",
-      "price": 1200.00,
-      "location": "Boston",
-      "enabled": 1
+    "advertisementId": 8,
+    "displayName": "Emma",
+    "title": "Sector 9 Skateboard",
+    "description": "Sector 9 skateboard with unique design. Ride in style with this premium skateboard.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 1,
+      "name": "Items Wanted"
+    },
+    "price": 550.99,
+    "location": "Oakville",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 9,
-      "user_id": 9,
-      "display_name": "EthanTaylor",
-      "title": "Guitar Lessons",
-      "description": "Professional guitar lessons for beginners to advanced players.",
-      "created_timestamp": "2024-03-23 13:45:00",
-      "category_name": "Items Wanted",
-      "price": 50.00,
-      "location": "Austin",
-      "enabled": 1
+    "advertisementId": 9,
+    "displayName": "James",
+    "title": "Bauer Hockey Stick",
+    "description": "Bauer hockey stick suitable for players of all levels. Enhance your game with this quality stick.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 2,
+      "name": "Items for Sale"
+    },
+    "price": 30.99,
+    "location": "Scarborough",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   },
   {
-      "advertisement_id": 10,
-      "user_id": 10,
-      "display_name": "AvaThomas",
-      "title": "Selling iPhone 13",
-      "description": "Brand new iPhone 13, still sealed in the box.",
-      "created_timestamp": "2024-03-22 09:00:00",
-      "category_name": "Items for Sale",
-      "price": 999.99,
-      "location": "Denver",
-      "enabled": 1
+    "advertisementId": 10,
+    "displayName": "Olivia",
+    "title": "Callaway Golf Clubs",
+    "description": "Callaway golf clubs for sale. Experience superior performance on the golf course with these clubs.",
+    "createdTimestamp": "2024-03-29T01:50:53",
+    "category": {
+      "categoryId": 2,
+      "name": "Items for Sale"
+    },
+    "price": 80.99,
+    "location": "Pickering",
+    "enabled": true,
+    "posterMimeType": "image/jpeg"
   }
 ]
