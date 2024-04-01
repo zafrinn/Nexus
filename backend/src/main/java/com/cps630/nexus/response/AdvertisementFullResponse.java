@@ -6,17 +6,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import com.cps630.nexus.entity.Category;
+
 public class AdvertisementFullResponse {
 	private Integer advertisementId;
 	private String displayName;
 	private String title;
 	private String description;
 	private LocalDateTime createdTimestamp;
+	private Category category;
 	private BigDecimal price;
 	private String location;
 	private Boolean enabled;
 	private List<AdvertisementImageResponse> imageList;
-	
+
 	public record AdvertisementImageResponse(Integer advertisementImageId, String mimeType, byte[] data) {
 		@Override
 		public int hashCode() {
@@ -85,6 +88,14 @@ public class AdvertisementFullResponse {
 
 	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public BigDecimal getPrice() {

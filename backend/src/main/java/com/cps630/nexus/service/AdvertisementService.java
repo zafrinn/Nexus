@@ -301,6 +301,7 @@ public class AdvertisementService {
 			responseObj.setTitle(ad.getTitle());
 			responseObj.setDescription(ad.getDescription());
 			responseObj.setCreatedTimestamp(ad.getCreatedTimestamp());
+			responseObj.setCategory(ad.getCategory());
 			responseObj.setPrice(ad.getPrice());
 			responseObj.setLocation(ad.getLocation());
 			responseObj.setEnabled(ad.getEnabled());
@@ -333,6 +334,7 @@ public class AdvertisementService {
 			responseObj.setTitle(ad.getTitle());
 			responseObj.setDescription(ad.getDescription());
 			responseObj.setCreatedTimestamp(ad.getCreatedTimestamp());
+			responseObj.setCategory(ad.getCategory());
 			responseObj.setPrice(ad.getPrice());
 			responseObj.setLocation(ad.getLocation());
 			responseObj.setEnabled(ad.getEnabled());
@@ -386,6 +388,7 @@ public class AdvertisementService {
 		response.setTitle(ad.getTitle());
 		response.setDescription(ad.getDescription());
 		response.setCreatedTimestamp(ad.getCreatedTimestamp());
+		response.setCategory(ad.getCategory());
 		response.setPrice(ad.getPrice());
 		response.setLocation(ad.getLocation());
 		response.setEnabled(ad.getEnabled());

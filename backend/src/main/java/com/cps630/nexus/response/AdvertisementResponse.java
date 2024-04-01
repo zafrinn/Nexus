@@ -3,12 +3,15 @@ package com.cps630.nexus.response;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.cps630.nexus.entity.Category;
+
 public class AdvertisementResponse {
 	private Integer advertisementId;
 	private String displayName;
 	private String title;
 	private String description;
 	private LocalDateTime createdTimestamp;
+	private Category category;
 	private BigDecimal price;
 	private String location;
 	private Boolean enabled;
@@ -53,6 +56,14 @@ public class AdvertisementResponse {
 
 	public void setCreatedTimestamp(LocalDateTime createdTimestamp) {
 		this.createdTimestamp = createdTimestamp;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public BigDecimal getPrice() {
