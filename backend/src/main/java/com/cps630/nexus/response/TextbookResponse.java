@@ -5,6 +5,7 @@ import com.cps630.nexus.entity.TextbookGenre;
 public class TextbookResponse {
 	private Integer textbookId;
 	private String name;
+	private String isbn;
 	private String location;
 	private String displayName;
 	private String emailAddress;
@@ -24,6 +25,14 @@ public class TextbookResponse {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getLocation() {

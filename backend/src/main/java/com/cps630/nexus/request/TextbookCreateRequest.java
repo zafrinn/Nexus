@@ -10,6 +10,10 @@ public class TextbookCreateRequest {
 	private String name;
 	
 	@NotEmpty
+	@Size(min = 13, max = 13)
+	private String isbn;
+	
+	@NotEmpty
 	@Size(max = 100)
 	private String location;
 	
@@ -22,6 +26,14 @@ public class TextbookCreateRequest {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getLocation() {

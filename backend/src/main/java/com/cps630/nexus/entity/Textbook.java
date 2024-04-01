@@ -20,6 +20,9 @@ public class Textbook {
 	@Column(name = "name", nullable = false, length = 50)
 	private String name;
 	
+	@Column(name = "isbn", nullable = false, length = 13)
+	private String isbn;
+	
 	@Column(name = "enabled", nullable = false)
 	private Boolean enabled;
 	
@@ -48,6 +51,14 @@ public class Textbook {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public Boolean getEnabled() {
