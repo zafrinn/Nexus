@@ -114,6 +114,8 @@ function UserTable() {
     try {
       await updateAdminUser(editedUser);
       console.log("User data updated successfully");
+      setEditUserId(null); // Reset edit mode
+      getUsersList(setUsersList); // Refresh user list
     } catch (error) {
       console.error("Error updating user data:", error);
     }
