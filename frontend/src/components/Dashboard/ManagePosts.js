@@ -12,13 +12,12 @@ import {
   DialogActions,
   TextField,
   MenuItem,
-  CardActions, // Added CardActions
 } from "@mui/material";
 import {
   getAdvertisementsByCategoryId,
   updateAdminAdvertisement,
 } from "../../apiHelpers";
-import styles from "./dashboard.module.css"; // Import CSS styles
+import styles from "./dashboard.module.css";
 
 function ManagePosts(props) {
   const [advertisements, setAdvertisements] = useState([]);
@@ -29,6 +28,7 @@ function ManagePosts(props) {
   const [editedPrice, setEditedPrice] = useState("");
   const [editedLocation, setEditedLocation] = useState("");
   const [editedCategory, setEditedCategory] = useState("");
+  const [editedEnabled, setEditedEnabled] = useState("true");
 
   useEffect(() => {
     loadAdvertisements();
@@ -38,7 +38,8 @@ function ManagePosts(props) {
     try {
       const category1Ads = await getAdvertisementsByCategoryId(1);
       const category2Ads = await getAdvertisementsByCategoryId(2);
-      setAdvertisements([...category1Ads, ...category2Ads]);
+      const allAds = [...category1Ads, ...category2Ads];
+      setAdvertisements(allAds);
     } catch (error) {
       console.error("Error fetching advertisements:", error);
       setAdvertisements([]);
@@ -52,6 +53,7 @@ function ManagePosts(props) {
     setEditedPrice(advertisement.price);
     setEditedLocation(advertisement.location);
     setEditedCategory(advertisement.category.categoryId.toString());
+    setEditedEnabled(advertisement.enabled ? "true" : "false");
     setOpen(true);
   };
 
@@ -63,6 +65,7 @@ function ManagePosts(props) {
     setEditedPrice("");
     setEditedLocation("");
     setEditedCategory("");
+    setEditedEnabled("");
   };
 
   const handleSubmit = async (e) => {
@@ -74,12 +77,12 @@ function ManagePosts(props) {
       price: parseFloat(editedPrice),
       location: editedLocation,
       categoryId: parseInt(editedCategory),
-      enabled: "true",
+      enabled: editedEnabled === "true",
     };
     try {
       await updateAdminAdvertisement(editedData);
       handleClose();
-      loadAdvertisements(); // Reload advertisements after update
+      loadAdvertisements();
     } catch (error) {
       console.error("Error updating advertisement:", error);
     }
@@ -214,6 +217,18 @@ function ManagePosts(props) {
             >
               <MenuItem value="1">Items Wanted</MenuItem>
               <MenuItem value="2">Items for Sale</MenuItem>
+            </TextField>
+            <TextField
+              select
+              label="Enabled"
+              value={editedEnabled}
+              onChange={(e) => setEditedEnabled(e.target.value)}
+              fullWidth
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
+            >
+              <MenuItem value="true">Enabled</MenuItem>
+              <MenuItem value="false">Disabled</MenuItem>
             </TextField>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
