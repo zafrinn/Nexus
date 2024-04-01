@@ -5,6 +5,8 @@ import {
   Card,
   CardContent,
   CardActions,
+  Stack,
+  Chip,
   CardMedia,
   Typography,
   Button,
@@ -25,7 +27,7 @@ function UserPosts(props) {
   const [editedPrice, setEditedPrice] = useState("");
   const [editedLocation, setEditedLocation] = useState("");
   const [editedCategory, setEditedCategory] = useState(""); // Add state for edited category
-  const [editedEnabled, setEditedEnabled] = useState("true"); // Add state for edited enable/disable status
+  const [editedEnabled, setEditedEnabled] = useState("true");
 
   useEffect(() => {
     // Fetch advertisements data when component mounts
@@ -39,7 +41,7 @@ function UserPosts(props) {
     setEditedPrice(advertisement.price);
     setEditedLocation(advertisement.location);
     setEditedCategory(advertisement.category.categoryId.toString()); // Set edited category
-    setEditedEnabled(advertisement.enabled ? "true" : "false"); // Set edited enabled status
+    setEditedEnabled(advertisement.enabled ? "true" : "false");
     setOpen(true);
   };
 
@@ -54,6 +56,10 @@ function UserPosts(props) {
     setEditedEnabled("");
   };
 
+  const handlePostClick = (contact) => {
+    // Implement handlePostClick functionality here
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const editedData = {
@@ -63,7 +69,7 @@ function UserPosts(props) {
       price: parseFloat(editedPrice),
       location: editedLocation,
       categoryId: parseInt(editedCategory), // Parse category to integer
-      enabled: editedEnabled === "true", // Convert string to boolean
+      enabled: editedEnabled === "true",
     };
     try {
       await updateAdvertisement(editedData);
@@ -77,87 +83,68 @@ function UserPosts(props) {
     }
   };
 
-  const Advertisement = ({
-    advertisementId,
-    displayName,
-    title,
-    description,
-    price,
-    location,
-    poster,
-    posterMimeType,
-    category,
-    enabled,
-  }) => {
-    const getImageFormat = (mimeType) => {
-      // Extract image format from the MIME type
-      const formatRegex = /^image\/([a-z]+)$/;
-      const match = formatRegex.exec(mimeType);
-      return match ? match[1] : "jpeg"; // Default to "jpeg" if format is not found
-    };
-
-    return (
-      <Card sx={{ maxWidth: 345, backgroundColor: "#FAFAFA" }}>
-        <CardMedia
-          sx={{ height: 140 }}
-          component="img"
-          image={`data:image/${getImageFormat(
-            posterMimeType
-          )};base64,${poster}`} // Display Base64 encoded image
-          title="Advertisement Image"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Price: ${price}
-          </Typography>
-          {category && (
-            <Typography variant="body2" color="text.secondary">
-              Category: {category.name}
-            </Typography>
-          )}
-        </CardContent>
-        <CardActions className={styles.userPostEditBtn}>
-          <Button
-            size="small"
-            onClick={() =>
-              handleEditClick({
-                advertisementId,
-                displayName,
-                title,
-                description,
-                price,
-                location,
-                poster,
-                posterMimeType,
-                category,
-                enabled,
-              })
-            }
-          >
-            Edit
-          </Button>
-        </CardActions>
-      </Card>
-    );
-  };
-
   return (
     <div className={styles.userPostsContainer}>
-      {advertisements.map((advertisement) => (
-        <Advertisement key={advertisement.advertisementId} {...advertisement} />
+      {advertisements.map((contact) => (
+        <Card key={contact.id} sx={{ position: "relative", maxWidth: 345 }}>
+          <CardMedia
+            sx={{ height: 140 }}
+            image={`data:image/${contact.posterMimeType};base64,${contact.poster}`}
+            title="Advertisement"
+            onClick={() => handlePostClick(contact)}
+            style={{ cursor: "pointer" }}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {contact.title}
+            </Typography>
+            {contact.price && (
+              <Typography variant="body2" color="text.secondary">
+                ${contact.price}
+              </Typography>
+            )}
+          </CardContent>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 16px 16px",
+            }}
+          >
+            <Button size="small" onClick={() => handleEditClick(contact)}>
+              Edit
+            </Button>
+            <Stack direction="row" spacing={1}>
+              {contact.category.categoryId === 1 && (
+                <Chip
+                  label="Sale"
+                  sx={{
+                    backgroundColor: "#FBFFE1",
+                    color: "#003FA7",
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                  }}
+                />
+              )}
+              {contact.category.categoryId === 2 && (
+                <Chip
+                  label="Wanted"
+                  sx={{
+                    backgroundColor: "#E1F1FF",
+                    color: "#003FA7",
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                  }}
+                />
+              )}
+            </Stack>
+          </div>
+        </Card>
       ))}
-
-      {/* Dialog for editing advertisements */}
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <form onSubmit={handleSubmit}>
-            {/* Form fields for editing advertisements */}
             <TextField
               label="Title"
-              name="title"
               value={editedTitle}
               onChange={(e) => setEditedTitle(e.target.value)}
               fullWidth
@@ -167,7 +154,6 @@ function UserPosts(props) {
             />
             <TextField
               label="Description"
-              name="description"
               value={editedDescription}
               onChange={(e) => setEditedDescription(e.target.value)}
               fullWidth
@@ -177,19 +163,21 @@ function UserPosts(props) {
             />
             <TextField
               label="Price"
-              name="price"
               type="number"
               value={editedPrice}
-              onChange={(e) => setEditedPrice(e.target.value)}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (value >= 0) {
+                  setEditedPrice(value);
+                }
+              }}
               fullWidth
               required
               style={{ marginTop: "5px", marginBottom: "10px" }}
             />
-            {/* Location dropdown */}
             <TextField
               select
               label="Location"
-              name="location"
               value={editedLocation}
               onChange={(e) => setEditedLocation(e.target.value)}
               fullWidth
@@ -209,27 +197,21 @@ function UserPosts(props) {
               <MenuItem value="Ajax">Ajax</MenuItem>
               <MenuItem value="Pickering">Pickering</MenuItem>
             </TextField>
-            {/* Category dropdown */}
             <TextField
               select
               label="Category"
-              name="categoryId"
               value={editedCategory}
               onChange={(e) => setEditedCategory(e.target.value)}
               fullWidth
               required
               style={{ marginTop: "5px", marginBottom: "10px" }}
             >
-              <MenuItem value="1">Items Wanted</MenuItem> // Add Items Wanted
-              option
-              <MenuItem value="2">Items for Sale</MenuItem> // Add Items for
-              Sale option
+              <MenuItem value="1">Items Wanted</MenuItem>
+              <MenuItem value="2">Items for Sale</MenuItem>
             </TextField>
-            {/* Enable/Disable dropdown */}
             <TextField
               select
               label="Enabled"
-              name="enabled"
               value={editedEnabled}
               onChange={(e) => setEditedEnabled(e.target.value)}
               fullWidth
