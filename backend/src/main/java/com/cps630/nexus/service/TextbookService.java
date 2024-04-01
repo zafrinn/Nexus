@@ -107,7 +107,7 @@ public class TextbookService {
 			responseObj.setLocation(textbook.getLocation());
 			responseObj.setDisplayName(textbook.getUser().getDisplayName());
 			responseObj.setEmailAddress(textbook.getUser().getEmailAddress());
-			responseObj.setGenre(textbook.getGenre().getName());
+			responseObj.setGenre(textbook.getGenre());
 			
 			responseList.add(responseObj);
 		}

@@ -1,12 +1,14 @@
 package com.cps630.nexus.response;
 
+import com.cps630.nexus.entity.TextbookGenre;
+
 public class TextbookResponse {
 	private Integer textbookId;
 	private String name;
 	private String location;
 	private String displayName;
 	private String emailAddress;
-	private String genre;
+	private TextbookGenre genre;
 
 	public Integer getTextbookId() {
 		return textbookId;
@@ -48,11 +50,11 @@ public class TextbookResponse {
 		this.emailAddress = emailAddress;
 	}
 
-	public String getGenre() {
+	public TextbookGenre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(TextbookGenre genre) {
 		this.genre = genre;
 	}
 }

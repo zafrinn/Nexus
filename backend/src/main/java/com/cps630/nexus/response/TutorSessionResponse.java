@@ -1,9 +1,11 @@
 package com.cps630.nexus.response;
 
+import com.cps630.nexus.entity.TutorLevel;
+
 public class TutorSessionResponse {
 	private Integer tutorSessionId;
 	private String courseName;
-	private String tutorLevel;
+	private TutorLevel tutorLevel;
 	private String displayName;
 	private String emailAddress;
 
@@ -23,11 +25,11 @@ public class TutorSessionResponse {
 		this.courseName = courseName;
 	}
 
-	public String getTutorLevel() {
+	public TutorLevel getTutorLevel() {
 		return tutorLevel;
 	}
 
-	public void setTutorLevel(String tutorLevel) {
+	public void setTutorLevel(TutorLevel tutorLevel) {
 		this.tutorLevel = tutorLevel;
 	}
 
