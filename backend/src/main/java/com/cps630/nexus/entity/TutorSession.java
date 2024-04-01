@@ -19,6 +19,9 @@ public class TutorSession {
 	
 	@Column(name = "course_name", nullable = false, length = 50)
 	private String courseName;
+	
+	@Column(name = "enabled", nullable = false)
+	private Boolean enabled;
 
 	@ManyToOne
 	@JoinColumn(name = "tutor_level_id", nullable = false)
@@ -44,6 +47,14 @@ public class TutorSession {
 		this.courseName = courseName;
 	}
 
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public TutorLevel getTutorLevel() {
 		return tutorLevel;
 	}
@@ -62,7 +73,7 @@ public class TutorSession {
 
 	@Override
 	public String toString() {
-		return "TutorSession [tutorSessionId=" + tutorSessionId + ", courseName=" + courseName + ", tutorLevel="
-				+ tutorLevel + ", user=" + user + "]";
+		return "TutorSession [tutorSessionId=" + tutorSessionId + ", courseName=" + courseName + ", enabled=" + enabled
+				+ ", tutorLevel=" + tutorLevel + ", user=" + user + "]";
 	}
 }

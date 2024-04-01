@@ -15,6 +15,7 @@ import com.cps630.nexus.request.AdvertisementGetRequest;
 import com.cps630.nexus.request.AdvertisementImageAddRequest;
 import com.cps630.nexus.request.AdvertisementImageDeleteRequest;
 import com.cps630.nexus.request.AdvertisementUpdateRequest;
+import com.cps630.nexus.request.ContactAdvertisementRequest;
 import com.cps630.nexus.service.AdvertisementService;
 
 import jakarta.validation.Valid;
@@ -73,5 +74,10 @@ public class AdvertisementController {
 	@PostMapping("/internal/admin/advertisement/get")
 	public ResponseEntity<Object> getAdvertisementAdmin(@RequestBody @Valid AdvertisementGetRequest request) {
 		return service.getAdvertisementAdmin(request);
+	}
+	
+	@PostMapping("/internal/basic/advertisement/contact")
+	public ResponseEntity<Object> contactAdvertisement(@RequestBody @Valid ContactAdvertisementRequest request) {
+		return service.contactAdvertisement(request);
 	}
 }

@@ -5,6 +5,8 @@ public class ConstantUtil {
 	
 	public static final String BASIC = "Basic";
 	public static final String ADMIN = "Admin";
+	
+	public static final String APP_EMAIL = "app.email.delivery@gmail.com";
 
 	public static final String INVALID_USERNAME = "INVALID_USERNAME";
 	public static final String INVALID_DISPLAY_NAME = "INVALID_DISPLAY_NAME";
@@ -31,5 +33,7 @@ public class ConstantUtil {
 	public static final String ALREADY_IN_STUDY_GROUP = "ALREADY_IN_STUDY_GROUP";
 	public static final String NOT_IN_STUDY_GROUP = "NOT_IN_STUDY_GROUP";
 	public static final String DISCUSSION_NOT_FOUND = "DISCUSSION_NOT_FOUND";
+	public static final String DISCUSSION_ALREADY_ANSWERED = "DISCUSSION_ALREADY_ANSWERED";
+	public static final String DISCUSSION_REPLY_NOT_FOUND = "DISCUSSION_REPLY_NOT_FOUND";
 	public static final String STUDY_GROUP_HOST = "STUDY_GROUP_HOST";
 }
