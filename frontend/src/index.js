@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SignupPage from './components/signup-login/Signup.js';
-import LoginPage from './components/signup-login/Login.js';
-import Navbar from './components/Navbar/Navbar.js';
-import Dashboard from './components/Dashboard/Dashboard.js';
-import HomePage from './components/Home/Home.js';
-import MessagesPage from './components/Messages/messages.js';
-import PostAdsPage from './components/PostsAds/PostAds.js';
-import ServicesPage from './components/Services/services.js';
+import SignupPage from "./components/signup-login/Signup.js";
+import LoginPage from "./components/signup-login/Login.js";
+import PasswordReset from "./components/signup-login/PasswordReset.js";
+import Navbar from "./components/Navbar/Navbar.js";
+import Dashboard from "./components/Dashboard/Dashboard.js";
+import HomePage from "./components/Home/Home.js";
+import MessagesPage from "./components/Messages/messages.js";
+import PostAdsPage from "./components/PostsAds/PostAds.js";
+import ServicesPage from "./components/Services/services.js";
 import ReactDOM from "react-dom";
 import "./index.css";
 
 export const pages = {
-  home:"/home",
+  home: "/home",
   dashboard: "/dashboard",
   postAds: "/post",
   services: "/services",
@@ -25,9 +26,8 @@ function Pages({ userId, setUserId }) {
 
   return (
     <div className="screen">
-      
-        <Navbar page={page} setPage={setPage} setShowLogout={setShowLogout} />
-    
+      <Navbar page={page} setPage={setPage} setShowLogout={setShowLogout} />
+
       <main className="content">
         <Routes>
           <Route
@@ -46,11 +46,10 @@ function Pages({ userId, setUserId }) {
             path={pages.services}
             element={<ServicesPage userId={userId} setUserId={setUserId} />}
           />
-           <Route
+          <Route
             path={pages.messages}
             element={<MessagesPage userId={userId} setUserId={setUserId} />}
           />
-          
         </Routes>
       </main>
     </div>
@@ -69,6 +68,7 @@ function AppRouter() {
           element={<LoginPage user={userId} setUserId={setUserId} />}
         />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/password-reset" element={<PasswordReset />} />
         <Route
           path="*"
           element={<Pages userId={userId} setUserId={setUserId} />}
