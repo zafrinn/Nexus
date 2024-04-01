@@ -1,5 +1,6 @@
 package com.cps630.nexus.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -9,6 +10,7 @@ public class BasicUserUpdateRequest {
 	private String displayName;
 	
 	@NotEmpty
+	@Email
 	@Size(max = 50)
 	private String emailAddress;
 

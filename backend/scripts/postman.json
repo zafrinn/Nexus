@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"displayName\": \"stephanbissoonadmin\",\n    \"emailAddress\":\"stephan.bissoon+admin@ryerson.ca\",\n    \"password1\": \"stephanexus\",\n    \"password2\": \"stephanexus\"\n}",
+							"raw": "{\n    \"displayName\": \"stephanbissoonbasic\",\n    \"emailAddress\":\"stephan.bissoon+basic@ryerson.ca\",\n    \"password1\": \"stephanexus\",\n    \"password2\": \"stephanexus\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -407,6 +407,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/advertisement/contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"advertisementId\": 4,\n    \"message\": \"This car is a ripoff\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/advertisement/contact",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"advertisement",
+								"contact"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -513,7 +545,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Some textbook\",\n    \"location\": \"350 Victoria Street, Toronto, ON\",\n    \"genreId\": 4\n}",
+							"raw": "{\n    \"name\": \"Some textbook\",\n    \"isbn\":\"1234567891234\",\n    \"location\": \"350 Victoria Street, Toronto, ON\",\n    \"genreId\": 4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -545,7 +577,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"textbookId\": 1,\n    \"name\": \"Web app textbook\",\n    \"location\": \"350 Victoria Street, Toronto, ON\",\n    \"enabled\": true,\n    \"genreId\": 4\n}",
+							"raw": "{\n    \"textbookId\": 2,\n    \"name\": \"Web app textbook\",\n    \"isbn\": \"0987654321234\",\n    \"location\": \"350 Victoria Street, Toronto, ON\",\n    \"enabled\": false,\n    \"genreId\": 4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -795,7 +827,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\":\"My first discussion post!\"\n}",
+							"raw": "{\n    \"description\":\"My second discussion post!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -827,7 +859,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"discussionId\": 1,\n    \"description\": \"My first discussion post with more text\"\n}",
+							"raw": "{\n    \"discussionId\": 2,\n    \"description\": \"My first discussion post with more text\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -859,7 +891,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"discussionId\": 1,\n    \"description\": \"My first discussion post with more text but as an admin now as a basic user\"\n}",
+							"raw": "{\n    \"discussionId\": 2,\n    \"description\": \"My first discussion post with more text but as an admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -885,7 +917,7 @@
 					"response": []
 				},
 				{
-					"name": "api/v1/internal/basic/discussion/get",
+					"name": "[DEPRECATED] api/v1/internal/basic/discussion/get",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -947,7 +979,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"discussionId\": 1,\n    \"reply\":\"My second response!\"\n}",
+							"raw": "{\n    \"discussionId\": 2,\n    \"reply\":\"My first response!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -980,7 +1012,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"discussionReplyId\": 1,\n    \"reply\": \"My first response with more text now as a basic user\"\n}",
+							"raw": "{\n    \"discussionReplyId\": 2,\n    \"reply\": \"My first response with more text now as a basic user\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1013,7 +1045,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"discussionReplyId\": 1,\n    \"reply\": \"My first response with more text as an admin\"\n}",
+							"raw": "{\n    \"discussionReplyId\": 2,\n    \"reply\": \"My first response with more text as an admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

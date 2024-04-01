@@ -8,6 +8,11 @@ public class DiscussionResponse {
 	private LocalDateTime createdTimestamp;
 	private LocalDateTime updatedTimestamp;
 	private String displayName;
+	private Integer discussionReplyId;
+	private String reply;
+	private LocalDateTime replyCreatedTimestamp;
+	private LocalDateTime replyUpdatedTimestamp;
+	private String replyDisplayName;
 
 	public Integer getDiscussionid() {
 		return discussionid;
@@ -48,4 +53,45 @@ public class DiscussionResponse {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
+
+	public Integer getDiscussionReplyId() {
+		return discussionReplyId;
+	}
+
+	public void setDiscussionReplyId(Integer discussionReplyId) {
+		this.discussionReplyId = discussionReplyId;
+	}
+
+	public String getReply() {
+		return reply;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
+	}
+
+	public LocalDateTime getReplyCreatedTimestamp() {
+		return replyCreatedTimestamp;
+	}
+
+	public void setReplyCreatedTimestamp(LocalDateTime replyCreatedTimestamp) {
+		this.replyCreatedTimestamp = replyCreatedTimestamp;
+	}
+
+	public LocalDateTime getReplyUpdatedTimestamp() {
+		return replyUpdatedTimestamp;
+	}
+
+	public void setReplyUpdatedTimestamp(LocalDateTime replyUpdatedTimestamp) {
+		this.replyUpdatedTimestamp = replyUpdatedTimestamp;
+	}
+
+	public String getReplyDisplayName() {
+		return replyDisplayName;
+	}
+
+	public void setReplyDisplayName(String replyDisplayName) {
+		this.replyDisplayName = replyDisplayName;
+	}
+
 }

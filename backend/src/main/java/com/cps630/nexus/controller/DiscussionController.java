@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cps630.nexus.request.DiscussionCreateRequest;
-import com.cps630.nexus.request.DiscussionGetRequest;
 import com.cps630.nexus.request.DiscussionReplyCreateRequest;
 import com.cps630.nexus.request.DiscussionReplyUpdateRequest;
 import com.cps630.nexus.request.DiscussionUpdateRequest;
@@ -57,8 +56,8 @@ public class DiscussionController {
 		return service.getDiscussionList();
 	}
 	
-	@PostMapping("/internal/basic/discussion/get")
+	/*@PostMapping("/internal/basic/discussion/get")
 	public ResponseEntity<Object> getDiscussion(@RequestBody @Valid DiscussionGetRequest request) {
 		return service.getDiscussion(request);
-	}
+	}*/
 }

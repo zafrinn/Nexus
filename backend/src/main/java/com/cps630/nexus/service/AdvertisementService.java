@@ -32,10 +32,12 @@ import com.cps630.nexus.request.AdvertisementGetRequest;
 import com.cps630.nexus.request.AdvertisementImageAddRequest;
 import com.cps630.nexus.request.AdvertisementImageDeleteRequest;
 import com.cps630.nexus.request.AdvertisementUpdateRequest;
+import com.cps630.nexus.request.ContactAdvertisementRequest;
 import com.cps630.nexus.response.AdvertisementFullResponse;
 import com.cps630.nexus.response.AdvertisementFullResponse.AdvertisementImageResponse;
 import com.cps630.nexus.response.AdvertisementResponse;
 import com.cps630.nexus.util.ConstantUtil;
+import com.cps630.nexus.util.EmailUtility;
 import com.cps630.nexus.util.Utility;
 
 import jakarta.transaction.Transactional;
@@ -403,5 +405,36 @@ public class AdvertisementService {
 		response.setImageList(imageList);
 		
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> contactAdvertisement(ContactAdvertisementRequest request) {
+		Optional<Advertisement> adOpt = adRepo.findById(request.getAdvertisementId());
+		
+		if(adOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.ADVERTISEMENT_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		Advertisement ad = adOpt.get();
+		
+		if(Objects.equals(Utility.getAuthenticatedUser().getUserId(), ad.getUser().getUserId())) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER, "This is your own advertisement"), HttpStatus.BAD_REQUEST);
+		}
+		
+		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
+		
+		if(userOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		User user = userOpt.get();
+		
+		String to = ad.getUser().getEmailAddress();
+		String replyTo = user.getEmailAddress();
+		String title = "Nexus: " + ad.getTitle();
+		String message = "A Nexus member [" + user.getEmailAddress() + "] is attempting to contact you regarding an advertisement you posted:\n\n" + request.getMessage();
+		
+		EmailUtility.sendEmail(to, replyTo, title, message);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
