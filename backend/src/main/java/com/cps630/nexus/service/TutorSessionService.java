@@ -100,7 +100,7 @@ public class TutorSessionService {
 			TutorSessionResponse responseObj = new TutorSessionResponse();
 			responseObj.setTutorSessionId(tutorSession.getTutorSessionId());
 			responseObj.setCourseName(tutorSession.getCourseName());
-			responseObj.setTutorLevel(tutorSession.getTutorLevel().getName());
+			responseObj.setTutorLevel(tutorSession.getTutorLevel());
 			responseObj.setDisplayName(tutorSession.getUser().getDisplayName());
 			responseObj.setEmailAddress(tutorSession.getUser().getEmailAddress());
 			
