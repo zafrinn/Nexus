@@ -1,6 +1,6 @@
 import styles from "./dashboard.module.css";
 import React, { useState, useEffect, Fragment } from "react";
-import { getUsersList } from "../../apiHelpers";
+import { getUsersList, updateAdminUser } from "../../apiHelpers";
 
 const EditableRow = ({
   editFormData,
@@ -103,9 +103,31 @@ function UserTable() {
     setEditFormData({ ...editFormData, [fieldName]: fieldValue });
   };
 
-  const handleEditFormSubmit = (event) => {
+  const handleEditFormSubmit = async (event) => {
     event.preventDefault();
-    // Implement your logic to submit edited user data
+    const editedUser = {
+      ...editFormData,
+      roleId: getRoleId(editFormData.roleName),
+      userId: editUserId,
+      enabled: true,
+    };
+    try {
+      await updateAdminUser(editedUser);
+      console.log("User data updated successfully");
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
+
+  const getRoleId = (roleName) => {
+    switch (roleName) {
+      case "Admin":
+        return 1;
+      case "Basic":
+        return 2;
+      default:
+        return 2; // Default to Basic if roleName is not recognized
+    }
   };
 
   const handleEditClick = (event, user) => {
@@ -114,6 +136,7 @@ function UserTable() {
     const formValues = {
       displayName: user.displayName,
       emailAddress: user.emailAddress,
+      roleName: user.roleName, // Add roleName to formValues
     };
     setEditFormData(formValues);
   };
