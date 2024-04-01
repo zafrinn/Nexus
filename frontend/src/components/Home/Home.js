@@ -1,18 +1,15 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import styles from './home.module.css'; 
-import { IoIosArrowForward } from "react-icons/io";
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import data from './HomeMockData.json'
 import Ads from './Ads.js';
-import { FormControlLabel, Switch } from '@mui/material';
-import Button from '@mui/material/Button';
+import { FormControlLabel, Switch, Select, MenuItem  } from '@mui/material';
 import TmuLogo from '../../assets/TMU_LOGO.png';
-import { Select, MenuItem } from '@mui/material';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -35,15 +32,6 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
@@ -57,73 +45,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchAd() {
-  const [searchValue, setSearchValue] = useState('');
-
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    console.log('Search value:', searchValue);
-    // Perform search operations using the searchValue state
-  };
-
+function SearchAd({ handleSearchChange, searchValue }) {
+  
   return (
-    <div className={styles.searchBar} style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent', width: '70%', marginLeft:'150px'}}>
-      <Search component="form" onSubmit={handleSearchSubmit} style={{ flex: '1',  margin: '0px' }}>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ 'aria-label': 'search' }}
-          value={searchValue}
-          onChange={handleSearchChange}
-          style = {{ padding:'5px' }}
-        />
-      </Search>
-      <Button
-        type="submit"
-        style={{marginLeft: '10px', width:'40px', paddingTop:'11px', paddingBottom:'11px' }}
-      >
-        <SearchIcon  style={{ fill: '#003FA7' }} fontSize="large" />
-      </Button>
+    <div className={styles.searchBar}>
+      <form style={{ display: 'flex', alignItems: 'center', backgroundColor: 'transparent', width: '70%', marginLeft:'150px'}}>
+        <Search component="form" style={{ flex: '1',  margin: '0px' }}>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ 'aria-label': 'search' }}
+            value={searchValue}
+            onChange={handleSearchChange}
+            style = {{ padding:'5px' }}
+          />
+        </Search>
+      </form>
+      
     </div>
   );
   
 }
-
-
-
-function FilterSlider({ title, min, max, step, value, onChange }) {
-  return (
-    <div style={{ marginBottom: '20px' }}>
-      <Typography id="range-slider" gutterBottom>
-        {title}
-      </Typography>
-      <Slider
-        value={value}
-        onChange={onChange}
-        min={min}
-        max={max}
-        step={step}
-        valueLabelDisplay="auto"
-        aria-labelledby="range-slider"
-        sx={{
-          color: '#003FA7', // Set the color of the slider track
-          '& .MuiSlider-thumb': {
-            backgroundColor: '#003FA7', // Set the color of the slider thumb
-          },
-          '& .MuiSlider-valueLabel': {
-            color: '#003FA7', // Set the color of the value label
-          },
-        }}
-        
-      />
-    </div>
-  );
-}
-
-
 
 const StyledFilterCard = styled('div')({
   display: 'flex',
@@ -148,7 +89,6 @@ function Filter({
   onItemsForSaleChange,
   onPriceChange,
   onLocationChange,
-  onFormSubmit,
 }) {
   return (
     <Fragment>
@@ -187,7 +127,7 @@ function Filter({
           <MenuItem value="" disabled>
             Select Location
           </MenuItem>
-          <MenuItem value="">All</MenuItem>
+          <MenuItem value="">All Locations</MenuItem>
           <MenuItem value="Toronto">Toronto</MenuItem>
           <MenuItem value="Mississauga">Mississauga</MenuItem>
           <MenuItem value="Brampton">Brampton</MenuItem>
@@ -212,14 +152,13 @@ function HomePage() {
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [selectedLocation, setSelectedLocation] = useState('');
   const [filteredData, setFilteredData] = useState(data);
+  const [searchValue, setSearchValue] = useState(''); // Define searchValue state
 
   const handleItemsWantedChange = (event) => {
-    console.log("items wanted: ", event.target.checked)
     setItemsWanted(event.target.checked);
   };
 
   const handleItemsForSaleChange = (event) => {
-    console.log("items sale: ", event.target.checked)
     setItemsForSale(event.target.checked);
   };
 
@@ -228,8 +167,12 @@ function HomePage() {
   };
 
   const handleLocationChange = (event) => {
-    console.log("Selected Location:", event.target.value);
     setSelectedLocation(event.target.value);
+  };
+
+   // Add handleSearchChange and handleSearchSubmit functions
+   const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
   };
 
   
@@ -240,17 +183,13 @@ function HomePage() {
       const meetsItemsForSaleCondition = !itemsForSale || (itemsForSale && ad.category.categoryId === 2);
       const meetsPriceRangeCondition = ad.price >= priceRange[0] && ad.price <= priceRange[1];
       const meetsLocationCondition = !selectedLocation || ad.location === selectedLocation;
+      const meetsSearchCondition = !searchValue || ad.title.toLowerCase().includes(searchValue.toLowerCase())
   
-      console.log("meetsItemsWantedCondition: ", meetsItemsWantedCondition );
-      console.log("meetsItemsForSaleCondition: ", meetsItemsForSaleCondition);
-      console.log("meetsPriceRangeCondition: ", meetsPriceRangeCondition);
-      console.log("meetsLocationCondition: ", meetsLocationCondition);
-  
-      return ((itemsWanted && meetsItemsWantedCondition) || (itemsForSale && meetsItemsForSaleCondition)) && meetsPriceRangeCondition && meetsLocationCondition;
+      return ((itemsWanted && meetsItemsWantedCondition) || (itemsForSale && meetsItemsForSaleCondition)) && meetsPriceRangeCondition && meetsLocationCondition && meetsSearchCondition;
     });
   
     setFilteredData(filteredAds);
-  }, [itemsWanted, itemsForSale, priceRange, selectedLocation]);
+  }, [itemsWanted, itemsForSale, priceRange, selectedLocation, searchValue ]);
   
   
   return (
@@ -270,7 +209,10 @@ function HomePage() {
           />
         </div>
         <div className={`${styles.homeColSecond} col-md-9`}>
-          <SearchAd />
+          <SearchAd 
+            handleSearchChange= {handleSearchChange} 
+            searchValue={searchValue} // Pass searchValue state to SearchAd
+            />
           <Ads data={filteredData} />
         </div>
       </div>
