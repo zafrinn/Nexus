@@ -3,6 +3,7 @@ package com.cps630.nexus.response;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Deprecated
 public class DiscussionFullResponse extends DiscussionResponse {
 	private List<ReplyResponse> replyList;
 

@@ -54,6 +54,7 @@ public class TutorSessionService {
 		
 		TutorSession tutorSession = new TutorSession();
 		tutorSession.setCourseName(request.getCourseName());
+		tutorSession.setEnabled(Boolean.TRUE);
 		tutorSession.setTutorLevel(tutorLevelOpt.get());
 		tutorSession.setUser(userOpt.get());
 		
@@ -84,6 +85,7 @@ public class TutorSessionService {
 		}
 		
 		tutorSession.setCourseName(request.getCourseName());
+		tutorSession.setEnabled(request.getEnabled());
 		tutorSession.setTutorLevel(tutorLevelOpt.get());
 		
 		tutorSessionRepo.save(tutorSession);
@@ -92,7 +94,7 @@ public class TutorSessionService {
 	}
 
 	public ResponseEntity<Object> getTutorSessionList() {
-		List<TutorSession> tutorSessionList = tutorSessionRepo.findAll();
+		List<TutorSession> tutorSessionList = tutorSessionRepo.getEnabledTutorSessionList();
 		
 		List<TutorSessionResponse> responseList = new ArrayList<>();
 		

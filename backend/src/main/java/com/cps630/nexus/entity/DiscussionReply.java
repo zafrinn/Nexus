@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,7 +20,7 @@ public class DiscussionReply {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer discussionReplyId;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "discussion_id", nullable = false)
 	private Discussion discussion;
 	

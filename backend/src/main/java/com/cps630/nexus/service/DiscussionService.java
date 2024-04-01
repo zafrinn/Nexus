@@ -20,12 +20,9 @@ import com.cps630.nexus.repository.DiscussionReplyRepository;
 import com.cps630.nexus.repository.DiscussionRepository;
 import com.cps630.nexus.repository.UserRepository;
 import com.cps630.nexus.request.DiscussionCreateRequest;
-import com.cps630.nexus.request.DiscussionGetRequest;
 import com.cps630.nexus.request.DiscussionReplyCreateRequest;
 import com.cps630.nexus.request.DiscussionReplyUpdateRequest;
 import com.cps630.nexus.request.DiscussionUpdateRequest;
-import com.cps630.nexus.response.DiscussionFullResponse;
-import com.cps630.nexus.response.DiscussionFullResponse.ReplyResponse;
 import com.cps630.nexus.response.DiscussionResponse;
 import com.cps630.nexus.util.ConstantUtil;
 import com.cps630.nexus.util.Utility;
@@ -115,8 +112,16 @@ public class DiscussionService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
+		Discussion discussion = discussionOpt.get();
+		
+		Optional<DiscussionReply> discussionReplyOpt = discussionReplyRepo.getDiscussionReply(discussion.getDiscussionId());
+		
+		if(discussionReplyOpt.isPresent()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.DISCUSSION_ALREADY_ANSWERED), HttpStatus.BAD_REQUEST);
+		}
+		
 		DiscussionReply discussionReply = new DiscussionReply();
-		discussionReply.setDiscussion(discussionOpt.get());
+		discussionReply.setDiscussion(discussion);
 		discussionReply.setReply(request.getReply());
 		discussionReply.setCreatedTimestamp(LocalDateTime.now());
 		discussionReply.setUpdatedTimestamp(LocalDateTime.now());
@@ -131,7 +136,7 @@ public class DiscussionService {
 		Optional<DiscussionReply> discussionReplyOpt = discussionReplyRepo.findById(request.getDiscussionReplyId());
 		
 		if(discussionReplyOpt.isEmpty()) {
-			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.DISCUSSION_NOT_FOUND), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.DISCUSSION_REPLY_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
 		DiscussionReply discussionReply = discussionReplyOpt.get();
@@ -147,7 +152,7 @@ public class DiscussionService {
 		Optional<DiscussionReply> discussionReplyOpt = discussionReplyRepo.findById(request.getDiscussionReplyId());
 		
 		if(discussionReplyOpt.isEmpty()) {
-			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.DISCUSSION_NOT_FOUND), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.DISCUSSION_REPLY_NOT_FOUND), HttpStatus.BAD_REQUEST);
 		}
 		
 		return updateDiscussionReply(request, discussionReplyOpt.get());
@@ -177,13 +182,25 @@ public class DiscussionService {
 			responseObj.setUpdatedTimestamp(discussion.getUpdatedTimestamp());
 			responseObj.setDisplayName(discussion.getUser().getDisplayName());
 			
+			Optional<DiscussionReply> discussionReplyOpt = discussionReplyRepo.getDiscussionReply(discussion.getDiscussionId());
+			
+			if(discussionReplyOpt.isPresent()) {
+				DiscussionReply replyObj = discussionReplyOpt.get();
+			
+				responseObj.setDiscussionReplyId(replyObj.getDiscussionReplyId());
+				responseObj.setReply(replyObj.getReply());
+				responseObj.setReplyCreatedTimestamp(replyObj.getCreatedTimestamp());
+				responseObj.setReplyUpdatedTimestamp(replyObj.getUpdatedTimestamp());
+				responseObj.setReplyDisplayName(replyObj.getUser().getDisplayName());
+			}
+			
 			responseList.add(responseObj);
 		}
 		
 		return new ResponseEntity<>(responseList, HttpStatus.OK);
 	}
 
-	public ResponseEntity<Object> getDiscussion(DiscussionGetRequest request) {
+	/*public ResponseEntity<Object> getDiscussion(DiscussionGetRequest request) {
 		Optional<Discussion> discussionOpt = discussionRepo.findById(request.getDiscussionId());
 		
 		if(discussionOpt.isEmpty()) {
@@ -210,5 +227,5 @@ public class DiscussionService {
 		responseObj.setReplyList(replyList);
 		
 		return new ResponseEntity<>(responseObj, HttpStatus.OK);
-	}
+	}*/
 }

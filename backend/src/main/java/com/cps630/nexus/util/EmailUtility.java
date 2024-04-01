@@ -13,7 +13,20 @@ public class EmailUtility {
 		JavaMailSender sender = buildMailSender();
 		
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setFrom("app.email.delivery@gmail.com");
+		mailMessage.setFrom(ConstantUtil.APP_EMAIL);
+		mailMessage.setTo(recipient);
+		mailMessage.setSubject(title);
+		mailMessage.setText(message);
+		
+		sender.send(mailMessage);
+	}
+	
+	public static void sendEmail(String recipient, String replyTo, String title, String message) {
+		JavaMailSender sender = buildMailSender();
+		
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setFrom(ConstantUtil.APP_EMAIL);
+		mailMessage.setReplyTo(replyTo);
 		mailMessage.setTo(recipient);
 		mailMessage.setSubject(title);
 		mailMessage.setText(message);
@@ -25,7 +38,7 @@ public class EmailUtility {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		sender.setHost("smtp.gmail.com");
 		sender.setPort(587);
-		sender.setUsername("app.email.delivery@gmail.com");
+		sender.setUsername(ConstantUtil.APP_EMAIL);
 		sender.setPassword("knar nqwz pwpm rclp");
 		
 		Properties props = new Properties();

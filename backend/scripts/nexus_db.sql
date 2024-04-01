@@ -151,6 +151,7 @@ INSERT INTO tutor_level VALUES(NULL, "Advanced");
 CREATE TABLE tutor_session (
     tutor_session_id INT NOT NULL AUTO_INCREMENT,
     course_name VARCHAR(50) NOT NULL,
+    enabled BOOLEAN NOT NULL,
     tutor_level_id INT NOT NULL,
     user_id INT NOT NULL,
     

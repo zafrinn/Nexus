@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 public class AdvertisementCreateRequest {
@@ -18,6 +19,7 @@ public class AdvertisementCreateRequest {
 	@NotNull
 	private Integer categoryId;
 	
+	@PositiveOrZero
 	private BigDecimal price;
 	
 	@Size(max = 100)
