@@ -7,6 +7,7 @@ const EditableRow = ({
   handleEditFormChange,
   handleCancelClick,
   handleEditFormSubmit,
+  roles,
 }) => {
   return (
     <tr>
@@ -31,6 +32,20 @@ const EditableRow = ({
           value={editFormData.emailAddress}
           onChange={handleEditFormChange}
         />
+      </td>
+      <td>
+        <select
+          className={styles.editInput}
+          name="roleName"
+          value={editFormData.roleName}
+          onChange={handleEditFormChange}
+        >
+          {roles.map((role) => (
+            <option key={role.id} value={role.name}>
+              {role.name}
+            </option>
+          ))}
+        </select>
       </td>
       <td className={`${styles.col} ${styles["col-4"]}`}>
         <button
@@ -86,14 +101,22 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
 
 function UserTable() {
   const [usersList, setUsersList] = useState([]);
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     getUsersList(setUsersList);
+    // Fetch roles data from API or define it locally
+    const rolesData = [
+      { id: 1, name: "Admin" },
+      { id: 2, name: "Basic" },
+    ];
+    setRoles(rolesData);
   }, []);
 
   const [editFormData, setEditFormData] = useState({
     displayName: "",
     emailAddress: "",
+    roleName: "", // Add roleName to edit form data
   });
   const [editUserId, setEditUserId] = useState(null);
 
@@ -176,6 +199,7 @@ function UserTable() {
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={handleCancelClick}
                     handleEditFormSubmit={handleEditFormSubmit}
+                    roles={roles} // Pass roles data to EditableRow
                   />
                 ) : (
                   <ReadOnlyRow
