@@ -2,19 +2,21 @@ import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
-  CardActions,
   CardMedia,
   Typography,
+  Chip,
+  Stack,
   Button,
   Dialog,
   DialogContent,
   DialogActions,
   TextField,
   MenuItem,
+  CardActions, // Added CardActions
 } from "@mui/material";
 import {
   getAdvertisementsByCategoryId,
-  updateAdvertisement,
+  updateAdminAdvertisement,
 } from "../../apiHelpers";
 import styles from "./dashboard.module.css"; // Import CSS styles
 
@@ -75,7 +77,7 @@ function ManagePosts(props) {
       enabled: "true",
     };
     try {
-      await updateAdvertisement(editedData);
+      await updateAdminAdvertisement(editedData);
       handleClose();
       loadAdvertisements(); // Reload advertisements after update
     } catch (error) {
@@ -83,36 +85,65 @@ function ManagePosts(props) {
     }
   };
 
+  const handlePostClick = (contact) => {
+    // Implement handlePostClick functionality here
+  };
+
   return (
     <div className={styles.userPostsContainer}>
-      {advertisements.map((advertisement) => (
-        <Card
-          key={advertisement.advertisementId}
-          className={styles.advertisementCard}
-        >
+      {advertisements.map((contact) => (
+        <Card key={contact.id} sx={{ position: "relative", maxWidth: 345 }}>
           <CardMedia
-            component="img"
-            image={`data:image/${advertisement.posterMimeType};base64,${advertisement.poster}`}
-            alt="Advertisement"
-            className={styles.advertisementImage}
+            sx={{ height: 140 }}
+            image={`data:image/${contact.posterMimeType};base64,${contact.poster}`}
+            title="Advertisement"
+            onClick={() => handlePostClick(contact)}
+            style={{ cursor: "pointer" }}
           />
           <CardContent>
-            <Typography variant="h6">{advertisement.title}</Typography>
-            <Typography variant="body2" color="text.secondary">
-              {advertisement.description}
+            <Typography gutterBottom variant="h5" component="div">
+              {contact.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Price: ${advertisement.price}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Location: {advertisement.location}
-            </Typography>
+            {contact.price && (
+              <Typography variant="body2" color="text.secondary">
+                ${contact.price}
+              </Typography>
+            )}
           </CardContent>
-          <CardActions>
-            <Button size="small" onClick={() => handleEditClick(advertisement)}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 16px 16px",
+            }}
+          >
+            <Button size="small" onClick={() => handleEditClick(contact)}>
               Edit
             </Button>
-          </CardActions>
+            <Stack direction="row" spacing={1}>
+              {contact.category.categoryId === 1 && (
+                <Chip
+                  label="Sale"
+                  sx={{
+                    backgroundColor: "#FBFFE1",
+                    color: "#003FA7",
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                  }}
+                />
+              )}
+              {contact.category.categoryId === 2 && (
+                <Chip
+                  label="Wanted"
+                  sx={{
+                    backgroundColor: "#E1F1FF",
+                    color: "#003FA7",
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                  }}
+                />
+              )}
+            </Stack>
+          </div>
         </Card>
       ))}
       <Dialog open={open} onClose={handleClose}>
@@ -140,7 +171,12 @@ function ManagePosts(props) {
               label="Price"
               type="number"
               value={editedPrice}
-              onChange={(e) => setEditedPrice(e.target.value)}
+              onChange={(e) => {
+                const { value } = e.target;
+                if (value >= 0) {
+                  setEditedPrice(value);
+                }
+              }}
               fullWidth
               required
               style={{ marginTop: "5px", marginBottom: "10px" }}
