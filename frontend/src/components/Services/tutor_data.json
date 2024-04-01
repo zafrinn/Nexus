@@ -1,0 +1,16 @@
+{
+    "tutorSessions": [
+      {
+        "tutor_session_id": 1,
+        "course_name": "Math",
+        "tutorLevels": "Beginner",
+        "user_id": 1
+      },
+      {
+        "tutor_session_id": 3,
+        "course_name": "Biology",
+        "tutorLevels": "Advanced",
+        "user_id": 3
+      }
+    ]
+  }

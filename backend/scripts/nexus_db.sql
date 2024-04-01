@@ -104,6 +104,7 @@ INSERT INTO textbook_genre VALUES(NULL, "Yeates School of Graduate and Postdocto
 CREATE TABLE textbook (
     textbook_id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
+    isbn CHAR(13) NOT NULL,
     enabled BOOLEAN NOT NULL,
     location VARCHAR(100) NOT NULL,
     user_id INT NOT NULL,

@@ -54,6 +54,7 @@ public class TextbookService {
 		
 		Textbook textbook = new Textbook();
 		textbook.setName(request.getName());
+		textbook.setIsbn(request.getIsbn());
 		textbook.setEnabled(Boolean.TRUE);
 		textbook.setLocation(request.getLocation());
 		textbook.setUser(userOpt.get());
@@ -86,6 +87,7 @@ public class TextbookService {
 		}
 		
 		textbook.setName(request.getName());
+		textbook.setIsbn(request.getIsbn());
 		textbook.setEnabled(request.getEnabled());
 		textbook.setLocation(request.getLocation());
 		textbook.setGenre(textbookGenreOpt.get());
@@ -104,6 +106,7 @@ public class TextbookService {
 			TextbookResponse responseObj = new TextbookResponse();
 			responseObj.setTextbookId(textbook.getTextbookId());
 			responseObj.setName(textbook.getName());
+			responseObj.setIsbn(textbook.getIsbn());
 			responseObj.setLocation(textbook.getLocation());
 			responseObj.setDisplayName(textbook.getUser().getDisplayName());
 			responseObj.setEmailAddress(textbook.getUser().getEmailAddress());

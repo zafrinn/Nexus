@@ -1,0 +1,93 @@
+[
+    {
+      "id": 1,
+      "title": "Mathematics",
+      "user": "John",
+      "date": "2024-04-01",
+      "time": "09:00 AM",
+      "location": "Room 101",
+      "members": [101, 102, 103]
+    },
+    {
+      "id": 2,
+      "title": "Physics",
+      "user": "Alice",
+      "date": "2024-04-02",
+      "time": "10:30 AM",
+      "location": "Room 102",
+      "members": [102, 103, 104]
+    },
+    {
+      "id": 3,
+      "title": "Chemistry",
+      "user": "Bob",
+      "date": "2024-04-03",
+      "time": "01:00 PM",
+      "location": "Room 103",
+      "members": [101, 103, 105]
+    },
+    {
+      "id": 4,
+      "title": "Biology",
+      "user": "Emily",
+      "date": "2024-04-04",
+      "time": "03:30 PM",
+      "location": "Room 104",
+      "members": [101, 104, 105]
+    },
+    {
+      "id": 5,
+      "title": "History",
+      "user": "Michael",
+      "date": "2024-04-05",
+      "time": "11:00 AM",
+      "location": "Room 105",
+      "members": [102, 104, 105]
+    },
+    {
+      "id": 6,
+      "title": "English",
+      "user": "Sophia",
+      "date": "2024-04-06",
+      "time": "02:30 PM",
+      "location": "Room 106",
+      "members": [101, 102, 105]
+    },
+    {
+      "id": 7,
+      "title": "Computer Science",
+      "user": "David",
+      "date": "2024-04-07",
+      "time": "10:00 AM",
+      "location": "Room 107",
+      "members": [102, 103, 106]
+    },
+    {
+      "id": 8,
+      "title": "Art",
+      "user": "Emma",
+      "date": "2024-04-08",
+      "time": "04:00 PM",
+      "location": "Room 108",
+      "members": [101, 103, 106]
+    },
+    {
+      "id": 9,
+      "title": "Music",
+      "user": "Olivia",
+      "date": "2024-04-09",
+      "time": "12:30 PM",
+      "location": "Room 109",
+      "members": [101, 104, 105]
+    },
+    {
+      "id": 10,
+      "title": "Geography",
+      "user": "James",
+      "date": "2024-04-10",
+      "time": "09:30 AM",
+      "location": "Room 110",
+      "members": [102, 103, 106]
+    }
+  ]
+  
