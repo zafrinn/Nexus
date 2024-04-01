@@ -25,6 +25,7 @@ function UserPosts(props) {
   const [editedPrice, setEditedPrice] = useState("");
   const [editedLocation, setEditedLocation] = useState("");
   const [editedCategory, setEditedCategory] = useState(""); // Add state for edited category
+  const [editedEnabled, setEditedEnabled] = useState("true"); // Add state for edited enable/disable status
 
   useEffect(() => {
     // Fetch advertisements data when component mounts
@@ -38,6 +39,7 @@ function UserPosts(props) {
     setEditedPrice(advertisement.price);
     setEditedLocation(advertisement.location);
     setEditedCategory(advertisement.category.categoryId.toString()); // Set edited category
+    setEditedEnabled(advertisement.enabled ? "true" : "false"); // Set edited enabled status
     setOpen(true);
   };
 
@@ -49,6 +51,7 @@ function UserPosts(props) {
     setEditedPrice("");
     setEditedLocation("");
     setEditedCategory("");
+    setEditedEnabled("");
   };
 
   const handleSubmit = async (e) => {
@@ -60,7 +63,7 @@ function UserPosts(props) {
       price: parseFloat(editedPrice),
       location: editedLocation,
       categoryId: parseInt(editedCategory), // Parse category to integer
-      enabled: "true",
+      enabled: editedEnabled === "true", // Convert string to boolean
     };
     try {
       await updateAdvertisement(editedData);
@@ -84,6 +87,7 @@ function UserPosts(props) {
     poster,
     posterMimeType,
     category,
+    enabled,
   }) => {
     const getImageFormat = (mimeType) => {
       // Extract image format from the MIME type
@@ -129,6 +133,7 @@ function UserPosts(props) {
                 poster,
                 posterMimeType,
                 category,
+                enabled,
               })
             }
           >
@@ -219,6 +224,20 @@ function UserPosts(props) {
               option
               <MenuItem value="2">Items for Sale</MenuItem> // Add Items for
               Sale option
+            </TextField>
+            {/* Enable/Disable dropdown */}
+            <TextField
+              select
+              label="Enabled"
+              name="enabled"
+              value={editedEnabled}
+              onChange={(e) => setEditedEnabled(e.target.value)}
+              fullWidth
+              required
+              style={{ marginTop: "5px", marginBottom: "10px" }}
+            >
+              <MenuItem value="true">Enabled</MenuItem>
+              <MenuItem value="false">Disabled</MenuItem>
             </TextField>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
