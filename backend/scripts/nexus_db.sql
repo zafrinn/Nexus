@@ -32,7 +32,7 @@ CREATE TABLE user (
     display_name VARCHAR(25) NOT NULL,
     role_id INT NOT NULL,
     email_address VARCHAR(50) NOT NULL,
-    password CHAR(60) NULL,
+    password CHAR(60) NOT NULL,
     enabled BOOLEAN NOT NULL,
     created_timestamp DATETIME NOT NULL,
 
@@ -41,11 +41,11 @@ CREATE TABLE user (
     FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
-INSERT INTO user VALUES(NULL, "stephan", 1, "stephan.bissoon@torontomu.ca", NULL, 1, NOW());
-INSERT INTO user VALUES(NULL, "zafrin", 1, "zafrin.rahman@torontomu.ca", NULL, 1, NOW());
-INSERT INTO user VALUES(NULL, "alishba", 1, "alishba.aamir@torontomu.ca", NULL, 1, NOW());
-INSERT INTO user VALUES(NULL, "shruti", 1, "s12sharma@torontomu.ca", NULL, 1, NOW());
-INSERT INTO user VALUES(NULL, "karanvir", 1, "karanvir.heer@torontomu.ca", NULL, 1, NOW());
+INSERT INTO user VALUES(NULL, "stephan", 1, "stephan.bissoon@torontomu.ca", "", 1, NOW());
+INSERT INTO user VALUES(NULL, "zafrin", 1, "zafrin.rahman@torontomu.ca", "", 1, NOW());
+INSERT INTO user VALUES(NULL, "alishba", 1, "alishba.aamir@torontomu.ca", "", 1, NOW());
+INSERT INTO user VALUES(NULL, "shruti", 1, "s12sharma@torontomu.ca", "", 1, NOW());
+INSERT INTO user VALUES(NULL, "karanvir", 1, "karanvir.heer@torontomu.ca", "", 1, NOW());
 
 CREATE TABLE category (
     category_id INT NOT NULL AUTO_INCREMENT,
@@ -68,7 +68,7 @@ CREATE TABLE advertisement (
     category_id INT NOT NULL,
     price DECIMAL(10, 2) NULL,
     location VARCHAR(100) NULL,
-    enabled TINYINT(1) NOT NULL,
+    enabled BOOLEAN NOT NULL,
 
     PRIMARY KEY(advertisement_id),
     FOREIGN KEY (user_id) REFERENCES user(user_id),
