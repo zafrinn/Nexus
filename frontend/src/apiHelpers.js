@@ -67,7 +67,7 @@ export function logoutUser() {
 }
 
 // ============================
-//   ADVERTISEMENT FUNCTIONS
+//   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================
 
 export async function getAdvertisements(setAdvertisementData) {
@@ -138,6 +138,31 @@ export async function getAdvertisementsByCategoryId(categoryId) {
   } catch (error) {
     console.error("Error fetching advertisements:", error);
     throw error;
+  }
+}
+// ============================
+//      ADMIN ADVERTISEMENT FUNCTIONS
+// ============================
+export async function updateAdminAdvertisement(advertisementData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/admin/advertisement/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(advertisementData),
+      }
+    );
+    if (response.ok) {
+      console.log("Advertisement updated successfully");
+    } else {
+      console.error("Failed to update advertisement");
+    }
+  } catch (error) {
+    console.error("Error updating advertisement:", error);
   }
 }
 
