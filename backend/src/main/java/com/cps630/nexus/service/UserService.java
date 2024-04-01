@@ -141,7 +141,7 @@ public class UserService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_ALREADY_EXISTS), HttpStatus.BAD_REQUEST);
 		}
 		
-		Optional<Role> roleOpt = roleRepo.findById(1);
+		Optional<Role> roleOpt = roleRepo.findById(2);
 		
 		if(roleOpt.isEmpty()) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.ROLE_NOT_FOUND), HttpStatus.BAD_REQUEST);
