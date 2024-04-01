@@ -1,0 +1,22 @@
+
+{
+    "unansweredQuestions": [
+      {
+        "discussion_id": 1,
+        "description": "What is the capital of France?",
+        "created_timestamp": "2024-03-28T12:00:00Z",
+        "updated_timestamp": "2024-03-28T12:00:00Z",
+        "user_id": 1
+      },
+      {
+        "discussion_id": 2,
+        "description": "What is the tallest mountain in the world?",
+        "created_timestamp": "2024-03-28T12:00:00Z",
+        "updated_timestamp": "2024-03-28T12:00:00Z",
+        "user_id": 2
+      }
+    ],
+    "answeredQuestions": []
+  }
+  
+  
