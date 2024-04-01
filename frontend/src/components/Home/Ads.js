@@ -49,10 +49,10 @@ function Ads(props) {
                     </CardContent>
                     <div style={{ position: 'absolute', bottom: 0, right: 0, margin: '10px' }}>
                         <Stack direction="row" spacing={1}>
-                            {contact.category_name === 'Items for Sale' && (
+                            {contact.category.categoryId === 2 && (
                                 <Chip label="Sale" sx={{ backgroundColor: '#FBFFE1', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }}/>
                             )}
-                            {contact.category_name === 'Items Wanted' && (
+                            {contact.category.categoryId  === 1 && (
                                 <Chip label="Wanted" sx={{ backgroundColor: '#E1F1FF', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }} />
                             )}
                         </Stack>
@@ -64,10 +64,10 @@ function Ads(props) {
                 <DialogContent>
                   <div style={{ position: 'absolute', top: 0, right: 0, margin: '10px' }}>
                       <Stack direction="row" spacing={1}>
-                          {selectedPost?.category_name === 'Items for Sale' && (
+                          {selectedPost?.category.categoryId === 2 && (
                               <Chip label="Sale" sx={{ backgroundColor: '#FBFFE1', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }} />
                           )}
-                          {selectedPost?.category_name === 'Items Wanted' && (
+                          {selectedPost?.category.categoryId  === 1  && (
                               <Chip label="Wanted"  sx={{ backgroundColor: '#E1F1FF', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }} />
                           )}
                       </Stack>
