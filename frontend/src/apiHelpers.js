@@ -163,10 +163,11 @@ export async function getUsersList(setUsersList) {
     const data = await response.json();
     setUsersList(
       data.map((user) => ({
-        id: user.userId,
+        userId: user.userId,
         displayName: user.displayName,
         emailAddress: user.emailAddress,
         roleName: user.roleName,
+        enabled: user.enabled,
       }))
     );
   } catch (error) {

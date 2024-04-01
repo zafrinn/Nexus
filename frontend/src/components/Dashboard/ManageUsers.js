@@ -41,7 +41,7 @@ const EditableRow = ({
           onChange={handleEditFormChange}
         >
           {roles.map((role) => (
-            <option key={role.id} value={role.name}>
+            <option key={role.userId} value={role.name}>
               {role.name}
             </option>
           ))}
@@ -68,7 +68,11 @@ const EditableRow = ({
   );
 };
 
-const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
+const ReadOnlyRow = ({
+  contact,
+  handleEditClick,
+  handleEnableDisableClick,
+}) => {
   return (
     <tr>
       <td className={`${styles.col} ${styles["col-1"]}`}>
@@ -90,9 +94,9 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
         <button
           className={styles.exchangeBtn}
           role="button"
-          onClick={() => handleDeleteClick(contact.id)}
+          onClick={() => handleEnableDisableClick(contact)}
         >
-          Delete
+          {contact.enabled ? "Disable" : "Enable"}
         </button>
       </td>
     </tr>
@@ -132,7 +136,7 @@ function UserTable() {
       ...editFormData,
       roleId: getRoleId(editFormData.roleName),
       userId: editUserId,
-      enabled: true,
+      enabled: true, // assuming edit mode always enables user
     };
     try {
       await updateAdminUser(editedUser);
@@ -157,7 +161,7 @@ function UserTable() {
 
   const handleEditClick = (event, user) => {
     event.preventDefault();
-    setEditUserId(user.id);
+    setEditUserId(user.userId);
     const formValues = {
       displayName: user.displayName,
       emailAddress: user.emailAddress,
@@ -166,12 +170,21 @@ function UserTable() {
     setEditFormData(formValues);
   };
 
-  const handleCancelClick = () => {
-    setEditUserId(null);
-  };
-
-  const handleDeleteClick = (userId) => {
-    // Implement your logic to delete user with userId
+  const handleEnableDisableClick = async (user) => {
+    try {
+      const editedUser = {
+        displayName: user.displayName,
+        emailAddress: user.emailAddress,
+        roleId: getRoleId(user.roleName),
+        userId: user.userId,
+        enabled: !user.enabled,
+      };
+      await updateAdminUser(editedUser);
+      console.log("User enabled/disabled successfully");
+      getUsersList(setUsersList); // Refresh user list
+    } catch (error) {
+      console.error("Error enabling/disabling user:", error);
+    }
   };
 
   return (
@@ -192,12 +205,12 @@ function UserTable() {
           </thead>
           <tbody>
             {usersList.map((user) => (
-              <Fragment key={user.id}>
-                {editUserId === user.id ? (
+              <Fragment key={user.userId}>
+                {editUserId === user.userId ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
-                    handleCancelClick={handleCancelClick}
+                    handleCancelClick={() => setEditUserId(null)}
                     handleEditFormSubmit={handleEditFormSubmit}
                     roles={roles} // Pass roles data to EditableRow
                   />
@@ -205,7 +218,7 @@ function UserTable() {
                   <ReadOnlyRow
                     contact={user}
                     handleEditClick={handleEditClick}
-                    handleDeleteClick={handleDeleteClick}
+                    handleEnableDisableClick={handleEnableDisableClick}
                   />
                 )}
               </Fragment>
