@@ -57,7 +57,6 @@ CREATE TABLE category (
 
 INSERT INTO category VALUES(NULL, "Items Wanted");
 INSERT INTO category VALUES(NULL, "Items for Sale");
-INSERT INTO category VALUES(NULL, "Academic Services");
 
 CREATE TABLE advertisement (
     advertisement_id INT NOT NULL AUTO_INCREMENT,

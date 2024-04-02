@@ -284,7 +284,46 @@ public class AdvertisementService {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	public ResponseEntity<Object> getAdListByCategory(AdvertisementByCategoryGetRequest request) {
+	public ResponseEntity<Object> getAdListByCategoryBasic(AdvertisementByCategoryGetRequest request) {
+		Optional<Category> categoryOpt = catRepo.findById(request.getCategoryId());
+		
+		if(categoryOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.CATEGORY_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		List<AdvertisementResponse> responseList = new ArrayList<>();
+		
+		List<Advertisement> adList = adRepo.getAllByCategoryIdEnabled(request.getCategoryId());
+		
+		for(Advertisement ad : adList) {
+			AdvertisementResponse responseObj = new AdvertisementResponse();
+			
+			responseObj.setAdvertisementId(ad.getAdvertisementId());
+			responseObj.setDisplayName(ad.getUser().getDisplayName());
+			responseObj.setTitle(ad.getTitle());
+			responseObj.setDescription(ad.getDescription());
+			responseObj.setCreatedTimestamp(ad.getCreatedTimestamp());
+			responseObj.setCategory(ad.getCategory());
+			responseObj.setPrice(ad.getPrice());
+			responseObj.setLocation(ad.getLocation());
+			responseObj.setEnabled(ad.getEnabled());
+			
+			Optional<AdvertisementImage> posterImageOpt = adImageRepo.getPosterImageByAdvertisementId(ad.getAdvertisementId());
+			
+			if(posterImageOpt.isPresent()) {
+				AdvertisementImage posterImage = posterImageOpt.get();
+				
+				responseObj.setPosterMimeType(posterImage.getMimeType());
+				responseObj.setPoster(posterImage.getData());
+			}
+			
+			responseList.add(responseObj);
+		}
+		
+		return new ResponseEntity<>(responseList, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<Object> getAdListByCategoryAdmin(AdvertisementByCategoryGetRequest request) {
 		Optional<Category> categoryOpt = catRepo.findById(request.getCategoryId());
 		
 		if(categoryOpt.isEmpty()) {
