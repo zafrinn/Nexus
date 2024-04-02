@@ -17,15 +17,15 @@ function ExchangeTable(props) {
 
   const handleAddFormChange = (e) => {
     e.preventDefault();
-    const fieldName = e.target.getAttribute('name');
+    const fieldName = e.target.name;
     const fieldValue = e.target.value;
-
+  
     const newFormData = { ...addFormData };
     newFormData[fieldName] = fieldValue;
-
+  
     setAddFormData(newFormData);
   };
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const newContact = {
