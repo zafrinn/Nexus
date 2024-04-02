@@ -5,6 +5,12 @@ import data from "./mockTextBooks.json";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 
+const SearchBox = styled('div')(({ theme }) => ({
+  border: '1px solid #ccc', // Add border
+  padding: '5px', // Add padding
+  borderRadius: '5px', // Add border radius
+}));
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -40,16 +46,18 @@ function TextBookExchange() {
   return (
     <div className={styles.TxtExchangeContainer}>
       <div className={styles.searchBar}>
-        <form style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-          <Search>
-            <StyledInputBase
-              placeholder="Search ISBN, Title..."
-              inputProps={{ 'aria-label': 'search' }}
-              value={searchValue}
-              onChange={handleSearchChange}
-            />
-          </Search>
-        </form>
+        <SearchBox> 
+          <form style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+            <Search>
+              <StyledInputBase
+                placeholder="Search ISBN, Title..."
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchValue}
+                onChange={handleSearchChange}
+              />
+            </Search>
+          </form>
+        </SearchBox>
       </div>
       <div className={styles.TxtExchangeTable}>
         <ExchangeTable searchValue={searchValue} data={data} />
