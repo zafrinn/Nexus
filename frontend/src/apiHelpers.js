@@ -70,6 +70,32 @@ export function logoutUser() {
 //   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================
 
+export async function createAdvertisement(formData) {
+  try {
+    const requestOptions = {
+      method: "POST",
+      body: formData,
+      headers: {
+        // "Content-Type": "multipart/form-data",
+      },
+      credentials: "include",
+      redirect: "follow",
+    };
+
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/advertisement/create",
+      requestOptions
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to create advertisement");
+    }
+  } catch (error) {
+    console.error("Error creating advertisement:", error);
+    throw error;
+  }
+}
+
 export async function getAdvertisements(setAdvertisementData) {
   try {
     const response = await fetch(
