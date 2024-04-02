@@ -1,5 +1,7 @@
 package com.cps630.nexus.security;
 
+import java.util.stream.Stream;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -41,7 +43,7 @@ public class SecurityConfig {
 	private CorsConfigurationSource corsConfig() {
 		CorsConfiguration config = new CorsConfiguration();
 
-		config.addAllowedOrigin("http://localhost:3000");
+		config.setAllowedOrigins(Stream.of("http://localhost:3000", "http://35.182.8.1:3000").toList());
 		config.addAllowedMethod(HttpMethod.POST);
 		config.addAllowedHeader("Content-Type");
 		config.setAllowCredentials(true);
