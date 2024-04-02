@@ -377,6 +377,39 @@
 					"response": []
 				},
 				{
+					"name": "api/v1/internal/admin/advertisement/list/get",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/admin/advertisement/list/get",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"admin",
+								"advertisement",
+								"list",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "api/v1/internal/basic/advertisement/get",
 					"request": {
 						"method": "POST",
@@ -415,7 +448,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"advertisementId\": 4,\n    \"message\": \"This car is a ripoff\"\n}",
+							"raw": "{\n    \"advertisementId\": 3,\n    \"message\": \"Interested in this basketball\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
