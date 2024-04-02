@@ -14,34 +14,12 @@ import {
 import { getAdvertisementsByCategoryId } from "../../apiHelpers";
 import styles from "../Dashboard/dashboard.module.css";
 
-function Ads(props) {
-  const [advertisements, setAdvertisements] = useState([]);
+function Ads({ advertisements }) {
   const [selectedAdvertisement, setSelectedAdvertisement] = useState(null);
 
   useEffect(() => {
-    loadAdvertisements();
+    // No need to fetch data here since it's passed as props
   }, []);
-
-  const loadAdvertisements = async () => {
-    try {
-      const category1Ads = await getAdvertisementsByCategoryId(1);
-      const category2Ads = await getAdvertisementsByCategoryId(2);
-
-      // Combine the advertisements from both categories
-      const allAds = [...category1Ads, ...category2Ads];
-
-      // Filter out duplicate advertisements based on advertisementId
-      const uniqueAds = allAds.filter(
-        (ad, index, self) =>
-          index ===
-          self.findIndex((a) => a.advertisementId === ad.advertisementId)
-      );
-      setAdvertisements(uniqueAds);
-    } catch (error) {
-      console.error("Error fetching advertisements:", error);
-      setAdvertisements([]);
-    }
-  };
 
   const handlePostClick = (advertisement) => {
     console.log(advertisement);

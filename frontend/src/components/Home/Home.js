@@ -5,10 +5,10 @@ import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import data from "./HomeMockData.json";
 import Ads from "./Ads.js";
 import { FormControlLabel, Switch, Select, MenuItem } from "@mui/material";
 import TmuLogo from "../../assets/TMU_LOGO.png";
+import { getAdvertisementsByCategoryId } from "../../apiHelpers"; // Import the API function
 
 const Search = styled("div")(({ theme }) => ({
   display: "flex",
@@ -156,8 +156,8 @@ function HomePage() {
   const [itemsForSale, setItemsForSale] = useState(true);
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [selectedLocation, setSelectedLocation] = useState("");
-  const [filteredData, setFilteredData] = useState(data);
-  const [searchValue, setSearchValue] = useState(""); // Define searchValue state
+  const [searchValue, setSearchValue] = useState("");
+  const [advertisements, setAdvertisements] = useState([]);
 
   const handleItemsWantedChange = (event) => {
     setItemsWanted(event.target.checked);
@@ -175,36 +175,51 @@ function HomePage() {
     setSelectedLocation(event.target.value);
   };
 
-  // Add handleSearchChange and handleSearchSubmit functions
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
   };
 
   useEffect(() => {
-    const filteredAds = data.filter((ad) => {
-      const meetsItemsWantedCondition =
-        !itemsWanted || (itemsWanted && ad.category.categoryId === 1);
-      const meetsItemsForSaleCondition =
-        !itemsForSale || (itemsForSale && ad.category.categoryId === 2);
-      const meetsPriceRangeCondition =
-        ad.price >= priceRange[0] && ad.price <= priceRange[1];
-      const meetsLocationCondition =
-        !selectedLocation || ad.location === selectedLocation;
-      const meetsSearchCondition =
-        !searchValue ||
-        ad.title.toLowerCase().includes(searchValue.toLowerCase());
+    const fetchData = async () => {
+      try {
+        const category1Ads = await getAdvertisementsByCategoryId(1);
+        const category2Ads = await getAdvertisementsByCategoryId(2);
+        const allAds = [...category1Ads, ...category2Ads];
+        const uniqueAds = allAds.filter(
+          (ad, index, self) =>
+            index ===
+            self.findIndex((a) => a.advertisementId === ad.advertisementId)
+        );
+        setAdvertisements(uniqueAds);
+      } catch (error) {
+        console.error("Error fetching advertisements:", error);
+      }
+    };
 
-      return (
-        ((itemsWanted && meetsItemsWantedCondition) ||
-          (itemsForSale && meetsItemsForSaleCondition)) &&
-        meetsPriceRangeCondition &&
-        meetsLocationCondition &&
-        meetsSearchCondition
-      );
-    });
+    fetchData();
+  }, []);
 
-    setFilteredData(filteredAds);
-  }, [itemsWanted, itemsForSale, priceRange, selectedLocation, searchValue]);
+  const filteredAds = advertisements.filter((ad) => {
+    const meetsItemsWantedCondition =
+      !itemsWanted || (itemsWanted && ad.category.categoryId === 1);
+    const meetsItemsForSaleCondition =
+      !itemsForSale || (itemsForSale && ad.category.categoryId === 2);
+    const meetsPriceRangeCondition =
+      ad.price >= priceRange[0] && ad.price <= priceRange[1];
+    const meetsLocationCondition =
+      !selectedLocation || ad.location === selectedLocation;
+    const meetsSearchCondition =
+      !searchValue ||
+      ad.title.toLowerCase().includes(searchValue.toLowerCase());
+
+    return (
+      ((itemsWanted && meetsItemsWantedCondition) ||
+        (itemsForSale && meetsItemsForSaleCondition)) &&
+      meetsPriceRangeCondition &&
+      meetsLocationCondition &&
+      meetsSearchCondition
+    );
+  });
 
   return (
     <div className={`${styles.HomeContainer} container`}>
@@ -225,9 +240,9 @@ function HomePage() {
         <div className={`${styles.homeColSecond} col-md-9`}>
           <SearchAd
             handleSearchChange={handleSearchChange}
-            searchValue={searchValue} // Pass searchValue state to SearchAd
+            searchValue={searchValue}
           />
-          <Ads data={filteredData} />
+          <Ads advertisements={filteredAds} /> {/* Pass filtered ads data */}
         </div>
       </div>
     </div>
