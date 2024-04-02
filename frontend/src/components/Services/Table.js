@@ -93,16 +93,33 @@ function ExchangeTable(props) {
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
-                    <TextField
-                      fullWidth
-                      id="location"
-                      name="location"
-                      label="Location"
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      onChange={handleAddFormChange}
-                    />
+                     <Select
+                    id="location"
+                    name="location"   
+                    value={addFormData.location}             
+                    onChange={handleAddFormChange}
+                    fullWidth
+                    required
+                    margin="normal"
+                    style = {{marginTop:'7px'}}
+                    variant="outlined"
+                  >
+                    <MenuItem value="" default>
+                      Select Location
+                    </MenuItem>
+                    <MenuItem value="Toronto">Toronto</MenuItem>
+                    <MenuItem value="Mississauga">Mississauga</MenuItem>
+                    <MenuItem value="Brampton">Brampton</MenuItem>
+                    <MenuItem value="Markham">Markham</MenuItem>
+                    <MenuItem value="Vaughan">Vaughan</MenuItem>
+                    <MenuItem value="Oakville">Oakville</MenuItem>
+                    <MenuItem value="Richmond Hill">Richmond Hill</MenuItem>
+                    <MenuItem value="Scarborough">Scarborough</MenuItem>
+                    <MenuItem value="Etobicoke">Etobicoke</MenuItem>
+                    <MenuItem value="North York">North York</MenuItem>
+                    <MenuItem value="Ajax">Ajax</MenuItem>
+                    <MenuItem value="Pickering">Pickering</MenuItem>
+                  </Select>
                   </Grid>
 
                   <Grid item xs={12} sm={1}>
