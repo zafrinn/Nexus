@@ -421,21 +421,19 @@ const PostAdsPage = () => {
               }}
             />
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mt-4"
+              style={{ backgroundColor: "rgb(134, 158, 207)", border: "none" }}
               onClick={handleSubmit}
-              style={{
-                backgroundColor: "#003FA7",
-                border: "none",
-                color: "white",
-                padding: "10px 20px",
-                textAlign: "center",
-                textDecoration: "none",
-                display: "inline-block",
-                fontSize: "16px",
-                margin: "4px 2px",
-                cursor: "pointer",
-                borderRadius: "5px",
-              }}
+              disabled={
+                !selectedType || // Disable if selectedType is null
+                !imageFile || // Disable if imageFile is null
+                !document.getElementById("title").value || // Disable if title is not entered
+                !document.getElementById("description").value || // Disable if description is not entered
+                !document.getElementById("price").value || // Disable if price is not entered
+                isNaN(parseFloat(document.getElementById("price").value)) || // Disable if price is not a number
+                parseFloat(document.getElementById("price").value) < 0 || // Disable if price is less than or equal to 0
+                !selectedLocation // Disable if selectedLocation is null
+              }
             >
               Post
             </button>
