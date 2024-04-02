@@ -1,92 +1,152 @@
-import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import styles from './home.module.css'; 
-import databaseImage from '../../assets/car.jpg';
-import { IoIosArrowForward } from "react-icons/io";
-import { Card, CardContent, CardActions, CardMedia, Typography, Button, Dialog, DialogContent, DialogActions, TextField, MenuItem, DialogTitle, Badge, Stack, Chip } from '@mui/material';
-
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Chip,
+  Stack,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
+import { getAdvertisementsByCategoryId } from "../../apiHelpers";
+import styles from "../Dashboard/dashboard.module.css";
 
 function Ads(props) {
-    const [open, setOpen] = useState(false);
-    const [selectedPost, setSelectedPost] = useState(null);
+  const [advertisements, setAdvertisements] = useState([]);
+  const [selectedAdvertisement, setSelectedAdvertisement] = useState(null);
 
-    const data = props.data;
+  useEffect(() => {
+    loadAdvertisements();
+  }, []);
 
-    const handlePostClick = (post) => {
-        setSelectedPost(post);
-        setOpen(true);
-    };
+  const loadAdvertisements = async () => {
+    try {
+      const category1Ads = await getAdvertisementsByCategoryId(1);
+      const category2Ads = await getAdvertisementsByCategoryId(2);
 
-    const handleClose = () => {
-        setOpen(false);
-        setSelectedPost(null);
-    };
+      // Combine the advertisements from both categories
+      const allAds = [...category1Ads, ...category2Ads];
 
-    return (
-        <div className={styles.adsContainer}>
-            {data.map((contact) => (
-                 <Card key={contact.id} sx={{ position: 'relative', maxWidth: 345 }}>
-                    <CardMedia
-                        
-                        sx={{ height: 140 }}
-                        image={databaseImage}
-                        title="green iguana"
-                        onClick={() => handlePostClick(contact)}
-                        style={{ cursor: 'pointer' }}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {contact.title} 
-                            
-                
-                        </Typography>
-                        
-                        {contact.price && (
-                            <Typography variant="body2" color="text.secondary">
-                                ${contact.price}
-                            </Typography>
-                        )}
-                    </CardContent>
-                    <div style={{ position: 'absolute', bottom: 0, right: 0, margin: '10px' }}>
-                        <Stack direction="row" spacing={1}>
-                            {contact.category.categoryId === 2 && (
-                                <Chip label="Sale" sx={{ backgroundColor: '#FBFFE1', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }}/>
-                            )}
-                            {contact.category.categoryId  === 1 && (
-                                <Chip label="Wanted" sx={{ backgroundColor: '#E1F1FF', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }} />
-                            )}
-                        </Stack>
-                    </div>
-                </Card>
-            ))}
+      // Filter out duplicate advertisements based on advertisementId
+      const uniqueAds = allAds.filter(
+        (ad, index, self) =>
+          index ===
+          self.findIndex((a) => a.advertisementId === ad.advertisementId)
+      );
+      setAdvertisements(uniqueAds);
+    } catch (error) {
+      console.error("Error fetching advertisements:", error);
+      setAdvertisements([]);
+    }
+  };
 
-            <Dialog open={open} onClose={handleClose}>
-                <DialogContent>
-                  <div style={{ position: 'absolute', top: 0, right: 0, margin: '10px' }}>
-                      <Stack direction="row" spacing={1}>
-                          {selectedPost?.category.categoryId === 2 && (
-                              <Chip label="Sale" sx={{ backgroundColor: '#FBFFE1', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }} />
-                          )}
-                          {selectedPost?.category.categoryId  === 1  && (
-                              <Chip label="Wanted"  sx={{ backgroundColor: '#E1F1FF', color: '#003FA7', boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.5)' }} />
-                          )}
-                      </Stack>
-                  </div>
-                  <Typography variant="h5" gutterBottom>{selectedPost?.title}</Typography>
-                  {selectedPost?.price && (
-                            <Typography variant="body1" gutterBottom>Price: ${selectedPost?.price}</Typography>
-                      )}
-                  
-                  <Typography variant="body1" gutterBottom>Location: {selectedPost?.location}</Typography>
-                  <Typography variant="body1" gutterBottom>Description: {selectedPost?.description}</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Close</Button>
-                    <Button>Contact</Button>
-                </DialogActions>
-            </Dialog>
-        </div>
-    );
+  const handlePostClick = (advertisement) => {
+    console.log(advertisement);
+    setSelectedAdvertisement(advertisement);
+  };
+
+  const handleClose = () => {
+    setSelectedAdvertisement(null);
+  };
+
+  return (
+    <div className={styles.userPostsContainer}>
+      {advertisements.map((advertisement) => (
+        <Card
+          key={advertisement.id}
+          sx={{ position: "relative", maxWidth: 345 }}
+        >
+          <CardMedia
+            sx={{ height: 140 }}
+            image={`data:image/${advertisement.posterMimeType};base64,${advertisement.poster}`}
+            title="Advertisement"
+            onClick={() => handlePostClick(advertisement)}
+            style={{ cursor: "pointer" }}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {advertisement.title}
+            </Typography>
+            {advertisement.price && (
+              <Typography variant="body2" color="text.secondary">
+                ${advertisement.price}
+              </Typography>
+            )}
+          </CardContent>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "0 16px 16px",
+            }}
+          >
+            <Stack direction="row" spacing={1}>
+              {advertisement.category.categoryId === 2 && (
+                <Chip
+                  label="Sale"
+                  sx={{
+                    backgroundColor: "#FBFFE1",
+                    color: "#003FA7",
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                  }}
+                />
+              )}
+              {advertisement.category.categoryId === 1 && (
+                <Chip
+                  label="Wanted"
+                  sx={{
+                    backgroundColor: "#E1F1FF",
+                    color: "#003FA7",
+                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                  }}
+                />
+              )}
+            </Stack>
+          </div>
+        </Card>
+      ))}
+      <Dialog open={selectedAdvertisement !== null} onClose={handleClose}>
+        <DialogContent>
+          {/* Display advertisement details in the dialog */}
+          {selectedAdvertisement && (
+            <>
+              <Typography gutterBottom variant="h5" component="div">
+                {selectedAdvertisement.title}
+              </Typography>
+              <Typography gutterBottom variant="h6" component="div">
+                {"$" + selectedAdvertisement.price}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Description:
+                <br></br>
+                {selectedAdvertisement.description}
+              </Typography>
+              <br></br>
+              <Typography variant="body2" color="text.secondary">
+                Creator: {selectedAdvertisement.displayName}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Location: {selectedAdvertisement.location}
+              </Typography>
+              <CardMedia
+                sx={{ height: 140 }}
+                image={`data:image/${selectedAdvertisement.posterMimeType};base64,${selectedAdvertisement.poster}`}
+                title="Advertisement"
+                style={{ marginTop: 10 }}
+              />
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 }
 
 export default Ads;
