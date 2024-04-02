@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import {
   getAdminAdvertisementsByCategoryId,
-  getAdvertisementsByCategoryId,
   updateAdminAdvertisement,
 } from "../../apiHelpers";
 import styles from "./dashboard.module.css";
@@ -39,8 +38,17 @@ function ManagePosts(props) {
     try {
       const category1Ads = await getAdminAdvertisementsByCategoryId(1);
       const category2Ads = await getAdminAdvertisementsByCategoryId(2);
+
+      // Combine the advertisements from both categories
       const allAds = [...category1Ads, ...category2Ads];
-      setAdvertisements(allAds);
+
+      // Filter out duplicate advertisements based on advertisementId
+      const uniqueAds = allAds.filter(
+        (ad, index, self) =>
+          index ===
+          self.findIndex((a) => a.advertisementId === ad.advertisementId)
+      );
+      setAdvertisements(uniqueAds);
     } catch (error) {
       console.error("Error fetching advertisements:", error);
       setAdvertisements([]);

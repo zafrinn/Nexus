@@ -90,13 +90,16 @@ function Dashboard() {
           {selectedTab === "EditAccount" && userData && (
             <EditAccount data={userData} updateUser={updateUser} />
           )}
-          {selectedTab === "Posts" && <UserPosts data={userData} />}
+          {selectedTab === "Posts" &&
+            userData &&
+            (userData.roleName !== "Admin" ? (
+              <UserPosts data={userData} />
+            ) : (
+              <ManagePosts data={userData} />
+            ))}
           {selectedTab === "ChangeUserPass" && (
             <ChangeUserPass data={userData} />
           )}
-          {userData &&
-            userData.roleName === "Admin" &&
-            selectedTab === "Posts" && <ManagePosts data={userData} />}
           {userData &&
             userData.roleName === "Admin" &&
             selectedTab === "Users" && <FullFeaturedCrudGrid />}
