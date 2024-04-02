@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
 import styles from "./dashboard.module.css";
-import adminPic from "../../assets/admin.png";
-import studentPic from "../../assets/student.png";
+import adminPic from "../../assets/admin_user.jpg";
+import studentPic from "../../assets/basic_user.jpg";
 import { IoIosArrowForward } from "react-icons/io";
 import {
   Card,
@@ -29,7 +29,11 @@ function UserProfile({ data }) {
   return (
     <div className={styles.accountInfo}>
       <div className={styles.account}>
-        <img src={userProfilePic} alt="Profile" className={styles.profilePic} />
+        <img
+          src={userProfilePic}
+          alt="Profile"
+          className={`${styles.profilePic} ${styles.smallProfilePic}`}
+        />
         <h3 className={styles.accountName}>{data.displayName}</h3>
         <p className={styles.accountEmail}>{data.emailAddress}</p>
       </div>

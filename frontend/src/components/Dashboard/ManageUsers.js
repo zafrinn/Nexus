@@ -1,12 +1,13 @@
 import styles from "./dashboard.module.css";
 import React, { useState, useEffect, Fragment } from "react";
-import { getUsersList } from "../../apiHelpers";
+import { getUsersList, updateAdminUser } from "../../apiHelpers";
 
 const EditableRow = ({
   editFormData,
   handleEditFormChange,
   handleCancelClick,
   handleEditFormSubmit,
+  roles,
 }) => {
   return (
     <tr>
@@ -32,6 +33,20 @@ const EditableRow = ({
           onChange={handleEditFormChange}
         />
       </td>
+      <td>
+        <select
+          className={styles.editInput}
+          name="roleName"
+          value={editFormData.roleName}
+          onChange={handleEditFormChange}
+        >
+          {roles.map((role) => (
+            <option key={role.userId} value={role.name}>
+              {role.name}
+            </option>
+          ))}
+        </select>
+      </td>
       <td className={`${styles.col} ${styles["col-4"]}`}>
         <button
           className={styles.exchangeBtn}
@@ -53,7 +68,11 @@ const EditableRow = ({
   );
 };
 
-const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
+const ReadOnlyRow = ({
+  contact,
+  handleEditClick,
+  handleEnableDisableClick,
+}) => {
   return (
     <tr>
       <td className={`${styles.col} ${styles["col-1"]}`}>
@@ -75,9 +94,9 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
         <button
           className={styles.exchangeBtn}
           role="button"
-          onClick={() => handleDeleteClick(contact.id)}
+          onClick={() => handleEnableDisableClick(contact)}
         >
-          Delete
+          {contact.enabled ? "Disable" : "Enable"}
         </button>
       </td>
     </tr>
@@ -86,14 +105,22 @@ const ReadOnlyRow = ({ contact, handleEditClick, handleDeleteClick }) => {
 
 function UserTable() {
   const [usersList, setUsersList] = useState([]);
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     getUsersList(setUsersList);
+    // Fetch roles data from API or define it locally
+    const rolesData = [
+      { id: 1, name: "Admin" },
+      { id: 2, name: "Basic" },
+    ];
+    setRoles(rolesData);
   }, []);
 
   const [editFormData, setEditFormData] = useState({
     displayName: "",
     emailAddress: "",
+    roleName: "", // Add roleName to edit form data
   });
   const [editUserId, setEditUserId] = useState(null);
 
@@ -103,27 +130,61 @@ function UserTable() {
     setEditFormData({ ...editFormData, [fieldName]: fieldValue });
   };
 
-  const handleEditFormSubmit = (event) => {
+  const handleEditFormSubmit = async (event) => {
     event.preventDefault();
-    // Implement your logic to submit edited user data
+    const editedUser = {
+      ...editFormData,
+      roleId: getRoleId(editFormData.roleName),
+      userId: editUserId,
+      enabled: true, // assuming edit mode always enables user
+    };
+    try {
+      await updateAdminUser(editedUser);
+      console.log("User data updated successfully");
+      setEditUserId(null); // Reset edit mode
+      getUsersList(setUsersList); // Refresh user list
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
+
+  const getRoleId = (roleName) => {
+    switch (roleName) {
+      case "Admin":
+        return 1;
+      case "Basic":
+        return 2;
+      default:
+        return 2; // Default to Basic if roleName is not recognized
+    }
   };
 
   const handleEditClick = (event, user) => {
     event.preventDefault();
-    setEditUserId(user.id);
+    setEditUserId(user.userId);
     const formValues = {
       displayName: user.displayName,
       emailAddress: user.emailAddress,
+      roleName: user.roleName, // Add roleName to formValues
     };
     setEditFormData(formValues);
   };
 
-  const handleCancelClick = () => {
-    setEditUserId(null);
-  };
-
-  const handleDeleteClick = (userId) => {
-    // Implement your logic to delete user with userId
+  const handleEnableDisableClick = async (user) => {
+    try {
+      const editedUser = {
+        displayName: user.displayName,
+        emailAddress: user.emailAddress,
+        roleId: getRoleId(user.roleName),
+        userId: user.userId,
+        enabled: !user.enabled,
+      };
+      await updateAdminUser(editedUser);
+      console.log("User enabled/disabled successfully");
+      getUsersList(setUsersList); // Refresh user list
+    } catch (error) {
+      console.error("Error enabling/disabling user:", error);
+    }
   };
 
   return (
@@ -144,19 +205,20 @@ function UserTable() {
           </thead>
           <tbody>
             {usersList.map((user) => (
-              <Fragment key={user.id}>
-                {editUserId === user.id ? (
+              <Fragment key={user.userId}>
+                {editUserId === user.userId ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
-                    handleCancelClick={handleCancelClick}
+                    handleCancelClick={() => setEditUserId(null)}
                     handleEditFormSubmit={handleEditFormSubmit}
+                    roles={roles} // Pass roles data to EditableRow
                   />
                 ) : (
                   <ReadOnlyRow
                     contact={user}
                     handleEditClick={handleEditClick}
-                    handleDeleteClick={handleDeleteClick}
+                    handleEnableDisableClick={handleEnableDisableClick}
                   />
                 )}
               </Fragment>

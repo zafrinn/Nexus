@@ -67,7 +67,7 @@ export function logoutUser() {
 }
 
 // ============================
-//   ADVERTISEMENT FUNCTIONS
+//   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================
 
 export async function getAdvertisements(setAdvertisementData) {
@@ -116,6 +116,8 @@ export async function updateAdvertisement(advertisementData) {
   }
 }
 
+// If the Ad is disabled, it won't be returned to this function
+// Good for HomePage
 export async function getAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
@@ -138,6 +140,55 @@ export async function getAdvertisementsByCategoryId(categoryId) {
   } catch (error) {
     console.error("Error fetching advertisements:", error);
     throw error;
+  }
+}
+// ============================
+//      ADMIN ADVERTISEMENT FUNCTIONS
+// ============================
+export async function updateAdminAdvertisement(advertisementData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/admin/advertisement/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(advertisementData),
+      }
+    );
+    if (response.ok) {
+      console.log("Advertisement updated successfully");
+    } else {
+      console.error("Failed to update advertisement");
+    }
+  } catch (error) {
+    console.error("Error updating advertisement:", error);
+  }
+}
+
+export async function getAdminAdvertisementsByCategoryId(categoryId) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/admin/advertisement/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ categoryId }),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Failed to fetch advertisements");
+    }
+  } catch (error) {
+    console.error("Error fetching advertisements:", error);
   }
 }
 
@@ -163,14 +214,38 @@ export async function getUsersList(setUsersList) {
     const data = await response.json();
     setUsersList(
       data.map((user) => ({
-        id: user.userId,
+        userId: user.userId,
         displayName: user.displayName,
         emailAddress: user.emailAddress,
         roleName: user.roleName,
+        enabled: user.enabled,
       }))
     );
   } catch (error) {
     console.error("Error fetching user data:", error);
     setUsersList([]);
+  }
+}
+
+export async function updateAdminUser(userData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/admin/user/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(userData),
+      }
+    );
+    if (response.ok) {
+      console.log("Admin user data updated successfully");
+    } else {
+      console.error("Failed to update admin user data");
+    }
+  } catch (error) {
+    console.error("Error updating admin user data:", error);
   }
 }

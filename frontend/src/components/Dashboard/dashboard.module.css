@@ -423,3 +423,8 @@
     font-size: 1.5rem;
   }
 }
+
+.smallProfilePic {
+  width: 100px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
