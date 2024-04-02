@@ -1,8 +1,6 @@
 import styles from './services.module.css';
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Paper, Select, MenuItem } from '@mui/material';
-
-
+import { TextField, Button, Grid, Paper, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
 
 function ExchangeTable(props) {
   const data = props.data;
@@ -95,35 +93,38 @@ function ExchangeTable(props) {
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
-                     <Select
-                    id="location"
-                    name="location"   
-                    value={addFormData.location}             
-                    onChange={handleAddFormChange}
-                    fullWidth
-                    required
-                    margin="normal"
-                    style = {{marginTop:'7px'}}
-                    variant="outlined"
-                  >
-                    <MenuItem value="" default>
-                      Select Location
-                    </MenuItem>
-                    <MenuItem value="Toronto">Toronto</MenuItem>
-                    <MenuItem value="Mississauga">Mississauga</MenuItem>
-                    <MenuItem value="Brampton">Brampton</MenuItem>
-                    <MenuItem value="Markham">Markham</MenuItem>
-                    <MenuItem value="Vaughan">Vaughan</MenuItem>
-                    <MenuItem value="Oakville">Oakville</MenuItem>
-                    <MenuItem value="Richmond Hill">Richmond Hill</MenuItem>
-                    <MenuItem value="Scarborough">Scarborough</MenuItem>
-                    <MenuItem value="Etobicoke">Etobicoke</MenuItem>
-                    <MenuItem value="North York">North York</MenuItem>
-                    <MenuItem value="Ajax">Ajax</MenuItem>
-                    <MenuItem value="Pickering">Pickering</MenuItem>
-                  </Select>
+                    <FormControl variant="outlined" fullWidth>
+                      <InputLabel id="location-label">Location</InputLabel>
+                      <Select
+                        labelId="location-label"
+                        id="location"
+                        name="location"   
+                        value={addFormData.location}             
+                        onChange={handleAddFormChange}
+                        fullWidth
+                        required
+                        margin="normal"
+                        style={{ marginTop: '7px' }}
+                        variant="outlined"
+                      >
+                        <MenuItem value="" disabled>
+                          <em>Select Location</em>
+                        </MenuItem>
+                        <MenuItem value="Toronto">Toronto</MenuItem>
+                        <MenuItem value="Mississauga">Mississauga</MenuItem>
+                        <MenuItem value="Brampton">Brampton</MenuItem>
+                        <MenuItem value="Markham">Markham</MenuItem>
+                        <MenuItem value="Vaughan">Vaughan</MenuItem>
+                        <MenuItem value="Oakville">Oakville</MenuItem>
+                        <MenuItem value="Richmond Hill">Richmond Hill</MenuItem>
+                        <MenuItem value="Scarborough">Scarborough</MenuItem>
+                        <MenuItem value="Etobicoke">Etobicoke</MenuItem>
+                        <MenuItem value="North York">North York</MenuItem>
+                        <MenuItem value="Ajax">Ajax</MenuItem>
+                        <MenuItem value="Pickering">Pickering</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
-
                   <Grid item xs={12} sm={1}>
                     <Button
                       type="submit"
@@ -172,4 +173,3 @@ function ExchangeTable(props) {
 }
 
 export default ExchangeTable;
-;
