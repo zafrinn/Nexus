@@ -11,7 +11,6 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
-import { getAdvertisementsByCategoryId } from "../../apiHelpers";
 import styles from "../Dashboard/dashboard.module.css";
 
 function Ads({ advertisements }) {
