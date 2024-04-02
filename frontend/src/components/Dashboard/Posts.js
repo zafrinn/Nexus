@@ -116,7 +116,7 @@ function UserPosts(props) {
               Edit
             </Button>
             <Stack direction="row" spacing={1}>
-              {contact.category.categoryId === 1 && (
+              {contact.category.categoryId === 2 && (
                 <Chip
                   label="Sale"
                   sx={{
@@ -126,7 +126,7 @@ function UserPosts(props) {
                   }}
                 />
               )}
-              {contact.category.categoryId === 2 && (
+              {contact.category.categoryId === 1 && (
                 <Chip
                   label="Wanted"
                   sx={{
