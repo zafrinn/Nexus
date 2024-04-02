@@ -14,6 +14,7 @@ import {
   MenuItem,
 } from "@mui/material";
 import {
+  getAdminAdvertisementsByCategoryId,
   getAdvertisementsByCategoryId,
   updateAdminAdvertisement,
 } from "../../apiHelpers";
@@ -36,8 +37,8 @@ function ManagePosts(props) {
 
   const loadAdvertisements = async () => {
     try {
-      const category1Ads = await getAdvertisementsByCategoryId(1);
-      const category2Ads = await getAdvertisementsByCategoryId(2);
+      const category1Ads = await getAdminAdvertisementsByCategoryId(1);
+      const category2Ads = await getAdminAdvertisementsByCategoryId(2);
       const allAds = [...category1Ads, ...category2Ads];
       setAdvertisements(allAds);
     } catch (error) {

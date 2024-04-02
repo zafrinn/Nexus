@@ -116,6 +116,8 @@ export async function updateAdvertisement(advertisementData) {
   }
 }
 
+// If the Ad is disabled, it won't be returned to this function
+// Good for HomePage
 export async function getAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
@@ -163,6 +165,30 @@ export async function updateAdminAdvertisement(advertisementData) {
     }
   } catch (error) {
     console.error("Error updating advertisement:", error);
+  }
+}
+
+export async function getAdminAdvertisementsByCategoryId(categoryId) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/admin/advertisement/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ categoryId }),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Failed to fetch advertisements");
+    }
+  } catch (error) {
+    console.error("Error fetching advertisements:", error);
   }
 }
 
