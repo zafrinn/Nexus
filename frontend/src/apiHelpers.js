@@ -115,10 +115,42 @@ export async function loginUser(formData) {
     }
   } catch (error) {
     console.error("Error:", error);
-    return { success: false, message: "An error occurred. Please try again later." };
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
   }
 }
 
+export async function resetPassword(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/external/password/reset",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return {
+        success: false,
+        message: "Password reset failed. Please try again.",
+      };
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
+}
 
 // ============================
 //   BASIC USER ADVERTISEMENT FUNCTIONS

@@ -5,6 +5,7 @@ import "./login-signup.css";
 import logo from "../../assets/logo.png";
 import slogan from "../../assets/slogan.png";
 import ReCAPTCHA from "react-google-recaptcha";
+import { resetPassword } from "../../apiHelpers";
 
 const PasswordReset = () => {
   const navigate = useNavigate();
@@ -23,26 +24,14 @@ const PasswordReset = () => {
       const formData = {
         username: e.target.username.value,
       };
-      try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/external/password/reset",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        if (response.ok) {
-          alert("Password reset instructions sent successfully!");
-          navigate("/");
-        } else {
-          alert("Password reset failed. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again later.");
+      let json = JSON.stringify(formData);
+      const { success, message } = await resetPassword(json);
+
+      if (success) {
+        alert("Password reset instructions sent successfully!");
+        navigate("/");
+      } else {
+        alert(message);
       }
     } else {
       console.log("Please complete the CAPTCHA");
