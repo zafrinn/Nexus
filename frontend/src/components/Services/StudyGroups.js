@@ -70,19 +70,12 @@ function StudyGroups(props) {
   });
   const [currentUser, setCurrentUser] = useState(null);
   const [userInAttendeeList, setUserInAttendeeList] = useState({});
+  const [seatAvailability, setSeatAvailability] = useState({});
 
   useEffect(() => {
     // Fetch study group list when component mounts
     getStudyGroupList(setStudyGroupData);
     getUserInformation(setCurrentUser);
-  }, []);
-
-  useEffect(() => {
-    // Fetch current user's information (e.g., displayName and emailAddress)
-    // Here you would call a function to get the current user's information and set it to currentUser state
-    // For example:
-    // getCurrentUserInformation().then(user => setCurrentUser(user));
-    // This depends on how you manage user authentication and information retrieval in your application
   }, []);
 
   useEffect(() => {
@@ -176,6 +169,39 @@ function StudyGroups(props) {
     } catch (error) {
       console.error("Error fetching study group details:", error);
       return false;
+    }
+  };
+
+  useEffect(() => {
+    // Fetch seat availability for all study groups
+    const fetchSeatAvailability = async () => {
+      const availability = {};
+      for (const studyGroup of studyGroupData) {
+        try {
+          const seats = await getSeatAvailability(studyGroup.studyGroupId);
+          availability[studyGroup.studyGroupId] = seats;
+        } catch (error) {
+          console.error(
+            `Error fetching seat availability for study group ${studyGroup.studyGroupId}:`,
+            error
+          );
+          availability[studyGroup.studyGroupId] = 0;
+        }
+      }
+      setSeatAvailability(availability);
+    };
+
+    fetchSeatAvailability();
+  }, [studyGroupData]);
+
+  const getSeatAvailability = async (studyGroupId) => {
+    try {
+      const studyGroupDetails = await getStudyGroupById(studyGroupId);
+      const attendeeList = studyGroupDetails.attendeeList;
+      return attendeeList.length;
+    } catch (error) {
+      console.error("Error fetching study group details:", error);
+      return 0;
     }
   };
 
@@ -278,7 +304,8 @@ function StudyGroups(props) {
                 {studyGroup.timestamp.split("T")[1].slice(0, -3)}
               </p>
               <p>
-                <strong>Seat Limit:</strong> {studyGroup.seatLimit}
+                <strong>Availability:</strong>{" "}
+                {studyGroup.seatLimit - seatAvailability[studyGroup.studyGroupId]}
               </p>
             </CardBody>
             <CardFooter>
