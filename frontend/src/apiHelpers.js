@@ -691,7 +691,7 @@ export async function contactTutorSessionOwner(formData) {
 export async function getStudyGroupList(setStudyGroupData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/list/get",
+      "http://" + hostname + ":8080/api/v1/internal/basic/studygroup/list/get",
       {
         method: "POST",
         headers: {
@@ -718,7 +718,7 @@ export async function getStudyGroupList(setStudyGroupData) {
 export async function joinStudyGroup(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/join",
+      "http://" + hostname + ":8080/api/v1/internal/basic/studygroup/join",
       {
         method: "POST",
         headers: {
@@ -741,7 +741,7 @@ export async function joinStudyGroup(formData) {
 export async function leaveStudyGroup(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/leave",
+      "http://" + hostname + ":8080/api/v1/internal/basic/studygroup/leave",
       {
         method: "POST",
         headers: {
@@ -764,7 +764,7 @@ export async function leaveStudyGroup(formData) {
 export async function updateStudyGroup(studyGroupData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/update",
+      "http://" + hostname + ":8080/api/v1/internal/basic/studygroup/update",
       {
         method: "POST",
         headers: {
@@ -788,7 +788,7 @@ export async function updateStudyGroup(studyGroupData) {
 export async function getStudyGroupById(studyGroupId) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/get",
+      "http://" + hostname + ":8080/api/v1/internal/basic/studygroup/get",
       {
         method: "POST",
         headers: {
@@ -814,7 +814,7 @@ export async function getStudyGroupById(studyGroupId) {
 export async function createStudyGroup(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/create",
+      "http://" + hostname + ":8080/api/v1/internal/basic/studygroup/create",
       {
         method: "POST",
         headers: {
