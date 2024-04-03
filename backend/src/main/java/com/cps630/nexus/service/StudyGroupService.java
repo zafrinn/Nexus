@@ -163,7 +163,7 @@ public class StudyGroupService {
 	}
 
 	public ResponseEntity<Object> getStudyGroupList() {
-		List<StudyGroup> studyGroupList = studyGroupRepo.findAll();
+		List<StudyGroup> studyGroupList = studyGroupRepo.getAllActive();
 		
 		List<StudyGroupResponse> responseList = new ArrayList<>();
 		
