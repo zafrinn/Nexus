@@ -58,7 +58,6 @@ function Pages({ userId, setUserId }) {
 
 function AppRouter() {
   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-  console.log(sessionStorage.getItem("userId"));
 
   return (
     <Router>

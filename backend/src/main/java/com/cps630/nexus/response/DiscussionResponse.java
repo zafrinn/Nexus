@@ -3,7 +3,7 @@ package com.cps630.nexus.response;
 import java.time.LocalDateTime;
 
 public class DiscussionResponse {
-	private Integer discussionid;
+	private Integer discussionId;
 	private String description;
 	private LocalDateTime createdTimestamp;
 	private LocalDateTime updatedTimestamp;
@@ -14,12 +14,12 @@ public class DiscussionResponse {
 	private LocalDateTime replyUpdatedTimestamp;
 	private String replyDisplayName;
 
-	public Integer getDiscussionid() {
-		return discussionid;
+	public Integer getDiscussionId() {
+		return discussionId;
 	}
 
-	public void setDiscussionid(Integer discussionid) {
-		this.discussionid = discussionid;
+	public void setDiscussionId(Integer discussionId) {
+		this.discussionId = discussionId;
 	}
 
 	public String getDescription() {

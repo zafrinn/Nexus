@@ -176,7 +176,7 @@ public class DiscussionService {
 		
 		for(Discussion discussion : discussionList) {
 			DiscussionResponse responseObj = new DiscussionResponse();
-			responseObj.setDiscussionid(discussion.getDiscussionId());
+			responseObj.setDiscussionId(discussion.getDiscussionId());
 			responseObj.setDescription(discussion.getDescription());
 			responseObj.setCreatedTimestamp(discussion.getCreatedTimestamp());
 			responseObj.setUpdatedTimestamp(discussion.getUpdatedTimestamp());
