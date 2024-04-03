@@ -586,3 +586,79 @@ export async function createDiscussionReply(formData) {
     };
   }
 }
+
+// ====================
+// TUTORING FUNCTIONS
+// ====================
+
+export async function createTutoringSession(formData) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (response.ok) {
+      console.log("Tutoring session created successfully");
+    } else {
+      console.error("Failed to create tutoring session");
+    }
+  } catch (error) {
+    console.error("Error creating tutoring session:", error);
+  }
+}
+
+export async function updateTutoringSession(formData) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (response.ok) {
+      console.log("Tutoring session updated successfully");
+    } else {
+      console.error("Failed to update tutoring session");
+    }
+  } catch (error) {
+    console.error("Error updating tutoring session:", error);
+  }
+}
+
+export async function getTutoringSessions(setTutoringSessions) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setTutoringSessions(data);
+    } else {
+      console.error("Failed to fetch tutoring sessions");
+    }
+  } catch (error) {
+    console.error("Error fetching tutoring sessions:", error);
+  }
+}

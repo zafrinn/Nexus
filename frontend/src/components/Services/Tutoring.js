@@ -1,12 +1,21 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, Grid, MenuItem, TextField, Typography } from '@mui/material';
-import tutorData from './tutor_data.json';
+import { createTutoringSession, getTutoringSessions } from '../../apiHelpers';
 
 function Tutoring() {
   const [courseName, setCourseName] = useState('');
   const [tutorLevel, setTutorLevel] = useState('');
-  const [tutorSessions, setTutorSessions] = useState(tutorData.tutorSessions);
+  const [tutorSessions, setTutorSessions] = useState([]);
+
+  useEffect(() => {
+    // Fetch tutor sessions on component mount
+    fetchTutoringSessions();
+  }, []);
+
+  const fetchTutoringSessions = () => {
+    getTutoringSessions(setTutorSessions);
+  };
 
   const handleCourseNameChange = (event) => {
     setCourseName(event.target.value);
@@ -16,31 +25,33 @@ function Tutoring() {
     setTutorLevel(event.target.value);
   };
 
-  const handleAddSession = () => {
+  const handleAddSession = async () => {
     if (courseName.trim() !== '' && tutorLevel.trim() !== '') {
-      const newSession = {
-        course_name: courseName,
-        tutorLevels: tutorLevel, 
-        tutor_session_id: tutorSessions.length + 1,
-        user_id: tutorSessions.length + 1 
+      const formData = {
+        courseName: courseName,
+        tutorLevelId: tutorLevel
       };
-      setTutorSessions([...tutorSessions, newSession]);
+      await createTutoringSession(formData);
+      // Refresh tutor sessions list after adding new session
+      fetchTutoringSessions();
       setCourseName('');
       setTutorLevel('');
     }
   };
+
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
       <Grid item xs={12} sx={{ paddingRight: 2 }}>
         <Box maxWidth="100%" margin="auto" padding={2}>
           <Box sx={{ marginBottom: 4 }}>
-            <Box sx={{ display: 'flex', gap: 2, marginBottom: 2 }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 2, marginBottom: 2 }}>
               <TextField
                 label="Course Name"
                 variant="outlined"
                 value={courseName}
                 onChange={handleCourseNameChange}
                 fullWidth
+                sx={{ flex: '1 1 auto' }}
               />
               <TextField
                 select
@@ -49,28 +60,29 @@ function Tutoring() {
                 onChange={handleTutorLevelChange}
                 variant="outlined"
                 fullWidth
+                sx={{ flex: '1 1 auto' }}
               >
-                <MenuItem value="Beginner">Beginner</MenuItem>
-                <MenuItem value="Intermediate">Intermediate</MenuItem>
-                <MenuItem value="Advanced">Advanced</MenuItem>
+                <MenuItem value="1">Beginner</MenuItem>
+                <MenuItem value="2">Intermediate</MenuItem>
+                <MenuItem value="3">Advanced</MenuItem>
               </TextField>
+              <Button onClick={handleAddSession} variant="contained" sx={{ backgroundColor: '#003FA7', color: 'white', flex: '0 0 auto' }}>
+                Add
+              </Button>
             </Box>
-            <Button onClick={handleAddSession} variant="contained" sx={{ backgroundColor: '#003FA7', color: 'white' }}>
-              Add
-            </Button>
           </Box>
   
           <Grid container spacing={6}>
             {tutorSessions.map((session) => (
-              <Grid item xs={12} sm={6} md={3} key={session.tutor_session_id}> {/* Keeps 4 cards in a row on md screens */}
+              <Grid item xs={12} sm={6} md={3} key={session.tutorSessionId}>
                 <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                   <CardActionArea>
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        {session.course_name}
+                        {session.courseName}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Tutor Level: {session.tutorLevels}
+                        Tutor Level: {session.tutorLevel.name}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -88,4 +100,5 @@ function Tutoring() {
     </Grid>
   );
 }
+
 export default Tutoring;
