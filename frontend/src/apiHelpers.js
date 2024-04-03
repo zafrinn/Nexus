@@ -275,3 +275,89 @@ export async function updateAdminUser(userData) {
     console.error("Error updating admin user data:", error);
   }
 }
+
+// ============================
+//      TEXTBOOK FUNCTIONS
+// ============================
+
+export async function createTextbook(textbookData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/textbook/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(textbookData),
+      }
+    );
+    if (response.ok) {
+      console.log("Textbook created successfully");
+    } else {
+      console.error("Failed to create textbook");
+    }
+  } catch (error) {
+    console.error("Error creating textbook:", error);
+  }
+}
+
+export async function updateTextbook(textbookData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/textbook/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(textbookData),
+      }
+    );
+    if (response.ok) {
+      console.log("Textbook updated successfully");
+    } else {
+      console.error("Failed to update textbook");
+    }
+  } catch (error) {
+    console.error("Error updating textbook:", error);
+  }
+}
+
+export async function getTextbooksList(setTextbooksList) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/textbook/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch textbooks data");
+    }
+    const data = await response.json();
+    setTextbooksList(
+      data.map((textbook) => ({
+        textbookId: textbook.textbookId,
+        name: textbook.name,
+        isbn: textbook.isbn,
+        location: textbook.location,
+        displayName: textbook.displayName,
+        emailAddress: textbook.emailAddress,
+        genre: {
+          textbookGenreId: textbook.genre.textbookGenreId,
+          name: textbook.genre.name,
+        },
+      }))
+    );
+  } catch (error) {
+    console.error("Error fetching textbooks data:", error);
+    setTextbooksList([]);
+  }
+}
