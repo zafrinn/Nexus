@@ -10,6 +10,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import { createTextbook } from "../../apiHelpers"; // Import createTextbook function
 
 function ExchangeTable(props) {
   const data = props.data;
@@ -24,7 +25,7 @@ function ExchangeTable(props) {
 
   useEffect(() => {
     setContacts(data);
-  }, []);
+  }, [data]);
 
   const handleAddFormChange = (e) => {
     e.preventDefault();
@@ -37,10 +38,22 @@ function ExchangeTable(props) {
     setAddFormData(newFormData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    // Handle submit asynchronously
     e.preventDefault();
+    const textbookData = {
+      name: addFormData.title,
+      isbn: addFormData.isbn,
+      location: addFormData.location,
+      genreId: 4, // Assuming genreId is always 4
+    };
+
+    // Call createTextbook function to create textbook
+    await createTextbook(textbookData);
+
+    // Update local state with new textbook
     const newContact = {
-      name: addFormData.name,
+      name: addFormData.title,
       isbn: addFormData.isbn,
       displayName: addFormData.displayName,
       location: addFormData.location,
@@ -73,7 +86,7 @@ function ExchangeTable(props) {
                     <TextField
                       fullWidth
                       id="name"
-                      name="name"
+                      name="title"
                       label="Title"
                       variant="outlined"
                       margin="normal"
