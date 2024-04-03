@@ -10,7 +10,11 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { getTextbooksList, createTextbook } from "../../apiHelpers"; // Import createTextbook function
+import {
+  getTextbooksList,
+  createTextbook,
+  contactTextbookOwner,
+} from "../../apiHelpers"; // Import createTextbook function
 
 function ExchangeTable(props) {
   const data = props.data;
@@ -70,8 +74,19 @@ function ExchangeTable(props) {
     getTextbooksList(setContacts);
   };
 
-  const handleActionClick = (contactId) => {
-    console.log(`Clicked action button for contact with ID: ${contactId}`);
+  const handleActionClick = async (textbookId) => {
+    console.log(`Clicked action button for textbook with ID: ${textbookId}`);
+    try {
+      let formData = {
+        textbookId: textbookId,
+        message: "Interested in this textbook",
+      };
+      let json = JSON.stringify(formData);
+      // Call the contactTextbookOwner API function
+      await contactTextbookOwner(json);
+    } catch (error) {
+      console.error("Error contacting textbook owner:", error);
+    }
   };
 
   const filteredData = contacts.filter(

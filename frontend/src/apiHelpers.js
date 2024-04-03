@@ -361,3 +361,26 @@ export async function getTextbooksList(setTextbooksList) {
     setTextbooksList([]);
   }
 }
+
+export async function contactTextbookOwner(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/textbook/contact",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: formData,
+      }
+    );
+    if (response.ok) {
+      console.log("Contacted textbook owner successfully");
+    } else {
+      console.error("Failed to contact textbook owner");
+    }
+  } catch (error) {
+    console.error("Error contacting textbook owner:", error);
+  }
+}
