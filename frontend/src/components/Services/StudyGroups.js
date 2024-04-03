@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TextField, Button, Grid, Paper } from "@mui/material";
-import { createStudyGroup, getStudyGroupList } from "../../apiHelpers"; // Import createStudyGroup and getStudyGroupList functions
+import {
+  createStudyGroup,
+  getStudyGroupList,
+  getUserInformation,
+  joinStudyGroup,
+  leaveStudyGroup,
+  updateStudyGroup,
+} from "../../apiHelpers"; // Import createStudyGroup, getStudyGroupList, joinStudyGroup, leaveStudyGroup, and updateStudyGroup functions
+import { getStudyGroupById } from "../../apiHelpers"; // Import getStudyGroupById function
 
 const Container = styled.div`
   max-width: 1200px;
@@ -60,10 +68,20 @@ function StudyGroups(props) {
     date: "",
     time: "",
   });
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     // Fetch study group list when component mounts
     getStudyGroupList(setStudyGroupData);
+    getUserInformation(setCurrentUser);
+  }, []);
+
+  useEffect(() => {
+    // Fetch current user's information (e.g., displayName and emailAddress)
+    // Here you would call a function to get the current user's information and set it to currentUser state
+    // For example:
+    // getCurrentUserInformation().then(user => setCurrentUser(user));
+    // This depends on how you manage user authentication and information retrieval in your application
   }, []);
 
   const colors = ["#FFDCB9", "#B9E1DC", "#D9E4DD", "#CBE7C4", "#E0C3FC"];
@@ -94,6 +112,60 @@ function StudyGroups(props) {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleJoinLeave = async (studyGroup) => {
+
+    // Check if user is the maker of the study group
+    if (studyGroup.displayName == currentUser.displayName) {
+      alert("Cannot join the study group you made.");
+      return;
+    }
+
+    try {
+      const studyGroupDetails = await getStudyGroupById(
+        studyGroup.studyGroupId
+      );
+      // const attendeeList = studyGroupDetails.attendeeList;
+
+      if (isUserInAttendeeList(studyGroupDetails)) {
+        console.log("Leaving Study Group: " + studyGroup.courseName);
+        // User is already in the attendee list, so leave the study group
+        await leaveStudyGroup({ studyGroupId: studyGroup.studyGroupId });
+        await updateStudyGroup({
+          ...studyGroup,
+          seatLimit: studyGroup.seatLimit + 1,
+        });
+      } else {
+        console.log("Joining Study Group: " + studyGroup.courseName);
+        // User is not in the attendee list, so join the study group
+        await joinStudyGroup({ studyGroupId: studyGroup.studyGroupId });
+        await updateStudyGroup({
+          ...studyGroup,
+          seatLimit: studyGroup.seatLimit - 1,
+        });
+      }
+      // Refresh the study group list after joining or leaving
+      getStudyGroupList(setStudyGroupData);
+    } catch (error) {
+      console.error("Error joining or leaving study group:", error);
+    }
+  };
+
+  const isUserInAttendeeList = (studyGroupDetails) => {
+    let attendeeList = studyGroupDetails.attendeeList;
+    // console.log(attendeeList);
+    const keys = Object.keys(attendeeList);
+    // console.log(keys);
+    keys.forEach((key) => {
+      // console.log(key);
+      // console.log(attendeeList[key]);
+      const attendee = attendeeList[key];
+      if (attendee.displayName == currentUser.displayName) {
+        return true;
+      }
+    });
+    return false;
   };
 
   return (
@@ -179,27 +251,34 @@ function StudyGroups(props) {
       </div>
 
       <GridContainer>
-        {studyGroupData.map((contact, index) => (
+        {studyGroupData.map((studyGroup, index) => (
           <Card key={index + 1} bgColor={colors[index % colors.length]}>
             <CardBody>
-              <CardTitle>{contact.courseName}</CardTitle>
+              <CardTitle>{studyGroup.courseName}</CardTitle>
               <hr />
               <p>
-                <strong>Room:</strong> {contact.room}
+                <strong>Room:</strong> {studyGroup.room}
               </p>
               <p>
-                <strong>Date:</strong> {contact.timestamp.split("T")[0]}
+                <strong>Date:</strong> {studyGroup.timestamp.split("T")[0]}
               </p>
               <p>
                 <strong>Time:</strong>{" "}
-                {contact.timestamp.split("T")[1].slice(0, -3)}
+                {studyGroup.timestamp.split("T")[1].slice(0, -3)}
               </p>
               <p>
-                <strong>Seat Limit:</strong> {contact.seatLimit}
+                <strong>Seat Limit:</strong> {studyGroup.seatLimit}
               </p>
             </CardBody>
             <CardFooter>
-              <Button2>Join</Button2>
+              <Button2 onClick={() => handleJoinLeave(studyGroup)}>
+                {/* {
+                isUserInAttendeeList(
+                  getStudyGroupById(studyGroup.studyGroupId)
+                )
+                  ? "Leave"
+                  : "Join"} */}
+              </Button2>
             </CardFooter>
           </Card>
         ))}
