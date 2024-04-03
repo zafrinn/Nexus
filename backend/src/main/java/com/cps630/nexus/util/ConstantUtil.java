@@ -36,4 +36,5 @@ public class ConstantUtil {
 	public static final String DISCUSSION_ALREADY_ANSWERED = "DISCUSSION_ALREADY_ANSWERED";
 	public static final String DISCUSSION_REPLY_NOT_FOUND = "DISCUSSION_REPLY_NOT_FOUND";
 	public static final String STUDY_GROUP_HOST = "STUDY_GROUP_HOST";
+	public static final String ATTENDEES_MORE_THAN_SEAT_LIMIT = "ATTENDEES_MORE_THAN_SEAT_LIMIT";
 }
