@@ -32,7 +32,7 @@ const LoginPage = ({ setUserId }) => {
         let json = JSON.stringify(formData);
         const { success, message } = await loginUser(json);
         if (success) {
-          navigate("/dashboard");
+          navigate("/home");
         } else {
           alert(message);
         }
