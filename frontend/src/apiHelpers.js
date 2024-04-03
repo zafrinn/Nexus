@@ -152,6 +152,33 @@ export async function resetPassword(formData) {
   }
 }
 
+export async function createUser(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/external/user/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false, message: "Signup failed. Please try again." };
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
+}
+
 // ============================
 //   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================

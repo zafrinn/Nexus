@@ -5,6 +5,7 @@ import "./login-signup.css";
 import logo from "../../assets/logo.png";
 import slogan from "../../assets/slogan.png";
 import ReCAPTCHA from "react-google-recaptcha";
+import { createUser } from "../../apiHelpers";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -26,26 +27,15 @@ const SignupPage = () => {
         password1: e.target.Password.value,
         password2: e.target.Password.value,
       };
-      try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/external/user/create",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        if (response.ok) {
-          alert("User created successfully!");
-          navigate("/");
-        } else {
-          alert("Signup failed. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again later.");
+      let json = JSON.stringify(formData);
+
+      const { success, message } = await createUser(json);
+
+      if (success) {
+        alert("User created successfully!");
+        navigate("/"); // Assuming navigate function is defined
+      } else {
+        alert(message);
       }
     } else {
       console.log("Please complete the CAPTCHA");
