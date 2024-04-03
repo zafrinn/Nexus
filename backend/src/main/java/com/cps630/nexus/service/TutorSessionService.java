@@ -18,10 +18,12 @@ import com.cps630.nexus.entity.User;
 import com.cps630.nexus.repository.TutorLevelRepository;
 import com.cps630.nexus.repository.TutorSessionRepository;
 import com.cps630.nexus.repository.UserRepository;
+import com.cps630.nexus.request.ContactTutorSessionRequest;
 import com.cps630.nexus.request.TutorSessionCreateRequest;
 import com.cps630.nexus.request.TutorSessionUpdateRequest;
 import com.cps630.nexus.response.TutorSessionResponse;
 import com.cps630.nexus.util.ConstantUtil;
+import com.cps630.nexus.util.EmailUtility;
 import com.cps630.nexus.util.Utility;
 
 import jakarta.transaction.Transactional;
@@ -110,5 +112,36 @@ public class TutorSessionService {
 		}
 		
 		return new ResponseEntity<>(responseList, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> contactTutorSession(ContactTutorSessionRequest request) {
+		Optional<TutorSession> tutorSessionOpt = tutorSessionRepo.findById(request.getTutorSessionId());
+		
+		if(tutorSessionOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.TUTOR_SESSION_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		TutorSession tutorSession = tutorSessionOpt.get();
+		
+		if(Objects.equals(Utility.getAuthenticatedUser().getUserId(), tutorSession.getUser().getUserId())) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER, "This is your own textbook"), HttpStatus.BAD_REQUEST);
+		}
+		
+		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
+		
+		if(userOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		User user = userOpt.get();
+		
+		String to = tutorSession.getUser().getEmailAddress();
+		String replyTo = user.getEmailAddress();
+		String title = "Nexus: " + tutorSession.getCourseName();
+		String message = "A Nexus member [" + user.getEmailAddress() + "] is attempting to contact you regarding a tutoring session you posted:\n\n" + request.getMessage();
+		
+		EmailUtility.sendEmail(to, replyTo, title, message);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
