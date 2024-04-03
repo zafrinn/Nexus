@@ -1,7 +1,9 @@
+let hostname = process.env.REACT_APP_HOSTNAME;
+
 export async function getUserInformation(setUserData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/user/get",
+      "http://" + hostname + ":8080/api/v1/internal/basic/user/get",
       {
         method: "POST",
         headers: {
@@ -24,7 +26,7 @@ export async function getUserInformation(setUserData) {
 export async function updateUserAccount(updatedData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/user/update",
+      "http://" + hostname + ":8080/api/v1/internal/basic/user/update",
       {
         method: "POST",
         headers: {
@@ -44,10 +46,10 @@ export async function updateUserAccount(updatedData) {
   }
 }
 
-export async function deleteUserAccount(contactId) {}
+export async function deleteUserAccount(contactId) { }
 
 export function logoutUser() {
-  fetch("http://localhost:8080/api/v1/internal/basic/logout", {
+  fetch("http://" + hostname + ":8080/api/v1/internal/basic/logout", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -73,7 +75,7 @@ export function logoutUser() {
 export async function updatePassword(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/password/update",
+      "http://" + hostname + ":8080/api/v1/internal/basic/password/update",
       {
         method: "POST",
         headers: {
@@ -97,7 +99,7 @@ export async function updatePassword(formData) {
 export async function loginUser(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/external/login",
+      "http://" + hostname + ":8080/api/v1/external/login",
       {
         method: "POST",
         headers: {
@@ -125,7 +127,7 @@ export async function loginUser(formData) {
 export async function resetPassword(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/external/password/reset",
+      "http://" + hostname + ":8080/api/v1/external/password/reset",
       {
         method: "POST",
         headers: {
@@ -155,7 +157,7 @@ export async function resetPassword(formData) {
 export async function createUser(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/external/user/create",
+      "http://" + hostname + ":8080/api/v1/external/user/create",
       {
         method: "POST",
         headers: {
@@ -196,7 +198,7 @@ export async function createAdvertisement(formData) {
     };
 
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/advertisement/create",
+      "http://" + hostname + ":8080/api/v1/internal/basic/advertisement/create",
       requestOptions
     );
 
@@ -212,7 +214,7 @@ export async function createAdvertisement(formData) {
 export async function getAdvertisements(setAdvertisementData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/advertisement/list/current/get",
+      "http://" + hostname + ":8080/api/v1/internal/basic/advertisement/list/current/get",
       {
         method: "POST",
         headers: {
@@ -235,7 +237,7 @@ export async function getAdvertisements(setAdvertisementData) {
 export async function updateAdvertisement(advertisementData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/advertisement/update",
+      "http://" + hostname + ":8080/api/v1/internal/basic/advertisement/update",
       {
         method: "POST",
         headers: {
@@ -260,7 +262,7 @@ export async function updateAdvertisement(advertisementData) {
 export async function getAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/advertisement/list/get",
+      "http://" + hostname + ":8080/api/v1/internal/basic/advertisement/list/get",
       {
         method: "POST",
         headers: {
@@ -287,7 +289,7 @@ export async function getAdvertisementsByCategoryId(categoryId) {
 export async function updateAdminAdvertisement(advertisementData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/admin/advertisement/update",
+      "http://" + hostname + ":8080/api/v1/internal/admin/advertisement/update",
       {
         method: "POST",
         headers: {
@@ -310,7 +312,7 @@ export async function updateAdminAdvertisement(advertisementData) {
 export async function getAdminAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/admin/advertisement/list/get",
+      "http://" + hostname + ":8080/api/v1/internal/admin/advertisement/list/get",
       {
         method: "POST",
         headers: {
@@ -338,7 +340,7 @@ export async function getAdminAdvertisementsByCategoryId(categoryId) {
 export async function getUsersList(setUsersList) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/admin/user/list/get",
+      "http://" + hostname + ":8080/api/v1/internal/admin/user/list/get",
       {
         method: "POST",
         headers: {
@@ -369,7 +371,7 @@ export async function getUsersList(setUsersList) {
 export async function updateAdminUser(userData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/admin/user/update",
+      "http://" + hostname + ":8080/api/v1/internal/admin/user/update",
       {
         method: "POST",
         headers: {
@@ -396,7 +398,7 @@ export async function updateAdminUser(userData) {
 export async function createTextbook(textbookData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/textbook/create",
+      "http://" + hostname + ":8080/api/v1/internal/basic/textbook/create",
       {
         method: "POST",
         headers: {
@@ -419,7 +421,7 @@ export async function createTextbook(textbookData) {
 export async function updateTextbook(textbookData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/textbook/update",
+      "http://" + hostname + ":8080/api/v1/internal/basic/textbook/update",
       {
         method: "POST",
         headers: {
@@ -442,7 +444,7 @@ export async function updateTextbook(textbookData) {
 export async function getTextbooksList(setTextbooksList) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/textbook/list/get",
+      "http://" + hostname + ":8080/api/v1/internal/basic/textbook/list/get",
       {
         method: "POST",
         headers: {
@@ -478,7 +480,7 @@ export async function getTextbooksList(setTextbooksList) {
 export async function contactTextbookOwner(formData) {
   try {
     const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/textbook/contact",
+      "http://" + hostname + ":8080/api/v1/internal/basic/textbook/contact",
       {
         method: "POST",
         headers: {
@@ -495,5 +497,92 @@ export async function contactTextbookOwner(formData) {
     }
   } catch (error) {
     console.error("Error contacting textbook owner:", error);
+  }
+}
+
+// ====================
+// Q&A Endpoints
+// ====================
+
+export async function getDiscussionList(setDiscussionData) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/discussion/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+
+      setDiscussionData(data)
+    }
+
+    else {
+      console.error("Failed to fetch discussion data");
+    }
+  } catch (error) {
+    console.error("Error fetching discussion data:", error);
+  }
+}
+
+export async function createDiscussion(formData) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/discussion/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false, message: "Discussion creation failed. Please try again." };
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
+  }
+}
+
+export async function createDiscussionReply(formData) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/discussion/reply/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false, message: "Discussion reply creation failed. Please try again." };
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return {
+      success: false,
+      message: "An error occurred. Please try again later.",
+    };
   }
 }
