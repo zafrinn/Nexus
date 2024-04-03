@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cps630.nexus.request.ContactTextbookRequest;
 import com.cps630.nexus.request.TextbookCreateRequest;
 import com.cps630.nexus.request.TextbookUpdateRequest;
 import com.cps630.nexus.service.TextbookService;
@@ -32,5 +33,10 @@ public class TextbookController {
 	@PostMapping("/internal/basic/textbook/list/get")
 	public ResponseEntity<Object> getTextbookList() {
 		return service.getTextbookList();
+	}
+	
+	@PostMapping("/internal/basic/textbook/contact")
+	public ResponseEntity<Object> contactTextbook(@RequestBody @Valid ContactTextbookRequest request) {
+		return service.contactTextbook(request);
 	}
 }
