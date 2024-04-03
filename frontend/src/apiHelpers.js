@@ -707,3 +707,26 @@ export async function contactTutorSessionOwner(formData) {
 >>>>>>> 1e830f8 (Added createStudyGroup function. Added the function to StudyGroup.js)
   }
 }
+
+export async function getStudyGroupList(setStudyGroupData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      setStudyGroupData(data); // Assuming setStudyGroupData is a function passed from the component
+    } else {
+      console.error("Failed to fetch study group list");
+    }
+  } catch (error) {
+    console.error("Error fetching study group list:", error);
+  }
+}

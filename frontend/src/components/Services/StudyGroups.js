@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TextField, Button, Grid, Paper } from "@mui/material";
-import { createStudyGroup } from "../../apiHelpers"; // Import createStudyGroup function
+import { createStudyGroup, getStudyGroupList } from "../../apiHelpers"; // Import createStudyGroup and getStudyGroupList functions
 
 const Container = styled.div`
   max-width: 1200px;
@@ -19,6 +19,7 @@ const Card = styled.div`
   width: calc(33.33% - 20px);
   margin-bottom: 20px;
   margin-right: 20px;
+  margin-top: 20px;
   background-color: ${(props) => props.bgColor};
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -52,56 +53,47 @@ const Button2 = styled.button`
 `;
 
 function StudyGroups(props) {
-  const [contacts, setContacts] = useState([]);
-
-  const colors = ["#FFDCB9", "#B9E1DC", "#D9E4DD", "#CBE7C4", "#E0C3FC"];
-
-  const icons = ["frame.png", "calendar.png", "clock.png", "location.png"];
-
-  const [addFormData, setAddFormData] = useState({
+  const [studyGroupData, setStudyGroupData] = useState([]);
+  const [formData, setFormData] = useState({
     courseName: "",
     room: "",
     date: "",
     time: "",
   });
 
-  const handleAddFormChange = (e) => {
-    const fieldName = e.target.name;
-    let fieldValue = e.target.value;
-    fieldValue = fieldValue.charAt(0).toUpperCase() + fieldValue.slice(1);
+  useEffect(() => {
+    // Fetch study group list when component mounts
+    getStudyGroupList(setStudyGroupData);
+  }, []);
 
-    setAddFormData({ ...addFormData, [fieldName]: fieldValue });
-  };
+  const colors = ["#FFDCB9", "#B9E1DC", "#D9E4DD", "#CBE7C4", "#E0C3FC"];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Combine date and time from input fields
-      const timestamp = `${addFormData.date}T${addFormData.time}:00`;
-
-      // Create the study group object with the combined timestamp
-      const newStudyGroup = {
-        timestamp,
-        room: addFormData.room,
-        courseName: addFormData.courseName,
-        seatLimit: 4, // Assuming seat limit is always 4
+      const timestamp = `${formData.date}T${formData.time}:00`;
+      const studyGroup = {
+        courseName: formData.courseName,
+        room: formData.room,
+        timestamp: timestamp,
+        seatLimit: 5, // Assuming seat limit is always 4
       };
-
-      // Call the createStudyGroup API function with the new study group object
-      await createStudyGroup(newStudyGroup);
-
-      // Clear the form fields
-      setAddFormData({
+      await createStudyGroup(studyGroup);
+      getStudyGroupList(setStudyGroupData);
+      setFormData({
         courseName: "",
         room: "",
         date: "",
         time: "",
       });
-
-      // Optionally, you can fetch and update the list of study groups here
     } catch (error) {
       console.error("Error creating study group:", error);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -121,11 +113,11 @@ function StudyGroups(props) {
                       variant="outlined"
                       margin="normal"
                       required
-                      value={addFormData.courseName}
-                      onChange={handleAddFormChange}
+                      value={formData.courseName}
+                      onChange={handleInputChange}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={3}>
                     <TextField
                       fullWidth
                       id="room"
@@ -134,8 +126,8 @@ function StudyGroups(props) {
                       variant="outlined"
                       margin="normal"
                       required
-                      value={addFormData.room}
-                      onChange={handleAddFormChange}
+                      value={formData.room}
+                      onChange={handleInputChange}
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
@@ -149,8 +141,8 @@ function StudyGroups(props) {
                       margin="normal"
                       required
                       InputLabelProps={{ shrink: true }}
-                      value={addFormData.date}
-                      onChange={handleAddFormChange}
+                      value={formData.date}
+                      onChange={handleInputChange}
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
@@ -164,8 +156,8 @@ function StudyGroups(props) {
                       margin="normal"
                       required
                       InputLabelProps={{ shrink: true }}
-                      value={addFormData.time}
-                      onChange={handleAddFormChange}
+                      value={formData.time}
+                      onChange={handleInputChange}
                     />
                   </Grid>
                   <Grid item xs={12} sm={1}>
@@ -187,7 +179,7 @@ function StudyGroups(props) {
       </div>
 
       <GridContainer>
-        {contacts.map((contact, index) => (
+        {studyGroupData.map((contact, index) => (
           <Card key={index + 1} bgColor={colors[index % colors.length]}>
             <CardBody>
               <CardTitle>{contact.courseName}</CardTitle>
@@ -196,10 +188,14 @@ function StudyGroups(props) {
                 <strong>Room:</strong> {contact.room}
               </p>
               <p>
-                <strong>Date:</strong> {contact.date}
+                <strong>Date:</strong> {contact.timestamp.split("T")[0]}
               </p>
               <p>
-                <strong>Time:</strong> {contact.time}
+                <strong>Time:</strong>{" "}
+                {contact.timestamp.split("T")[1].slice(0, -3)}
+              </p>
+              <p>
+                <strong>Seat Limit:</strong> {contact.seatLimit}
               </p>
             </CardBody>
             <CardFooter>
