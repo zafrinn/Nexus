@@ -40,6 +40,8 @@ const PostAdsPage = () => {
     };
   }, []);
 
+  
+
   const handleSelectType = (type) => {
     setSelectedType(type);
     setDropdownOpenType(false);
@@ -137,6 +139,7 @@ const PostAdsPage = () => {
                 id="dropdown-type"
                 onClick={() => setDropdownOpenType(!dropdownOpenType)}
                 style={{
+                  marginTop: "18px",
                   width: "100%",
                   backgroundColor: "white",
                   color: "black",
@@ -175,7 +178,7 @@ const PostAdsPage = () => {
           />
           <div
             style={{
-              marginTop: "-20px",
+              marginTop: "15px",
               width: "70%",
               marginLeft: "15%",
               backgroundColor: "white",
@@ -249,7 +252,7 @@ const PostAdsPage = () => {
           />
           <div
             style={{
-              marginTop: "-22.5px",
+              marginTop: "15px",
               width: "70%",
               marginLeft: "15%",
               backgroundColor: "white",
