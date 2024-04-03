@@ -124,7 +124,7 @@ public class TutorSessionService {
 		TutorSession tutorSession = tutorSessionOpt.get();
 		
 		if(Objects.equals(Utility.getAuthenticatedUser().getUserId(), tutorSession.getUser().getUserId())) {
-			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER, "This is your own textbook"), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER, "This is your own tutoring session"), HttpStatus.BAD_REQUEST);
 		}
 		
 		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());

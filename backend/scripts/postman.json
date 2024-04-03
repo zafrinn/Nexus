@@ -171,25 +171,13 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "images",
-									"contentType": "",
-									"type": "file",
-									"src": [
-										"/home/stephan/Pictures/Screenshots/lab3-task2-1.png",
-										"/home/stephan/Pictures/Screenshots/lab3-task2-2.png",
-										"/home/stephan/Pictures/Screenshots/lab3-task2-3.png"
-									]
-								},
-								{
-									"key": "body",
-									"value": "{\n    \"title\": \"some title\",\n    \"description\": \"some description\",\n    \"categoryId\": 1\n}",
-									"contentType": "application/json",
-									"type": "text"
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"some title\",\n    \"description\": \"some description\",\n    \"price\": \"5.99\",\n    \"location\": \"Toronto\",\n    \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
 							"raw": "localhost:8080/api/v1/internal/basic/advertisement/create",
@@ -467,6 +455,38 @@
 								"internal",
 								"basic",
 								"advertisement",
+								"contact"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/v1/internal/basic/tutorsession/contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tutorSessionId\": 1,\n    \"message\": \"Interested in this tutoring session\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/internal/basic/tutorsession/contact",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"internal",
+								"basic",
+								"tutorsession",
 								"contact"
 							]
 						}
