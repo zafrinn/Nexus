@@ -65,8 +65,8 @@ CREATE TABLE advertisement (
     description VARCHAR(1000) NOT NULL,
     created_timestamp DATETIME NOT NULL,
     category_id INT NOT NULL,
-    price DECIMAL(10, 2) NULL,
-    location VARCHAR(100) NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    location VARCHAR(100) NOT NULL,
     enabled BOOLEAN NOT NULL,
 
     PRIMARY KEY(advertisement_id),

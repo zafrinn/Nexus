@@ -18,10 +18,12 @@ import com.cps630.nexus.entity.User;
 import com.cps630.nexus.repository.TextbookGenreRepository;
 import com.cps630.nexus.repository.TextbookRepository;
 import com.cps630.nexus.repository.UserRepository;
+import com.cps630.nexus.request.ContactTextbookRequest;
 import com.cps630.nexus.request.TextbookCreateRequest;
 import com.cps630.nexus.request.TextbookUpdateRequest;
 import com.cps630.nexus.response.TextbookResponse;
 import com.cps630.nexus.util.ConstantUtil;
+import com.cps630.nexus.util.EmailUtility;
 import com.cps630.nexus.util.Utility;
 
 import jakarta.transaction.Transactional;
@@ -116,5 +118,36 @@ public class TextbookService {
 		}
 		
 		return new ResponseEntity<>(responseList, HttpStatus.OK);
+	}
+
+	public ResponseEntity<Object> contactTextbook(ContactTextbookRequest request) {
+		Optional<Textbook> textbookOpt = textbookRepo.findById(request.getTextbookId());
+		
+		if(textbookOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.TEXTBOOK_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		Textbook textbook = textbookOpt.get();
+		
+		if(Objects.equals(Utility.getAuthenticatedUser().getUserId(), textbook.getUser().getUserId())) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER, "This is your own textbook"), HttpStatus.BAD_REQUEST);
+		}
+		
+		Optional<User> userOpt = userRepo.findById(Utility.getAuthenticatedUser().getUserId());
+		
+		if(userOpt.isEmpty()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.USER_NOT_FOUND), HttpStatus.BAD_REQUEST);
+		}
+		
+		User user = userOpt.get();
+		
+		String to = textbook.getUser().getEmailAddress();
+		String replyTo = user.getEmailAddress();
+		String title = "Nexus: " + textbook.getName();
+		String message = "A Nexus member [" + user.getEmailAddress() + "] is attempting to contact you regarding a textbook you posted:\n\n" + request.getMessage();
+		
+		EmailUtility.sendEmail(to, replyTo, title, message);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
