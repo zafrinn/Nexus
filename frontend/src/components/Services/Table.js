@@ -10,17 +10,19 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { createTextbook } from "../../apiHelpers"; // Import createTextbook function
+import { getTextbooksList, createTextbook } from "../../apiHelpers"; // Import createTextbook function
 
 function ExchangeTable(props) {
   const data = props.data;
   const [contacts, setContacts] = useState(data);
+  const [textbooks, setTextbooks] = useState([]);
   const [addFormData, setAddFormData] = useState({
     title: "",
     isbn: "",
     displayName: "",
     location: "",
   });
+
   const searchValue = props.searchValue.toLowerCase();
 
   useEffect(() => {
@@ -32,35 +34,40 @@ function ExchangeTable(props) {
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
 
-    const newFormData = { ...addFormData };
-    newFormData[fieldName] = fieldValue;
-
-    setAddFormData(newFormData);
+    setAddFormData({
+      ...addFormData,
+      [fieldName]: fieldValue,
+    });
   };
 
   const handleSubmit = async (e) => {
-    // Handle submit asynchronously
     e.preventDefault();
     const textbookData = {
       name: addFormData.title,
       isbn: addFormData.isbn,
+      displayName: addFormData.displayName,
       location: addFormData.location,
       genreId: 4, // Assuming genreId is always 4
     };
 
-    // Call createTextbook function to create textbook
-    await createTextbook(textbookData);
+    try {
+      // Call createTextbook function to create textbook
+      await createTextbook(textbookData);
+    } catch (error) {
+      // Log error message if an exception occurs
+      console.error("Error creating textbook:", error);
+    }
 
-    // Update local state with new textbook
-    const newContact = {
-      name: addFormData.title,
-      isbn: addFormData.isbn,
-      displayName: addFormData.displayName,
-      location: addFormData.location,
-    };
+    // Reset form fields to empty
+    setAddFormData({
+      title: "",
+      isbn: "",
+      displayName: "",
+      location: "",
+    });
 
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
+    // Fetch updated list of textbooks
+    getTextbooksList(setContacts);
   };
 
   const handleActionClick = (contactId) => {
@@ -85,12 +92,13 @@ function ExchangeTable(props) {
                   <Grid item xs={12} sm={4}>
                     <TextField
                       fullWidth
-                      id="name"
+                      id="title"
                       name="title"
                       label="Title"
                       variant="outlined"
                       margin="normal"
                       required
+                      value={addFormData.title}
                       onChange={handleAddFormChange}
                     />
                   </Grid>
@@ -103,6 +111,7 @@ function ExchangeTable(props) {
                       variant="outlined"
                       margin="normal"
                       required
+                      value={addFormData.isbn}
                       onChange={handleAddFormChange}
                     />
                   </Grid>
@@ -115,6 +124,7 @@ function ExchangeTable(props) {
                       variant="outlined"
                       margin="normal"
                       required
+                      value={addFormData.displayName}
                       onChange={handleAddFormChange}
                     />
                   </Grid>
