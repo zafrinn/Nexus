@@ -14,12 +14,14 @@ import {
   getTextbooksList,
   createTextbook,
   contactTextbookOwner,
+  getUserInformation,
 } from "../../apiHelpers"; // Import createTextbook function
 
 function ExchangeTable(props) {
   const data = props.data;
   const [contacts, setContacts] = useState(data);
   const [textbooks, setTextbooks] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
   const [addFormData, setAddFormData] = useState({
     title: "",
     isbn: "",
@@ -31,6 +33,7 @@ function ExchangeTable(props) {
 
   useEffect(() => {
     setContacts(data);
+    getUserInformation(setCurrentUser);
   }, [data]);
 
   const handleAddFormChange = (e) => {
@@ -74,11 +77,17 @@ function ExchangeTable(props) {
     getTextbooksList(setContacts);
   };
 
-  const handleActionClick = async (textbookId) => {
-    console.log(`Clicked action button for textbook with ID: ${textbookId}`);
+  const handleActionClick = async (contact) => {
+    console.log(`Clicked action button for textbook with ID: ${contact.textbookId}`);
+
+    if (contact.displayName == currentUser.displayName){
+      alert("Cannot exchange with yourself!");
+      return;
+    }
+    
     try {
       let formData = {
-        textbookId: textbookId,
+        textbookId: contact.textbookId,
         message: "Interested in this textbook",
       };
       let json = JSON.stringify(formData);
@@ -225,7 +234,7 @@ function ExchangeTable(props) {
                   <button
                     className={styles.exchangeBtn}
                     role="button"
-                    onClick={() => handleActionClick(contact.textbookId)}
+                    onClick={() => handleActionClick(contact)}
                   >
                     Exchange
                   </button>
