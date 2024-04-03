@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './services.module.css';
 import ExchangeTable from './Table';
-import data from "./mockTextBooks.json";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { getTextbooksList } from '../../apiHelpers'; // Import getTextbooksList function
 
 const SearchBox = styled('div')(({ theme }) => ({
-  border: '1px solid #ccc', // Add border
-  padding: '5px', // Add padding
-  borderRadius: '5px', // Add border radius
+  border: '1px solid #ccc',
+  padding: '5px',
+  borderRadius: '5px',
 }));
 
 const Search = styled('div')(({ theme }) => ({
@@ -38,6 +38,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function TextBookExchange() {
   const [searchValue, setSearchValue] = useState('');
+  const [textbooks, setTextbooks] = useState([]);
+
+  useEffect(() => {
+    // Fetch textbooks data when component mounts
+    getTextbooksList(setTextbooks);
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
@@ -46,7 +52,7 @@ function TextBookExchange() {
   return (
     <div className={styles.TxtExchangeContainer}>
       <div className={styles.searchBar}>
-        <SearchBox> 
+        <SearchBox>
           <form style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <Search>
               <StyledInputBase
@@ -60,7 +66,7 @@ function TextBookExchange() {
         </SearchBox>
       </div>
       <div className={styles.TxtExchangeTable}>
-        <ExchangeTable searchValue={searchValue} data={data} />
+        <ExchangeTable searchValue={searchValue} data={textbooks} /> {/* Pass fetched textbooks data */}
       </div>
     </div>
   );
