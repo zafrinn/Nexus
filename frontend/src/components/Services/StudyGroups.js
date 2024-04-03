@@ -115,35 +115,32 @@ function StudyGroups(props) {
   };
 
   const handleJoinLeave = async (studyGroup) => {
-
     // Check if user is the maker of the study group
-    if (studyGroup.displayName == currentUser.displayName) {
+    if (studyGroup.displayName === currentUser.displayName) {
       alert("Cannot join the study group you made.");
       return;
     }
 
     try {
-      const studyGroupDetails = await getStudyGroupById(
+      const isInAttendeeList = await isUserInAttendeeList(
         studyGroup.studyGroupId
       );
-      // const attendeeList = studyGroupDetails.attendeeList;
-
-      if (isUserInAttendeeList(studyGroupDetails)) {
+      if (isInAttendeeList) {
         console.log("Leaving Study Group: " + studyGroup.courseName);
         // User is already in the attendee list, so leave the study group
         await leaveStudyGroup({ studyGroupId: studyGroup.studyGroupId });
-        await updateStudyGroup({
-          ...studyGroup,
-          seatLimit: studyGroup.seatLimit + 1,
-        });
+        // await updateStudyGroup({
+        //   ...studyGroup,
+        //   seatLimit: studyGroup.seatLimit + 1,
+        // });
       } else {
         console.log("Joining Study Group: " + studyGroup.courseName);
         // User is not in the attendee list, so join the study group
         await joinStudyGroup({ studyGroupId: studyGroup.studyGroupId });
-        await updateStudyGroup({
-          ...studyGroup,
-          seatLimit: studyGroup.seatLimit - 1,
-        });
+        // await updateStudyGroup({
+        //   ...studyGroup,
+        //   seatLimit: studyGroup.seatLimit - 1,
+        // });
       }
       // Refresh the study group list after joining or leaving
       getStudyGroupList(setStudyGroupData);
@@ -152,20 +149,27 @@ function StudyGroups(props) {
     }
   };
 
-  const isUserInAttendeeList = (studyGroupDetails) => {
-    let attendeeList = studyGroupDetails.attendeeList;
-    // console.log(attendeeList);
-    const keys = Object.keys(attendeeList);
-    // console.log(keys);
-    keys.forEach((key) => {
-      // console.log(key);
-      // console.log(attendeeList[key]);
-      const attendee = attendeeList[key];
-      if (attendee.displayName == currentUser.displayName) {
-        return true;
-      }
-    });
-    return false;
+  const isUserInAttendeeList = async (studyGroupId) => {
+    try {
+      // console.log("Checking attendee list for study group:", studyGroupId);
+      const studyGroupDetails = await getStudyGroupById(studyGroupId);
+      // console.log("Study Group Details:", studyGroupDetails);
+
+      const attendeeList = studyGroupDetails.attendeeList;
+      // console.log("Attendee List:", attendeeList);
+
+      const currentUserDisplayName = currentUser.displayName; // Assuming currentUser contains displayName
+
+      const isUserInList = attendeeList.some(
+        (attendee) => attendee.displayName === currentUserDisplayName
+      );
+      // console.log("Is User in Attendee List:", isUserInList);
+
+      return isUserInList;
+    } catch (error) {
+      console.error("Error checking attendee list:", error);
+      return false;
+    }
   };
 
   return (
@@ -272,12 +276,9 @@ function StudyGroups(props) {
             </CardBody>
             <CardFooter>
               <Button2 onClick={() => handleJoinLeave(studyGroup)}>
-                {/* {
-                isUserInAttendeeList(
-                  getStudyGroupById(studyGroup.studyGroupId)
-                )
+                {isUserInAttendeeList(studyGroup.studyGroupId)
                   ? "Leave"
-                  : "Join"} */}
+                  : "Join"}
               </Button2>
             </CardFooter>
           </Card>
