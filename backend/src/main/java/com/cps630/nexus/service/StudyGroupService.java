@@ -78,6 +78,12 @@ public class StudyGroupService {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_USER), HttpStatus.UNAUTHORIZED);
 		}
 		
+		int takenSeats = studyGroupMemberRepo.getStudyGroupMemberList(studyGroup.getStudyGroupId()).size();
+		
+		if(takenSeats > request.getSeatLimit()) {
+			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.ATTENDEES_MORE_THAN_SEAT_LIMIT), HttpStatus.BAD_REQUEST);
+		}
+		
 		studyGroup.setTimestamp(request.getTimestamp());
 		studyGroup.setRoom(request.getRoom());
 		studyGroup.setCourseName(request.getCourseName());
