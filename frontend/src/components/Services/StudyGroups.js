@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import location from './location.png';
-import calendar from './calendar.png';
-import frame from './frame.png';
-import clock from './clock.png';
-import data from "./mockStudyGroups.json";
-
-import { TextField, Button, Grid, Paper } from '@mui/material';
-
-// Removed unnecessary import
-import styles from './services.module.css';
-
-
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import { TextField, Button, Grid, Paper } from "@mui/material";
+import {
+  createStudyGroup,
+  getStudyGroupList,
+  getUserInformation,
+  joinStudyGroup,
+  leaveStudyGroup,
+  updateStudyGroup,
+} from "../../apiHelpers"; // Import createStudyGroup, getStudyGroupList, joinStudyGroup, leaveStudyGroup, and updateStudyGroup functions
+import { getStudyGroupById } from "../../apiHelpers"; // Import getStudyGroupById function
 
 const Container = styled.div`
   max-width: 1200px;
@@ -28,7 +26,8 @@ const GridContainer = styled.div`
 const Card = styled.div`
   width: calc(33.33% - 20px);
   margin-bottom: 20px;
-  margin-right:20px;
+  margin-right: 20px;
+  margin-top: 20px;
   background-color: ${(props) => props.bgColor};
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -40,7 +39,7 @@ const CardBody = styled.div`
 `;
 
 const CardTitle = styled.h5`
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-top: 0;
 `;
 
@@ -51,7 +50,7 @@ const CardFooter = styled.div`
 `;
 
 const Button2 = styled.button`
-  font-family:'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: rgb(134, 158, 207);
   border: none;
   border-radius: 5px;
@@ -62,179 +61,257 @@ const Button2 = styled.button`
 `;
 
 function StudyGroups(props) {
-  const [contacts, setContacts] = useState(data);
-
-  const colors = [
-    "#FFDCB9", 
-    "#B9E1DC", 
-    "#D9E4DD", 
-    "#CBE7C4", 
-    "#E0C3FC"  
-  ];
-
-  const icons = [frame, calendar, clock, location];
-
-  const boxes = contacts.map((contact, index) => ({
-    id: index + 1,
-    title: contact.title,
-    user: contact.user,
-    date: contact.date,
-    time: contact.time,
-    location: contact.location,
-    bgColor: colors[index % colors.length], 
-    icon: icons[index % icons.length] 
-  }));
-
-  const [addFormData, setAddFormData] = useState({
-    title: "",
-    user: "",
-    location:"",
+  const [studyGroupData, setStudyGroupData] = useState([]);
+  const [formData, setFormData] = useState({
+    courseName: "",
+    room: "",
     date: "",
-    time:"",
-
+    time: "",
   });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [userInAttendeeList, setUserInAttendeeList] = useState({});
+  const [seatAvailability, setSeatAvailability] = useState({});
 
-  const handleAddFormChange = (e) => {
-    const fieldName = e.target.name;
-    let fieldValue = e.target.value;
-    fieldValue = fieldValue.charAt(0).toUpperCase() + fieldValue.slice(1);
+  useEffect(() => {
+    // Fetch study group list when component mounts
+    getStudyGroupList(setStudyGroupData);
+    getUserInformation(setCurrentUser);
+  }, []);
 
-    setAddFormData({ ...addFormData, [fieldName]: fieldValue });
+  useEffect(() => {
+    // Update userInAttendeeList whenever studyGroupData changes
+    updateAttendeeListStatus();
+  }, [studyGroupData]);
+
+  const updateAttendeeListStatus = async () => {
+    const status = {};
+    for (const studyGroup of studyGroupData) {
+      try {
+        const isInAttendeeList = await isUserInAttendeeList(
+          studyGroup.studyGroupId
+        );
+        status[studyGroup.studyGroupId] = isInAttendeeList;
+      } catch (error) {
+        console.error(
+          `Error checking attendee list for study group ${studyGroup.studyGroupId}:`,
+          error
+        );
+        status[studyGroup.studyGroupId] = false;
+      }
+    }
+    setUserInAttendeeList(status);
   };
 
-  const handleSubmit = (e) => {
+  const colors = ["#FFDCB9", "#B9E1DC", "#D9E4DD", "#CBE7C4", "#E0C3FC"];
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newContact = {
-      title: addFormData.title,
-      user: addFormData.user,
-      location: addFormData.location,
-      date: addFormData.date,
-      time: addFormData.time,
-      
+    try {
+      const timestamp = `${formData.date}T${formData.time}:00`;
+      const studyGroup = {
+        courseName: formData.courseName,
+        room: formData.room,
+        timestamp: timestamp,
+        seatLimit: 5, // Assuming seat limit is always 4
+      };
+      await createStudyGroup(studyGroup);
+      getStudyGroupList(setStudyGroupData);
+      setFormData({
+        courseName: "",
+        room: "",
+        date: "",
+        time: "",
+      });
+    } catch (error) {
+      console.error("Error creating study group:", error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleJoinLeave = async (studyGroup) => {
+    // Check if user is the maker of the study group
+    if (studyGroup.displayName === currentUser.displayName) {
+      alert("Cannot join the study group you made.");
+      return;
+    }
+
+    try {
+      const isInAttendeeList = userInAttendeeList[studyGroup.studyGroupId];
+      if (isInAttendeeList) {
+        console.log("Leaving Study Group: " + studyGroup.courseName);
+        // User is already in the attendee list, so leave the study group
+        await leaveStudyGroup({ studyGroupId: studyGroup.studyGroupId });
+      } else {
+        console.log("Joining Study Group: " + studyGroup.courseName);
+        // User is not in the attendee list, so join the study group
+        await joinStudyGroup({ studyGroupId: studyGroup.studyGroupId });
+      }
+      // Refresh the study group list after joining or leaving
+      getStudyGroupList(setStudyGroupData);
+    } catch (error) {
+      console.error("Error joining or leaving study group:", error);
+    }
+  };
+
+  const isUserInAttendeeList = async (studyGroupId) => {
+    try {
+      const studyGroupDetails = await getStudyGroupById(studyGroupId);
+      const attendeeList = studyGroupDetails.attendeeList;
+      const currentUserDisplayName = currentUser.displayName; // Assuming currentUser contains displayName
+      const isUserInList = attendeeList.some(
+        (attendee) => attendee.displayName === currentUserDisplayName
+      );
+      return isUserInList;
+    } catch (error) {
+      console.error("Error fetching study group details:", error);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    // Fetch seat availability for all study groups
+    const fetchSeatAvailability = async () => {
+      const availability = {};
+      for (const studyGroup of studyGroupData) {
+        try {
+          const seats = await getSeatAvailability(studyGroup.studyGroupId);
+          availability[studyGroup.studyGroupId] = seats;
+        } catch (error) {
+          console.error(
+            `Error fetching seat availability for study group ${studyGroup.studyGroupId}:`,
+            error
+          );
+          availability[studyGroup.studyGroupId] = 0;
+        }
+      }
+      setSeatAvailability(availability);
     };
 
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
+    fetchSeatAvailability();
+  }, [studyGroupData]);
+
+  const getSeatAvailability = async (studyGroupId) => {
+    try {
+      const studyGroupDetails = await getStudyGroupById(studyGroupId);
+      const attendeeList = studyGroupDetails.attendeeList;
+      return attendeeList.length;
+    } catch (error) {
+      console.error("Error fetching study group details:", error);
+      return 0;
+    }
   };
 
   return (
     <Container>
-    <div className={styles.StudyGroupForm}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} >
-          <Paper elevation={3} style={{ padding: '20px' }}>
-            <form onSubmit={handleSubmit}>
-              <Grid container spacing={2} alignItems="center">
-                <Grid item xs={12} sm={3} >
-                  <TextField
-                    fullWidth
-                    id="title"
-                    name="title"
-                    label="Title"
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    onChange={handleAddFormChange}
-                  />
+      <div className="StudyGroupForm">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Paper elevation={3} style={{ padding: "20px" }}>
+              <form onSubmit={handleSubmit}>
+                <Grid container spacing={2} alignItems="center">
+                  <Grid item xs={12} sm={4}>
+                    <TextField
+                      fullWidth
+                      id="courseName"
+                      name="courseName"
+                      label="Course Name"
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      value={formData.courseName}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={3}>
+                    <TextField
+                      fullWidth
+                      id="room"
+                      name="room"
+                      label="Room"
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      value={formData.room}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={2}>
+                    <TextField
+                      fullWidth
+                      id="date"
+                      name="date"
+                      label="Date"
+                      variant="outlined"
+                      type="date"
+                      margin="normal"
+                      required
+                      InputLabelProps={{ shrink: true }}
+                      value={formData.date}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={2}>
+                    <TextField
+                      fullWidth
+                      id="time"
+                      name="time"
+                      label="Time"
+                      variant="outlined"
+                      type="time"
+                      margin="normal"
+                      required
+                      InputLabelProps={{ shrink: true }}
+                      value={formData.time}
+                      onChange={handleInputChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={1}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      size="large"
+                    >
+                      Add
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={2}>
-                  <TextField
-                    fullWidth
-                    id="user"
-                    name="user"
-                    label="User"
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    onChange={handleAddFormChange}
-                  />
-                </Grid>
-
-                <Grid item xs={12} sm={2} >
-                  <TextField
-                    fullWidth
-                    id="location"
-                    name="location"
-                    label="Location"
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    onChange={handleAddFormChange}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                  <TextField
-                    fullWidth
-                    id="date"
-                    name="date"
-                    label="Date"
-                    variant="outlined"
-                    type="date"
-                    margin="normal"
-                    required
-                    InputLabelProps={{ shrink: true }} 
-                    onChange={handleAddFormChange}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                  <TextField
-                    fullWidth
-                    id="time"
-                    name="time"
-                    label="Time"
-                    variant="outlined"
-                    type="time"
-                    margin="normal"
-                    required
-                    InputLabelProps={{ shrink: true }} 
-                    onChange={handleAddFormChange}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={1}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    size="large"
-                  >
-                    Add
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </Paper>
+              </form>
+            </Paper>
+          </Grid>
         </Grid>
-      </Grid>
-    </div>
-
+      </div>
 
       <GridContainer>
-        {boxes.map((box) => (
-          <Card key={box.id} bgColor={box.bgColor}>
+        {studyGroupData.map((studyGroup, index) => (
+          <Card key={index + 1} bgColor={colors[index % colors.length]}>
             <CardBody>
-              <CardTitle>{box.title}</CardTitle>
+              <CardTitle>{studyGroup.courseName}</CardTitle>
               <hr />
               <p>
-                <img src={frame} alt="User Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
-                <strong>User:</strong> {box.user}
+                <strong>Room:</strong> {studyGroup.room}
               </p>
               <p>
-               
-              <img src={calendar} alt="Calendar Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
-                <strong>Date: </strong>{box.date}
+                <strong>Date:</strong> {studyGroup.timestamp.split("T")[0]}
               </p>
               <p>
-                <img src={clock} alt="Clock Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
-                <strong>Time:</strong> {box.time}
+                <strong>Time:</strong>{" "}
+                {studyGroup.timestamp.split("T")[1].slice(0, -3)}
               </p>
               <p>
-                <img src={location} alt="Location Icon" style={{ marginRight: '5px', width: '20px', height: '20px' }} />
-                <strong>Location:</strong> {box.location}
+                <strong>Availability:</strong>{" "}
+                {studyGroup.seatLimit - seatAvailability[studyGroup.studyGroupId]}
               </p>
             </CardBody>
             <CardFooter>
-              <Button2>Join</Button2>
+              <Button2 onClick={() => handleJoinLeave(studyGroup)}>
+                {userInAttendeeList[studyGroup.studyGroupId] ? "Leave" : "Join"}
+              </Button2>
             </CardFooter>
           </Card>
         ))}

@@ -500,6 +500,7 @@ export async function contactTextbookOwner(formData) {
   }
 }
 
+<<<<<<< HEAD
 // ====================
 // Q&A Endpoints
 // ====================
@@ -595,6 +596,15 @@ export async function createTutoringSession(formData) {
   try {
     const response = await fetch(
       "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/create",
+=======
+// ============================
+//      STUDY GROUP FUNCTIONS
+// ============================
+export async function createStudyGroup(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/create",
+>>>>>>> 1e830f8 (Added createStudyGroup function. Added the function to StudyGroup.js)
       {
         method: "POST",
         headers: {
@@ -604,6 +614,7 @@ export async function createTutoringSession(formData) {
         body: JSON.stringify(formData),
       }
     );
+<<<<<<< HEAD
 
     if (response.ok) {
       console.log("Tutoring session created successfully");
@@ -685,5 +696,133 @@ export async function contactTutorSessionOwner(formData) {
     }
   } catch (error) {
     console.error("Error contacting textbook owner:", error);
+=======
+    if (response.ok) {
+      console.log("Study group created successfully");
+    } else {
+      console.error("Failed to create study group");
+    }
+  } catch (error) {
+    console.error("Error creating study group:", error);
+>>>>>>> 1e830f8 (Added createStudyGroup function. Added the function to StudyGroup.js)
+  }
+}
+
+export async function getStudyGroupList(setStudyGroupData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/list/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      setStudyGroupData(data); // Assuming setStudyGroupData is a function passed from the component
+    } else {
+      console.error("Failed to fetch study group list");
+    }
+  } catch (error) {
+    console.error("Error fetching study group list:", error);
+  }
+}
+
+export async function joinStudyGroup(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/join",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+    if (response.ok) {
+      console.log("Successfully joined the study group");
+    } else {
+      console.error("Failed to join the study group");
+    }
+  } catch (error) {
+    console.error("Error joining the study group:", error);
+  }
+}
+
+export async function leaveStudyGroup(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/leave",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+    if (response.ok) {
+      console.log("Successfully left the study group");
+    } else {
+      console.error("Failed to leave the study group");
+    }
+  } catch (error) {
+    console.error("Error leaving the study group:", error);
+  }
+}
+
+export async function updateStudyGroup(studyGroupData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(studyGroupData),
+      }
+    );
+    if (response.ok) {
+      console.log("Study group updated successfully");
+    } else {
+      console.error("Failed to update study group");
+    }
+  } catch (error) {
+    console.error("Error updating study group:", error);
+  }
+}
+
+// THIS IS USED TO KNOW IF YOURE IN A STUDY GROUP OR NOT
+export async function getStudyGroupById(studyGroupId) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/get",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ studyGroupId }),
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Failed to fetch study group by ID");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching study group by ID:", error);
+    return null;
   }
 }
