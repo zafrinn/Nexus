@@ -42,16 +42,17 @@ function Tutoring() {
   };
 
   // Function to handle contact button click
-  const handleContactButtonClick = (session) => {
+  const handleContactButtonClick = async (session) => {
     const formData = {
-      tutorSessionId: session.sessionId,
+      tutorSessionId: session.tutorSessionId,
       message: "Interested in this tutor session!"
     };
 
     if (session.displayName == currentUser.displayName){
       alert("Cannot contact a session you created!");
     } else{
-      contactTutorSessionOwner(formData);
+      await contactTutorSessionOwner(formData);
+      // console.log(formData);
       alert("User has been contacted.");
     }
   };
