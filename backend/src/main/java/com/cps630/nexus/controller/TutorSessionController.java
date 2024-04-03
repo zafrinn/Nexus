@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cps630.nexus.request.ContactTutorSessionRequest;
 import com.cps630.nexus.request.TutorSessionCreateRequest;
 import com.cps630.nexus.request.TutorSessionUpdateRequest;
 import com.cps630.nexus.service.TutorSessionService;
@@ -32,5 +33,10 @@ public class TutorSessionController {
 	@PostMapping("/internal/basic/tutorsession/list/get")
 	public ResponseEntity<Object> getTutorSessionList() {
 		return service.getTutorSessionList();
+	}
+	
+	@PostMapping("/internal/basic/tutorsession/contact")
+	public ResponseEntity<Object> contactTutorSession(@RequestBody @Valid ContactTutorSessionRequest request) {
+		return service.contactTutorSession(request);
 	}
 }
