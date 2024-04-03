@@ -6,6 +6,7 @@ import "./login-signup.css";
 import logo from "../../assets/logo.png";
 import slogan from "../../assets/slogan.png";
 import ReCAPTCHA from "react-google-recaptcha";
+import { loginUser } from "../../apiHelpers";
 
 const LoginPage = ({ setUserId }) => {
   const navigate = useNavigate();
@@ -28,32 +29,14 @@ const LoginPage = ({ setUserId }) => {
       };
 
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/external/login",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-          }
-        );
-
-        // const responseData = await response.json();
-        // console.log(responseData);
-
-        if (response.ok) {
-          // console.log(responseData);
-          // setUserId(responseData.user_info.userId);
+        let json = JSON.stringify(formData);
+        const { success, message } = await loginUser(json);
+        if (success) {
           navigate("/dashboard");
         } else {
-          alert("Login failed. Please try again.");
+          alert(message);
         }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again later.");
-      }
+      } catch (error) {}
     } else {
       console.log("Please complete the CAPTCHA");
       alert("Please complete the CAPTCHA");

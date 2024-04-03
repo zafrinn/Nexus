@@ -94,6 +94,32 @@ export async function updatePassword(formData) {
   }
 }
 
+export async function loginUser(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/external/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      return { success: false, message: "Login failed. Please try again." };
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    return { success: false, message: "An error occurred. Please try again later." };
+  }
+}
+
+
 // ============================
 //   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================
