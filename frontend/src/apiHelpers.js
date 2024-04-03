@@ -500,7 +500,6 @@ export async function contactTextbookOwner(formData) {
   }
 }
 
-<<<<<<< HEAD
 // ====================
 // Q&A Endpoints
 // ====================
@@ -596,15 +595,6 @@ export async function createTutoringSession(formData) {
   try {
     const response = await fetch(
       "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/create",
-=======
-// ============================
-//      STUDY GROUP FUNCTIONS
-// ============================
-export async function createStudyGroup(formData) {
-  try {
-    const response = await fetch(
-      "http://localhost:8080/api/v1/internal/basic/studygroup/create",
->>>>>>> 1e830f8 (Added createStudyGroup function. Added the function to StudyGroup.js)
       {
         method: "POST",
         headers: {
@@ -614,7 +604,6 @@ export async function createStudyGroup(formData) {
         body: JSON.stringify(formData),
       }
     );
-<<<<<<< HEAD
 
     if (response.ok) {
       console.log("Tutoring session created successfully");
@@ -696,15 +685,6 @@ export async function contactTutorSessionOwner(formData) {
     }
   } catch (error) {
     console.error("Error contacting textbook owner:", error);
-=======
-    if (response.ok) {
-      console.log("Study group created successfully");
-    } else {
-      console.error("Failed to create study group");
-    }
-  } catch (error) {
-    console.error("Error creating study group:", error);
->>>>>>> 1e830f8 (Added createStudyGroup function. Added the function to StudyGroup.js)
   }
 }
 
@@ -730,6 +710,10 @@ export async function getStudyGroupList(setStudyGroupData) {
     console.error("Error fetching study group list:", error);
   }
 }
+
+// ============================
+//      STUDY GROUP FUNCTIONS
+// ============================
 
 export async function joinStudyGroup(formData) {
   try {
@@ -824,5 +808,28 @@ export async function getStudyGroupById(studyGroupId) {
   } catch (error) {
     console.error("Error fetching study group by ID:", error);
     return null;
+  }
+}
+
+export async function createStudyGroup(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/studygroup/create",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+    if (response.ok) {
+      console.log("Tutoring session created successfully");
+    } else {
+      console.error("Failed to create tutoring session");
+    }
+  } catch (error) {
+    console.error("Error creating tutoring session:", error);
   }
 }
