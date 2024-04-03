@@ -67,6 +67,34 @@ export function logoutUser() {
 }
 
 // ============================
+//   SIGN UP / SIGN IN USER FUNCTIONS
+// ============================
+
+export async function updatePassword(formData) {
+  try {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/internal/basic/password/update",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: formData,
+      }
+    );
+
+    if (response.ok) {
+      console.log("Password successfully changed!");
+    } else {
+      console.log("Password change failed.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+// ============================
 //   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================
 

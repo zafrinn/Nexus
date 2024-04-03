@@ -18,6 +18,7 @@ import {
   MenuItem,
   DialogTitle,
 } from "@mui/material";
+import { updatePassword } from "../../apiHelpers";
 
 function ChangeUserPass(props) {
   const [open, setOpen] = useState(false);
@@ -64,30 +65,8 @@ function ChangeUserPass(props) {
         password1: newPassword,
         password2: confirmNewPassword,
       };
-
-      try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/internal/basic/password/update",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify(formData),
-          }
-        );
-
-        if (response.ok) {
-          alert("Password successfully changed!");
-        } else {
-          const responseData = await response.json();
-          alert(responseData.message || "Password change failed.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred. Please try again later.");
-      }
+      let json = JSON.stringify(formData);
+      updatePassword(json);
       handleClose();
     }
   };
