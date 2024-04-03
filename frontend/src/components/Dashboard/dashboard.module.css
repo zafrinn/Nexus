@@ -95,6 +95,7 @@
   color: #333333;
 }
 
+
 .navItem:hover {
   background-color: #e0e0e0;
 }
@@ -203,6 +204,38 @@
   max-height: 80vh; /* Adjust the height as needed */
   overflow-y: auto;
 }
+
+
+/* Admin/user dropdown */
+.editInput {
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%; /* Adjust as necessary */
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  appearance: none; /* Removes default styling provided by browsers */
+  background-color: #003fa7;
+  cursor: pointer;
+  color:#ffffff
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: #003fa7;
+  box-shadow: 0 0 0 2px #fedb00;
+}
+
+/* Optionally style the dropdown arrow */
+.editInput::-ms-expand {
+  display: none;
+}
+.editInput::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Makes the dropdown arrow darker or lighter based on your needs */
+}
+
 
 /* CSS */
 .exchangeBtn {
