@@ -167,9 +167,10 @@ function DashBoardNavBar({
           </span>
         </button>
       </div>
-      <div className={`${styles.navItem} ${styles.logoutButton}`}>
-        <Button onClick={handleLogout}>Logout</Button>
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+  <Button style={{ backgroundColor: '#d73644', border: 'none', cursor: 'pointer', padding: '10px', textAlign: 'center', width: '70%', borderRadius: '5px', fontSize: '15px', fontFamily: 'Poppins, sans-serif', color: '#ffffff' }} onClick={handleLogout}>Logout</Button>
+</div>
+
     </div>
   );
 }
