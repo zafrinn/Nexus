@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, Grid, MenuItem, TextField, Typography } from '@mui/material';
-import { createTutoringSession, getTutoringSessions } from '../../apiHelpers';
+import { createTutoringSession, getTutoringSessions, contactTutorSessionOwner, getUserInformation } from '../../apiHelpers';
 
 function Tutoring() {
   const [courseName, setCourseName] = useState('');
   const [tutorLevel, setTutorLevel] = useState('');
   const [tutorSessions, setTutorSessions] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     // Fetch tutor sessions on component mount
     fetchTutoringSessions();
+    getUserInformation(setCurrentUser);
   }, []);
 
   const fetchTutoringSessions = () => {
@@ -36,6 +38,21 @@ function Tutoring() {
       fetchTutoringSessions();
       setCourseName('');
       setTutorLevel('');
+    }
+  };
+
+  // Function to handle contact button click
+  const handleContactButtonClick = (session) => {
+    const formData = {
+      tutorSessionId: session.sessionId,
+      message: "Interested in this tutor session!"
+    };
+
+    if (session.displayName == currentUser.displayName){
+      alert("Cannot contact a session you created!");
+    } else{
+      contactTutorSessionOwner(formData);
+      alert("User has been contacted.");
     }
   };
 
@@ -87,7 +104,7 @@ function Tutoring() {
                     </CardContent>
                   </CardActionArea>
                   <CardActions sx={{ justifyContent: 'flex-end', padding: '0 16px 8px' }}>
-                    <Button size="small" sx={{ color: '#003FA7', backgroundColor: 'white' }}>
+                    <Button size="small" sx={{ color: '#003FA7', backgroundColor: 'white' }} onClick={() => handleContactButtonClick(session)}>
                       Contact
                     </Button>
                   </CardActions>

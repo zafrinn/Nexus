@@ -662,3 +662,28 @@ export async function getTutoringSessions(setTutoringSessions) {
     console.error("Error fetching tutoring sessions:", error);
   }
 }
+
+// Function to contact textbook owner
+export async function contactTutorSessionOwner(formData) {
+  try {
+    const response = await fetch(
+      "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/contact",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (response.ok) {
+      console.log("Contacted textbook owner successfully");
+    } else {
+      console.error("Failed to contact textbook owner");
+    }
+  } catch (error) {
+    console.error("Error contacting textbook owner:", error);
+  }
+}
