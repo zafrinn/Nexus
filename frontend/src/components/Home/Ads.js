@@ -103,7 +103,7 @@ function Ads({ advertisements }) {
         </Card>
       ))}
       <Dialog open={selectedAdvertisement !== null} onClose={handleClose}>
-        <DialogContent>
+        <DialogContent dividers style={{ minWidth: 500 }}>
           {/* Display advertisement details in the dialog */}
           {selectedAdvertisement && (
             <>
@@ -113,23 +113,20 @@ function Ads({ advertisements }) {
               <Typography gutterBottom variant="h6" component="div">
                 {"$" + selectedAdvertisement.price}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Description:
-                <br />
+              <Typography variant="body1" color="text.secondary" paragraph>
+                <strong>Description:</strong>{" "}
                 {selectedAdvertisement.description}
               </Typography>
-              <br />
-              <Typography variant="body2" color="text.secondary">
-                Creator: {selectedAdvertisement.displayName}
+              <Typography variant="body2" color="text.secondary" paragraph>
+                <strong>Creator:</strong> {selectedAdvertisement.displayName}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Location: {selectedAdvertisement.location}
+              <Typography variant="body2" color="text.secondary" paragraph>
+                <strong>Location:</strong> {selectedAdvertisement.location}
               </Typography>
-              <CardMedia
-                sx={{ height: 140 }}
-                image={`data:image/${selectedAdvertisement.posterMimeType};base64,${selectedAdvertisement.poster}`}
-                title="Advertisement"
-                style={{ marginTop: 10 }}
+              <img
+                src={`data:image/${selectedAdvertisement.posterMimeType};base64,${selectedAdvertisement.poster}`}
+                alt="Advertisement"
+                style={{ marginTop: 10, maxWidth: "100%", height: "auto" }}
               />
             </>
           )}
