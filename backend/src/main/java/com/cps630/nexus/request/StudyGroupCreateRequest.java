@@ -13,7 +13,7 @@ public class StudyGroupCreateRequest {
 	private LocalDateTime timestamp;
 	
 	@NotEmpty
-	@Size(min = 6, max = 6)
+	@Size(min = 6, max = 7)
 	private String room;
 	
 	@NotEmpty

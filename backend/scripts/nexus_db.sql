@@ -117,7 +117,7 @@ CREATE TABLE textbook (
 CREATE TABLE study_group (
     study_group_id INT NOT NULL AUTO_INCREMENT,
     timestamp DATETIME NOT NULL,
-    room CHAR(6) NOT NULL,
+    room VARCHAR(7) NOT NULL,
     course_name VARCHAR(50) NOT NULL,
     seat_limit INT NOT NULL,
     user_id INT NOT NULL,
