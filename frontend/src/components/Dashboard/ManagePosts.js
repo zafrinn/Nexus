@@ -29,6 +29,7 @@ function ManagePosts(props) {
   const [editedLocation, setEditedLocation] = useState("");
   const [editedCategory, setEditedCategory] = useState("");
   const [editedEnabled, setEditedEnabled] = useState("true");
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     loadAdvertisements();
@@ -97,67 +98,96 @@ function ManagePosts(props) {
     }
   };
 
-  const handlePostClick = (contact) => {
-    // Implement handlePostClick functionality here
+  const handlePostClick = (advertisement) => {
+    // You can implement your desired functionality here, for example, opening a dialog
+    setOpen(true);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const filteredAdvertisements = advertisements.filter((advertisement) => {
+    return (
+      advertisement.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+      advertisement.description
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+    );
+  });
+
   return (
-    <div className={styles.userPostsContainer}>
-      {advertisements.map((contact) => (
-        <Card key={contact.id} sx={{ position: "relative", maxWidth: 345 }}>
-          <CardMedia
-            sx={{ height: 140 }}
-            image={`data:image/${contact.posterMimeType};base64,${contact.poster}`}
-            title="Advertisement"
-            onClick={() => handlePostClick(contact)}
-            style={{ cursor: "pointer" }}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {contact.title}
-            </Typography>
-            {contact.price && (
-              <Typography variant="body2" color="text.secondary">
-                ${contact.price}
-              </Typography>
-            )}
-          </CardContent>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              padding: "0 16px 16px",
-            }}
+    <div className={styles.container}>
+      <div className={styles.searchBar}>
+        <TextField
+          placeholder="Search…"
+          value={searchValue}
+          onChange={handleSearchChange}
+          fullWidth
+          variant="outlined"
+          style={{ width: 800 }}
+        />
+      </div>
+      <div className={styles.userPostsContainer}>
+        {filteredAdvertisements.map((advertisement) => (
+          <Card
+            key={advertisement.id}
+            sx={{ position: "relative", maxWidth: 345 }}
           >
-            <Button size="small" onClick={() => handleEditClick(contact)}>
-              Edit
-            </Button>
-            <Stack direction="row" spacing={1}>
-              {contact.category.categoryId === 2 && (
-                <Chip
-                  label="Sale"
-                  sx={{
-                    backgroundColor: "#FBFFE1",
-                    color: "#003FA7",
-                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
-                  }}
-                />
+            <CardMedia
+              sx={{ height: 140 }}
+              image={`data:image/${advertisement.posterMimeType};base64,${advertisement.poster}`}
+              title="Advertisement"
+              onClick={() => handlePostClick(advertisement)}
+              style={{ cursor: "pointer" }}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {advertisement.title}
+              </Typography>
+              {advertisement.price && (
+                <Typography variant="body2" color="text.secondary">
+                  ${advertisement.price}
+                </Typography>
               )}
-              {contact.category.categoryId === 1 && (
-                <Chip
-                  label="Wanted"
-                  sx={{
-                    backgroundColor: "#E1F1FF",
-                    color: "#003FA7",
-                    boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
-                  }}
-                />
-              )}
-            </Stack>
-          </div>
-        </Card>
-      ))}
+            </CardContent>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "0 16px 16px",
+              }}
+            >
+              <Stack direction="row" spacing={1}>
+                {advertisement.category.categoryId === 2 && (
+                  <Chip
+                    label="Sale"
+                    sx={{
+                      backgroundColor: "#FBFFE1",
+                      color: "#003FA7",
+                      boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                    }}
+                  />
+                )}
+                {advertisement.category.categoryId === 1 && (
+                  <Chip
+                    label="Wanted"
+                    sx={{
+                      backgroundColor: "#E1F1FF",
+                      color: "#003FA7",
+                      boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.5)",
+                    }}
+                  />
+                )}
+              </Stack>
+              <Button onClick={() => handleEditClick(advertisement)}>
+                Edit
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
       <Dialog open={open} onClose={handleClose}>
         <DialogContent>
           <form onSubmit={handleSubmit}>
