@@ -46,7 +46,7 @@ export async function updateUserAccount(updatedData) {
   }
 }
 
-export async function deleteUserAccount(contactId) { }
+export async function deleteUserAccount(contactId) {}
 
 export function logoutUser() {
   fetch("http://" + hostname + ":8080/api/v1/internal/basic/logout", {
@@ -214,7 +214,9 @@ export async function createAdvertisement(formData) {
 export async function getAdvertisements(setAdvertisementData) {
   try {
     const response = await fetch(
-      "http://" + hostname + ":8080/api/v1/internal/basic/advertisement/list/current/get",
+      "http://" +
+        hostname +
+        ":8080/api/v1/internal/basic/advertisement/list/current/get",
       {
         method: "POST",
         headers: {
@@ -262,7 +264,9 @@ export async function updateAdvertisement(advertisementData) {
 export async function getAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
-      "http://" + hostname + ":8080/api/v1/internal/basic/advertisement/list/get",
+      "http://" +
+        hostname +
+        ":8080/api/v1/internal/basic/advertisement/list/get",
       {
         method: "POST",
         headers: {
@@ -283,6 +287,33 @@ export async function getAdvertisementsByCategoryId(categoryId) {
     throw error;
   }
 }
+
+export async function contactAdvertisementOwner(formData) {
+  try {
+    const response = await fetch(
+      "http://" +
+        hostname +
+        ":8080/api/v1/internal/basic/advertisement/contact",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      }
+    );
+
+    if (response.ok) {
+      console.log("Contacted advertisement poster successfully");
+    } else {
+      console.error("Failed to contact advertisement poster");
+    }
+  } catch (error) {
+    console.error("Error contacting advertisement poster:", error);
+  }
+}
+
 // ============================
 //      ADMIN ADVERTISEMENT FUNCTIONS
 // ============================
@@ -312,7 +343,9 @@ export async function updateAdminAdvertisement(advertisementData) {
 export async function getAdminAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
-      "http://" + hostname + ":8080/api/v1/internal/admin/advertisement/list/get",
+      "http://" +
+        hostname +
+        ":8080/api/v1/internal/admin/advertisement/list/get",
       {
         method: "POST",
         headers: {
@@ -520,10 +553,8 @@ export async function getDiscussionList(setDiscussionData) {
     if (response.ok) {
       const data = await response.json();
 
-      setDiscussionData(data)
-    }
-
-    else {
+      setDiscussionData(data);
+    } else {
       console.error("Failed to fetch discussion data");
     }
   } catch (error) {
@@ -548,7 +579,10 @@ export async function createDiscussion(formData) {
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false, message: "Discussion creation failed. Please try again." };
+      return {
+        success: false,
+        message: "Discussion creation failed. Please try again.",
+      };
     }
   } catch (error) {
     console.error("Error:", error);
@@ -562,7 +596,9 @@ export async function createDiscussion(formData) {
 export async function createDiscussionReply(formData) {
   try {
     const response = await fetch(
-      "http://" + hostname + ":8080/api/v1/internal/basic/discussion/reply/create",
+      "http://" +
+        hostname +
+        ":8080/api/v1/internal/basic/discussion/reply/create",
       {
         method: "POST",
         headers: {
@@ -576,7 +612,10 @@ export async function createDiscussionReply(formData) {
     if (response.ok) {
       return { success: true };
     } else {
-      return { success: false, message: "Discussion reply creation failed. Please try again." };
+      return {
+        success: false,
+        message: "Discussion reply creation failed. Please try again.",
+      };
     }
   } catch (error) {
     console.error("Error:", error);
@@ -642,7 +681,9 @@ export async function updateTutoringSession(formData) {
 export async function getTutoringSessions(setTutoringSessions) {
   try {
     const response = await fetch(
-      "http://" + hostname + ":8080/api/v1/internal/basic/tutorsession/list/get",
+      "http://" +
+        hostname +
+        ":8080/api/v1/internal/basic/tutorsession/list/get",
       {
         method: "POST",
         headers: {

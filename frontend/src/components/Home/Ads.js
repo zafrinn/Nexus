@@ -12,6 +12,7 @@ import {
   Button,
 } from "@mui/material";
 import styles from "../Dashboard/dashboard.module.css";
+import { contactAdvertisementOwner } from "../../apiHelpers"; // Import the helper function
 
 function Ads({ advertisements }) {
   const [selectedAdvertisement, setSelectedAdvertisement] = useState(null);
@@ -21,12 +22,24 @@ function Ads({ advertisements }) {
   }, []);
 
   const handlePostClick = (advertisement) => {
-    console.log(advertisement);
     setSelectedAdvertisement(advertisement);
   };
 
   const handleClose = () => {
     setSelectedAdvertisement(null);
+  };
+
+  const handleContact = () => {
+    if (selectedAdvertisement) {
+      // Constructing the request body
+      const formData = {
+        advertisementId: selectedAdvertisement.advertisementId,
+        message: "Interested in this advertisement",
+      };
+
+      // Call the helper function to contact the advertisement owner
+      contactAdvertisementOwner(formData);
+    }
   };
 
   return (
@@ -83,6 +96,9 @@ function Ads({ advertisements }) {
                 />
               )}
             </Stack>
+            <Button onClick={() => handlePostClick(advertisement)}>
+              View Details
+            </Button>
           </div>
         </Card>
       ))}
@@ -99,10 +115,10 @@ function Ads({ advertisements }) {
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Description:
-                <br></br>
+                <br />
                 {selectedAdvertisement.description}
               </Typography>
-              <br></br>
+              <br />
               <Typography variant="body2" color="text.secondary">
                 Creator: {selectedAdvertisement.displayName}
               </Typography>
@@ -119,6 +135,7 @@ function Ads({ advertisements }) {
           )}
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleContact}>Contact</Button>
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
