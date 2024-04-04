@@ -6,7 +6,7 @@ import InputBase from '@mui/material/InputBase';
 import { getTextbooksList } from '../../apiHelpers'; // Import getTextbooksList function
 
 const SearchBox = styled('div')(({ theme }) => ({
-  border: '1px solid #ccc',
+  border: '1px solid #003fa7',
   padding: '5px',
   borderRadius: '5px',
 }));
