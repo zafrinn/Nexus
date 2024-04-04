@@ -15,13 +15,15 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 15px;
-`;
+  `
+;
 
 const GridContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-`;
+  `
+;
 
 const Card = styled.div`
   width: calc(33.33% - 20px);
@@ -32,7 +34,17 @@ const Card = styled.div`
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
+
+  @media (max-width: 992px) {
+    width: calc(50% - 20px);
+  }
+
+  @media (max-width: 600px) {
+    width: calc(100% - 20px);
+  }
+  `
+;
+
 
 const CardBody = styled.div`
   padding: 15px;
@@ -48,6 +60,7 @@ const CardFooter = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 
 const Button2 = styled.button`
   font-family: "Poppins", sans-serif;
@@ -270,15 +283,21 @@ function StudyGroups(props) {
                     />
                   </Grid>
                   <Grid item xs={12} sm={1}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      size="large"
-                    >
-                      Add
-                    </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    size="large"
+                    sx={{
+                      backgroundColor: '#003fa7',
+                      '&:hover': {
+                        backgroundColor: '#003fa7',
+                        opacity: 0.9
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
                   </Grid>
                 </Grid>
               </form>
@@ -321,3 +340,4 @@ function StudyGroups(props) {
 }
 
 export default StudyGroups;
+
