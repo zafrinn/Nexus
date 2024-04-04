@@ -126,7 +126,8 @@ const PostAdsPage = () => {
             <Dropdown
               show={dropdownOpenType}
               style={{
-                position: "absolute",
+                position: "relative",
+                marginBottom: "10px",
                 top: "100%",
                 left: "15%",
                 width: "70%",
@@ -140,6 +141,7 @@ const PostAdsPage = () => {
                 onClick={() => setDropdownOpenType(!dropdownOpenType)}
                 style={{
                   marginTop: "18px",
+                  marginBottom: "20px",
                   width: "100%",
                   backgroundColor: "white",
                   color: "black",
@@ -251,6 +253,7 @@ const PostAdsPage = () => {
             alt="Third Arrow"
           />
           <div
+          
             style={{
               marginTop: "15px",
               width: "70%",
