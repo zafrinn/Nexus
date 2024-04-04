@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import styles from "../Dashboard/dashboard.module.css";
 import { contactAdvertisementOwner } from "../../apiHelpers"; // Import the helper function
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 function Ads({ advertisements }) {
   const [selectedAdvertisement, setSelectedAdvertisement] = useState(null);
@@ -123,11 +124,17 @@ function Ads({ advertisements }) {
               <Typography variant="body2" color="text.secondary" paragraph>
                 <strong>Location:</strong> {selectedAdvertisement.location}
               </Typography>
-              <img
-                src={`data:image/${selectedAdvertisement.posterMimeType};base64,${selectedAdvertisement.poster}`}
-                alt="Advertisement"
-                style={{ marginTop: 10, maxWidth: "100%", height: "auto" }}
-              />
+              {/* Map API integration */}
+              <div style={{ height: 300, width: "100%" }}>
+                <iframe
+                  title="Map"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${selectedAdvertisement.location}`}
+                  allowFullScreen
+                ></iframe>
+              </div>
             </>
           )}
         </DialogContent>
