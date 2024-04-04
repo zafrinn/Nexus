@@ -22,7 +22,7 @@ public class StudyGroup {
 	@Column(name = "timestamp", nullable = false)
 	private LocalDateTime timestamp;
 	
-	@Column(name = "room", nullable = false, length = 6)
+	@Column(name = "room", nullable = false, length = 7)
 	private String room;
 	
 	@Column(name = "course_name", nullable = false, length = 50)
