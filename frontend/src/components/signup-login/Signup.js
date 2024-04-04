@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login-signup.css";
 import logo from "../../assets/logo.png";
-import slogan from "../../assets/slogan.png";
+import slogan from "../../assets/tmu-logo-new.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import { createUser } from "../../apiHelpers";
 
