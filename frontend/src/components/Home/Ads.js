@@ -12,6 +12,8 @@ import {
   Button,
 } from "@mui/material";
 import styles from "../Dashboard/dashboard.module.css";
+import { contactAdvertisementOwner } from "../../apiHelpers"; // Import the helper function
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 function Ads({ advertisements }) {
   const [selectedAdvertisement, setSelectedAdvertisement] = useState(null);
@@ -21,12 +23,24 @@ function Ads({ advertisements }) {
   }, []);
 
   const handlePostClick = (advertisement) => {
-    console.log(advertisement);
     setSelectedAdvertisement(advertisement);
   };
 
   const handleClose = () => {
     setSelectedAdvertisement(null);
+  };
+
+  const handleContact = () => {
+    if (selectedAdvertisement) {
+      // Constructing the request body
+      const formData = {
+        advertisementId: selectedAdvertisement.advertisementId,
+        message: "Interested in this advertisement",
+      };
+
+      // Call the helper function to contact the advertisement owner
+      contactAdvertisementOwner(formData);
+    }
   };
 
   return (
@@ -83,11 +97,14 @@ function Ads({ advertisements }) {
                 />
               )}
             </Stack>
+            <Button onClick={() => handlePostClick(advertisement)}>
+              View Details
+            </Button>
           </div>
         </Card>
       ))}
       <Dialog open={selectedAdvertisement !== null} onClose={handleClose}>
-        <DialogContent>
+        <DialogContent dividers style={{ minWidth: 500 }}>
           {/* Display advertisement details in the dialog */}
           {selectedAdvertisement && (
             <>
@@ -97,28 +114,32 @@ function Ads({ advertisements }) {
               <Typography gutterBottom variant="h6" component="div">
                 {"$" + selectedAdvertisement.price}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Description:
-                <br></br>
+              <Typography variant="body1" color="text.secondary" paragraph>
+                <strong>Description:</strong>{" "}
                 {selectedAdvertisement.description}
               </Typography>
-              <br></br>
-              <Typography variant="body2" color="text.secondary">
-                Creator: {selectedAdvertisement.displayName}
+              <Typography variant="body2" color="text.secondary" paragraph>
+                <strong>Creator:</strong> {selectedAdvertisement.displayName}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Location: {selectedAdvertisement.location}
+              <Typography variant="body2" color="text.secondary" paragraph>
+                <strong>Location:</strong> {selectedAdvertisement.location}
               </Typography>
-              <CardMedia
-                sx={{ height: 140 }}
-                image={`data:image/${selectedAdvertisement.posterMimeType};base64,${selectedAdvertisement.poster}`}
-                title="Advertisement"
-                style={{ marginTop: 10 }}
-              />
+              {/* Map API integration */}
+              <div style={{ height: 300, width: "100%" }}>
+                <iframe
+                  title="Map"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${selectedAdvertisement.location}`}
+                  allowFullScreen
+                ></iframe>
+              </div>
             </>
           )}
         </DialogContent>
         <DialogActions>
+          <Button onClick={handleContact}>Contact</Button>
           <Button onClick={handleClose}>Close</Button>
         </DialogActions>
       </Dialog>
