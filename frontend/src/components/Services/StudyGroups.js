@@ -24,7 +24,6 @@ const GridContainer = styled.div`
   justify-content: flex-start;
   `
 ;
-
 const Card = styled.div`
   width: calc(33.33% - 20px);
   margin-bottom: 20px;
@@ -34,6 +33,7 @@ const Card = styled.div`
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Added line */
 
   @media (max-width: 992px) {
     width: calc(50% - 20px);
@@ -42,8 +42,7 @@ const Card = styled.div`
   @media (max-width: 600px) {
     width: calc(100% - 20px);
   }
-  `
-;
+`;
 
 
 const CardBody = styled.div`
@@ -61,7 +60,6 @@ const CardFooter = styled.div`
   justify-content: center;
 `;
 
-
 const Button2 = styled.button`
   font-family: "Poppins", sans-serif;
   background-color: rgb(134, 158, 207);
@@ -71,7 +69,12 @@ const Button2 = styled.button`
   color: #fff;
   cursor: pointer;
   max-width: 100%;
+  position: absolute; /* Updated line */
+  bottom: 2px; /* Distance from the bottom of the card */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Adjust to truly center as per left: 50% */
 `;
+
 
 function StudyGroups(props) {
   const [studyGroupData, setStudyGroupData] = useState([]);
