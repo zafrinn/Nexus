@@ -102,7 +102,9 @@ function ExchangeTable(props) {
     (book) =>
       !searchValue ||
       book.name.toLowerCase().includes(searchValue) ||
-      book.isbn.includes(searchValue)
+      book.isbn.includes(searchValue)||
+      book.displayName.toLowerCase().includes(searchValue) ||
+      book.location.toLowerCase().includes(searchValue)
   );
 
   return (
@@ -113,7 +115,7 @@ function ExchangeTable(props) {
             <Paper elevation={3} style={{ padding: "20px" }}>
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={2} alignItems="center">
-                  <Grid item xs={12} sm={4}>
+                  <Grid item xs={12} sm={5}>
                     <TextField
                       fullWidth
                       id="title"
@@ -126,7 +128,7 @@ function ExchangeTable(props) {
                       onChange={handleAddFormChange}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={3}>
+                  <Grid item xs={12} sm={4}>
                     <TextField
                       fullWidth
                       id="isbn"
@@ -136,19 +138,6 @@ function ExchangeTable(props) {
                       margin="normal"
                       required
                       value={addFormData.isbn}
-                      onChange={handleAddFormChange}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={2}>
-                    <TextField
-                      fullWidth
-                      id="displayName"
-                      name="displayName"
-                      label="User"
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      value={addFormData.displayName}
                       onChange={handleAddFormChange}
                     />
                   </Grid>
@@ -186,15 +175,21 @@ function ExchangeTable(props) {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12} sm={1}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      size="large"
-                    >
-                      Add
-                    </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    size="large"
+                    sx={{
+                      backgroundColor: '#003fa7',
+                      '&:hover': {
+                        backgroundColor: '#003fa7',
+                        opacity: 0.9
+                      }
+                    }}
+                  >
+                    Add
+                  </Button>
                   </Grid>
                 </Grid>
               </form>

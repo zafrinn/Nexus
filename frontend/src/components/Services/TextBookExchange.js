@@ -56,7 +56,7 @@ function TextBookExchange() {
           <form style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <Search>
               <StyledInputBase
-                placeholder="Search ISBN, Title..."
+                placeholder="Search..."
                 inputProps={{ 'aria-label': 'search' }}
                 value={searchValue}
                 onChange={handleSearchChange}
