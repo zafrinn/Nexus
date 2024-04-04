@@ -57,6 +57,7 @@ function MessagesPage() {
         alert(message);
       }
 
+      setNewQuestion('');
       getDiscussionList((data) => {
         // Process the data and separate into unanswered and answered questions
         let ansQ = [];
@@ -102,7 +103,7 @@ function MessagesPage() {
       if (!success) {
         alert(message);
       }
-
+     
       getDiscussionList((data) => {
         // Process the data and separate into unanswered and answered questions
         let ansQ = [];
