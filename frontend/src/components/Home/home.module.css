@@ -33,15 +33,14 @@
   height: auto; /* Maintain aspect ratio */
   margin-bottom: 40px; /* Add spacing between logo and name */
   margin-left:70px;
-
 }
+
 .adsContainer{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
   gap: 30px;
   margin: 30px 80px;
 }
-
 
 .filterCard {
     width: 80%;
@@ -60,3 +59,61 @@
     flex-direction: column;
     align-items: center;
 }
+
+/* Media queries for responsiveness */
+
+/* Keep the original CSS for larger screens */
+@media (max-width: 768px) {
+    /* Apply changes only for screens smaller than 768px */
+    .searchBar {
+        
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .homeColFirst {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .homeColSecond {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .filterCard {
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+  
+
+/* Add media queries */
+@media (max-width: 768px) {
+    .col-md-3 {
+      width: 100%; /* Take full width on small screens */
+      margin-bottom: 20px; /* Add some bottom margin for spacing */
+    }
+  
+    .col-md-9 {
+      width: 100%; /* Take full width on small screens */
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .homeColFirst {
+      margin-left: 0; /* Remove left margin on larger screens */
+    }
+  
+    .homeColSecond {
+      margin-left: 0; /* Remove left margin on larger screens */
+    }
+  }
+  

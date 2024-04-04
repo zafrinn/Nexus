@@ -10,34 +10,33 @@ import { FormControlLabel, Switch, Select, MenuItem } from "@mui/material";
 import TmuLogo from "../../assets/TMU_LOGO.png";
 import { getAdvertisementsByCategoryId } from "../../apiHelpers"; // Import the API function
 
-const Search = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  position: "relative",
+const SearchBox = styled('div')(({ theme }) => ({
+  border: '1px solid #003fa7', // Add border with color
+  padding: '5px',
+  borderRadius: '5px',
+}));
+
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.common.white,
-  border: `1px solid ${theme.palette.primary.main}`,
-  boxShadow: "2px 2px 5px #A9A9A9",
-  "&:hover": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
+  backgroundColor: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: "auto",
+    width: 'auto',
   },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
+  color: 'inherit',
+  '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
     },
   },
 }));
@@ -45,25 +44,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function SearchAd({ handleSearchChange, searchValue }) {
   return (
     <div className={styles.searchBar}>
-      <form
-        style={{
-          display: "flex",
-          alignItems: "center",
-          backgroundColor: "transparent",
-          width: "70%",
-          marginLeft: "150px",
-        }}
-      >
-        <Search component="form" style={{ flex: "1", margin: "0px" }}>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            value={searchValue}
-            onChange={handleSearchChange}
-            style={{ padding: "5px" }}
-          />
-        </Search>
-      </form>
+      <SearchBox>
+        <form style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+          <Search>
+            <StyledInputBase
+              placeholder="Search..."
+              inputProps={{ 'aria-label': 'search' }}
+              value={searchValue}
+              onChange={handleSearchChange}
+            />
+          </Search>
+        </form>
+      </SearchBox>
     </div>
   );
 }
