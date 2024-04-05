@@ -1,13 +1,11 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
 import styles from './services.module.css'; 
 import { IoIosArrowForward } from "react-icons/io";
 import TextBookExchange from './TextBookExchange.js';
 import Tutoring from './Tutoring.js';
 import StudyGroups from './StudyGroups.js';
-
-
-
+import { useNavigate } from "react-router-dom";
 
 function ServicesNavBar({ selectedTab, handleTabClick, isAdmin}) {
 
@@ -33,20 +31,20 @@ function ServicesNavBar({ selectedTab, handleTabClick, isAdmin}) {
 }
 
 
-
-
-
-
-
 function ServicesPage() {
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("TextBookExchange");
   const data = "null";
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/"); 
+    }
+  }, [navigate]);
+  
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
   };
-
-
 
   return (
     <div className={`${styles.ServicesContainer} container`}>
