@@ -252,6 +252,11 @@ function StudyGroups(props) {
                       required
                       value={formData.room}
                       onChange={handleInputChange}
+                      inputProps={{
+                        pattern: "[A-Za-z0-9]{6}",
+                        title:
+                          "Room must be 6 characters long and alphanumeric",
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
