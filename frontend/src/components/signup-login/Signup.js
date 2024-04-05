@@ -18,7 +18,6 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate captchaValue and submit form if valid
     if (captchaValue) {
       console.log("Form submitted with captcha value:", captchaValue);
       const formData = {
@@ -33,7 +32,7 @@ const SignupPage = () => {
 
       if (success) {
         alert("User created successfully!");
-        navigate("/"); // Assuming navigate function is defined
+        navigate("/"); 
       } else {
         alert(message);
       }
