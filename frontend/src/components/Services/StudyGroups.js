@@ -15,15 +15,12 @@ const Container = styled.div`
   max-width: 1200px;
   margin: 20px auto;
   padding: 0 15px;
-  `
-;
-
+`;
 const GridContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  `
-;
+`;
 const Card = styled.div`
   width: calc(33.33% - 20px);
   margin-bottom: 20px;
@@ -43,7 +40,6 @@ const Card = styled.div`
     width: calc(100% - 20px);
   }
 `;
-
 
 const CardBody = styled.div`
   padding: 15px;
@@ -74,7 +70,6 @@ const Button2 = styled.button`
   left: 50%; /* Center horizontally */
   transform: translateX(-50%); /* Adjust to truly center as per left: 50% */
 `;
-
 
 function StudyGroups(props) {
   const [studyGroupData, setStudyGroupData] = useState([]);
@@ -131,6 +126,7 @@ function StudyGroups(props) {
         seatLimit: 5, // Assuming seat limit is always 4
       };
       await createStudyGroup(studyGroup);
+      alert("New study group was created.");
       getStudyGroupList(setStudyGroupData);
       setFormData({
         courseName: "",
@@ -286,21 +282,21 @@ function StudyGroups(props) {
                     />
                   </Grid>
                   <Grid item xs={12} sm={1}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    size="large"
-                    sx={{
-                      backgroundColor: '#003fa7',
-                      '&:hover': {
-                        backgroundColor: '#003fa7',
-                        opacity: 0.9
-                      }
-                    }}
-                  >
-                    Add
-                  </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      fullWidth
+                      size="large"
+                      sx={{
+                        backgroundColor: "#003fa7",
+                        "&:hover": {
+                          backgroundColor: "#003fa7",
+                          opacity: 0.9,
+                        },
+                      }}
+                    >
+                      Add
+                    </Button>
                   </Grid>
                 </Grid>
               </form>
@@ -327,7 +323,8 @@ function StudyGroups(props) {
               </p>
               <p>
                 <strong>Availability:</strong>{" "}
-                {studyGroup.seatLimit - seatAvailability[studyGroup.studyGroupId]}
+                {studyGroup.seatLimit -
+                  seatAvailability[studyGroup.studyGroupId]}
               </p>
             </CardBody>
             <CardFooter>
@@ -343,4 +340,3 @@ function StudyGroups(props) {
 }
 
 export default StudyGroups;
-

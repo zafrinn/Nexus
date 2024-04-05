@@ -40,8 +40,6 @@ const PostAdsPage = () => {
     };
   }, []);
 
-  
-
   const handleSelectType = (type) => {
     setSelectedType(type);
     setDropdownOpenType(false);
@@ -100,6 +98,7 @@ const PostAdsPage = () => {
 
     try {
       await createAdvertisement(formData);
+      alert("Advertisement has been posted!");
     } catch (error) {
       console.error("Error creating advertisement:", error);
     }
@@ -253,7 +252,6 @@ const PostAdsPage = () => {
             alt="Third Arrow"
           />
           <div
-          
             style={{
               marginTop: "15px",
               width: "70%",

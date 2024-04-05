@@ -60,6 +60,7 @@ function ExchangeTable(props) {
     try {
       // Call createTextbook function to create textbook
       await createTextbook(textbookData);
+      alert("A textbook entry was created.");
     } catch (error) {
       // Log error message if an exception occurs
       console.error("Error creating textbook:", error);
@@ -78,13 +79,15 @@ function ExchangeTable(props) {
   };
 
   const handleActionClick = async (contact) => {
-    console.log(`Clicked action button for textbook with ID: ${contact.textbookId}`);
+    console.log(
+      `Clicked action button for textbook with ID: ${contact.textbookId}`
+    );
 
-    if (contact.displayName == currentUser.displayName){
+    if (contact.displayName == currentUser.displayName) {
       alert("Cannot exchange with yourself!");
       return;
     }
-    
+
     try {
       let formData = {
         textbookId: contact.textbookId,
@@ -93,6 +96,7 @@ function ExchangeTable(props) {
       let json = JSON.stringify(formData);
       // Call the contactTextbookOwner API function
       await contactTextbookOwner(json);
+      alert("An email was sent to the Textbook owner!");
     } catch (error) {
       console.error("Error contacting textbook owner:", error);
     }
@@ -102,7 +106,7 @@ function ExchangeTable(props) {
     (book) =>
       !searchValue ||
       book.name.toLowerCase().includes(searchValue) ||
-      book.isbn.includes(searchValue)||
+      book.isbn.includes(searchValue) ||
       book.displayName.toLowerCase().includes(searchValue) ||
       book.location.toLowerCase().includes(searchValue)
   );
@@ -175,21 +179,21 @@ function ExchangeTable(props) {
                     </FormControl>
                   </Grid>
                   <Grid item xs={12} sm={1}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    size="large"
-                    sx={{
-                      backgroundColor: '#003fa7',
-                      '&:hover': {
-                        backgroundColor: '#003fa7',
-                        opacity: 0.9
-                      }
-                    }}
-                  >
-                    Add
-                  </Button>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      fullWidth
+                      size="large"
+                      sx={{
+                        backgroundColor: "#003fa7",
+                        "&:hover": {
+                          backgroundColor: "#003fa7",
+                          opacity: 0.9,
+                        },
+                      }}
+                    >
+                      Add
+                    </Button>
                   </Grid>
                 </Grid>
               </form>
