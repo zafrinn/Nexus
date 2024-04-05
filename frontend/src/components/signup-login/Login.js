@@ -11,6 +11,7 @@ import { loginUser } from "../../apiHelpers";
 const LoginPage = ({ setUserId }) => {
   const navigate = useNavigate();
   const [captchaValue, setCaptchaValue] = useState(null);
+  const token = "token";
 
   const handleCaptchaChange = (value) => {
     console.log("Captcha value:", value);
@@ -32,6 +33,7 @@ const LoginPage = ({ setUserId }) => {
         let json = JSON.stringify(formData);
         const { success, message } = await loginUser(json);
         if (success) {
+          localStorage.setItem("token", token);
           navigate("/home");
         } else {
           alert(message);
@@ -42,7 +44,6 @@ const LoginPage = ({ setUserId }) => {
       alert("Please complete the CAPTCHA");
     }
   };
-
   return (
     <div className="container">
       <div className="row justify-content-center">
