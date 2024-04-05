@@ -4,7 +4,6 @@ import styles from "./dashboard.module.css";
 import {
   Card,
   CardContent,
-  CardActions,
   Stack,
   Chip,
   CardMedia,
@@ -35,7 +34,7 @@ function UserPosts(props) {
   useEffect(() => {
     // Fetch advertisements data when component mounts
     getAdvertisements(setAdvertisements);
-  }, []); // Empty dependency array to run the effect only once when component mounts
+  }, []);
 
   const handleEditClick = (advertisement) => {
     setEditedAdvertisement(advertisement);
@@ -43,7 +42,7 @@ function UserPosts(props) {
     setEditedDescription(advertisement.description);
     setEditedPrice(advertisement.price);
     setEditedLocation(advertisement.location);
-    setEditedCategory(advertisement.category.categoryId.toString()); // Set edited category
+    setEditedCategory(advertisement.category.categoryId.toString());
     setEditedEnabled(advertisement.enabled ? "true" : "false");
     setOpen(true);
   };
@@ -59,9 +58,7 @@ function UserPosts(props) {
     setEditedEnabled("");
   };
 
-  const handlePostClick = (contact) => {
-    // Implement handlePostClick functionality here
-  };
+  const handlePostClick = (contact) => {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +68,7 @@ function UserPosts(props) {
       description: editedDescription,
       price: parseFloat(editedPrice),
       location: editedLocation,
-      categoryId: parseInt(editedCategory), // Parse category to integer
+      categoryId: parseInt(editedCategory),
       enabled: editedEnabled === "true",
     };
     try {

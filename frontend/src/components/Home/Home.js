@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./home.module.css";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
@@ -7,12 +7,12 @@ import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Ads from "./Ads.js";
 import { FormControlLabel, Switch, Select, MenuItem } from "@mui/material";
-import TmuLogo from "../../assets/TMU_LOGO.png";
-import { getAdvertisementsByCategoryId } from "../../apiHelpers"; // Import the API function
+import TmuLogo from "../../assets/HomePage/TMU_LOGO.png";
+import { getAdvertisementsByCategoryId } from "../../apiHelpers";
 import { useNavigate } from "react-router-dom";
 
 const SearchBox = styled("div")(({ theme }) => ({
-  border: "1px solid #003fa7", // Add border with color
+  border: "1px solid #003fa7",
   padding: "5px",
   borderRadius: "5px",
 }));
@@ -261,7 +261,7 @@ function HomePage() {
             handleSearchChange={handleSearchChange}
             searchValue={searchValue}
           />
-          <Ads advertisements={filteredAds} /> {/* Pass filtered ads data */}
+          <Ads advertisements={filteredAds} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./services.module.css";
 import { IoIosArrowForward } from "react-icons/io";
 import TextBookExchange from "./TextBookExchange.js";

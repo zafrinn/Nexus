@@ -37,11 +37,9 @@ function EditAccount({ data, updateUser }) {
       const formData = new FormData(formElement);
       const formDataObject = Object.fromEntries(formData.entries());
 
-      // Preserve the roleName property from the original data
       formDataObject.roleName = data.roleName;
 
       updateUserAccount(formDataObject).then(() => {
-        // After updating, merge the new data with the original data to preserve roleName
         const updatedUserData = { ...data, ...formDataObject };
         updateUser(updatedUserData);
       });

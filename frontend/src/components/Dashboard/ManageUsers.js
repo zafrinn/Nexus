@@ -129,7 +129,6 @@ function UserTable() {
 
   useEffect(() => {
     getUsersList(setUsersList);
-    // Fetch roles data from API or define it locally
     const rolesData = [
       { id: 1, name: "Admin" },
       { id: 2, name: "Basic" },
@@ -140,7 +139,7 @@ function UserTable() {
   const [editFormData, setEditFormData] = useState({
     displayName: "",
     emailAddress: "",
-    roleName: "", // Add roleName to edit form data
+    roleName: "",
   });
   const [editUserId, setEditUserId] = useState(null);
 
@@ -156,13 +155,13 @@ function UserTable() {
       ...editFormData,
       roleId: getRoleId(editFormData.roleName),
       userId: editUserId,
-      enabled: true, // assuming edit mode always enables user
+      enabled: true,
     };
     try {
       await updateAdminUser(editedUser);
       console.log("User data updated successfully");
-      setEditUserId(null); // Reset edit mode
-      getUsersList(setUsersList); // Refresh user list
+      setEditUserId(null);
+      getUsersList(setUsersList);
     } catch (error) {
       console.error("Error updating user data:", error);
     }
@@ -175,7 +174,7 @@ function UserTable() {
       case "Basic":
         return 2;
       default:
-        return 2; // Default to Basic if roleName is not recognized
+        return 2;
     }
   };
 
@@ -185,7 +184,7 @@ function UserTable() {
     const formValues = {
       displayName: user.displayName,
       emailAddress: user.emailAddress,
-      roleName: user.roleName, // Add roleName to formValues
+      roleName: user.roleName,
     };
     setEditFormData(formValues);
   };
@@ -201,7 +200,7 @@ function UserTable() {
       };
       await updateAdminUser(editedUser);
       console.log("User enabled/disabled successfully");
-      getUsersList(setUsersList); // Refresh user list
+      getUsersList(setUsersList);
     } catch (error) {
       console.error("Error enabling/disabling user:", error);
     }
@@ -232,7 +231,7 @@ function UserTable() {
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={() => setEditUserId(null)}
                     handleEditFormSubmit={handleEditFormSubmit}
-                    roles={roles} // Pass roles data to EditableRow
+                    roles={roles}
                   />
                 ) : (
                   <ReadOnlyRow
