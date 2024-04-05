@@ -40,6 +40,7 @@ function Ads({ advertisements }) {
 
       // Call the helper function to contact the advertisement owner
       contactAdvertisementOwner(formData);
+      alert("Email sent to advertisement poster!");
     }
   };
 
