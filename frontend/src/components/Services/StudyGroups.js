@@ -64,12 +64,32 @@ const Button2 = styled.button`
   padding: 8px 16px;
   color: #fff;
   cursor: pointer;
-  max-width: 100%;
-  position: absolute; /* Updated line */
-  bottom: 2px; /* Distance from the bottom of the card */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Adjust to truly center as per left: 50% */
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto; /* Start with a default size */
+  padding: 8px 20px; /* Adjust padding to control size */
+
+  /* Adjust the button size at different breakpoints */
+  @media (max-width: 1200px) {
+    padding: 8px 18px; /* Slightly smaller */
+  }
+  
+  @media (max-width: 992px) {
+    padding: 8px 16px; /* Even smaller */
+  }
+  
+  @media (max-width: 768px) {
+    padding: 8px 14px; /* Adjust for small devices */
+  }
+  
+  @media (max-width: 480px) {
+    padding: 8px 12px; /* Adjust for very small devices */
+  }
 `;
+
+
 
 /**
  * Component for managing study groups.
