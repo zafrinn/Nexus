@@ -8,7 +8,7 @@ import Dashboard from "./components/Dashboard/Dashboard.js";
 import HomePage from "./components/Home/Home.js";
 import MessagesPage from "./components/Messages/messages.js";
 import PostAdsPage from "./components/PostsAds/PostAds.js";
-import ServicesPage from "./components/Services/services.js";
+import ServicesPage from "./components/Services/Services.js";
 import ReactDOM from "react-dom";
 import "./index.css";
 

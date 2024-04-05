@@ -15,7 +15,7 @@ import {
   createTextbook,
   contactTextbookOwner,
   getUserInformation,
-} from "../../apiHelpers"; // Import createTextbook function
+} from "../../apiHelpers";
 
 /**
  * Component for displaying and managing a table of textbook exchange entries.
@@ -61,7 +61,7 @@ function ExchangeTable(props) {
       isbn: addFormData.isbn,
       displayName: addFormData.displayName,
       location: addFormData.location,
-      genreId: 4, // Assuming genreId is always 4
+      genreId: 4,
     };
 
     try {

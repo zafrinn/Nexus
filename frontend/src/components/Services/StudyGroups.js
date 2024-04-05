@@ -8,8 +8,8 @@ import {
   joinStudyGroup,
   leaveStudyGroup,
   updateStudyGroup,
-} from "../../apiHelpers"; 
-import { getStudyGroupById } from "../../apiHelpers"; 
+} from "../../apiHelpers";
+import { getStudyGroupById } from "../../apiHelpers";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -126,7 +126,7 @@ function StudyGroups(props) {
         courseName: formData.courseName,
         room: formData.room,
         timestamp: timestamp,
-        seatLimit: 5, // Assuming seat limit is always 4
+        seatLimit: 5,
       };
       await createStudyGroup(studyGroup);
       alert("New study group was created.");
@@ -176,7 +176,7 @@ function StudyGroups(props) {
     try {
       const studyGroupDetails = await getStudyGroupById(studyGroupId);
       const attendeeList = studyGroupDetails.attendeeList;
-      const currentUserDisplayName = currentUser.displayName; // Assuming currentUser contains displayName
+      const currentUserDisplayName = currentUser.displayName;
       const isUserInList = attendeeList.some(
         (attendee) => attendee.displayName === currentUserDisplayName
       );

@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./dashboard.module.css";
-import TmuLogo from "../../assets/TMU_LOGO.png";
-import databaseImage from "../../assets/car.jpg";
-import { IoIosArrowForward } from "react-icons/io";
 import {
   Card,
   CardContent,
-  CardActions,
-  CardMedia,
-  Typography,
   Button,
   Dialog,
   DialogContent,
   DialogActions,
   TextField,
-  MenuItem,
   DialogTitle,
 } from "@mui/material";
 import { updatePassword } from "../../apiHelpers";
@@ -58,9 +51,7 @@ function ChangeUserPass(props) {
     if (newPassword.trim() !== confirmNewPassword.trim()) {
       newErrors.confirmNewPassword = "Passwords don't match.";
     }
-    // Add more validation rules as needed...
 
-    // Update errors state
     setErrors(newErrors);
 
     // If there are no errors, proceed with handling the password change

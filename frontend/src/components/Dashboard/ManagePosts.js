@@ -103,7 +103,6 @@ function ManagePosts(props) {
   };
 
   const handlePostClick = (advertisement) => {
-    // You can implement your desired functionality here, for example, opening a dialog
     setOpen(true);
   };
 

@@ -298,7 +298,7 @@ const PostAdsPage = () => {
 
             <input
               id="price"
-              type="number" // Change type to "number"
+              type="number"
               placeholder="Price"
               style={{
                 marginBottom: "10px",
@@ -439,14 +439,22 @@ const PostAdsPage = () => {
               style={{ backgroundColor: "rgb(134, 158, 207)", border: "none" }}
               onClick={handleSubmit}
               disabled={
-                !selectedType || // Disable if selectedType is null
-                !imageFile || // Disable if imageFile is null
-                !document.getElementById("title").value || // Disable if title is not entered
-                !document.getElementById("description").value || // Disable if description is not entered
-                !document.getElementById("price").value || // Disable if price is not entered
-                isNaN(parseFloat(document.getElementById("price").value)) || // Disable if price is not a number
-                parseFloat(document.getElementById("price").value) < 0 || // Disable if price is less than or equal to 0
-                !selectedLocation // Disable if selectedLocation is null
+                // Disable if selectedType is null
+                !selectedType ||
+                // Disable if imageFile is null
+                !imageFile ||
+                // Disable if title is not entered
+                !document.getElementById("title").value ||
+                // Disable if description is not entered
+                !document.getElementById("description").value ||
+                // Disable if price is not entered
+                !document.getElementById("price").value ||
+                // Disable if price is not a number
+                isNaN(parseFloat(document.getElementById("price").value)) ||
+                // Disable if price is less than or equal to 0
+                parseFloat(document.getElementById("price").value) < 0 ||
+                // Disable if selectedLocation is null
+                !selectedLocation
               }
             >
               Post

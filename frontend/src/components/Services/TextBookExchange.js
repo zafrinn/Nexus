@@ -3,7 +3,7 @@ import styles from "./services.module.css";
 import ExchangeTable from "./Table";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { getTextbooksList } from "../../apiHelpers"; // Import getTextbooksList function
+import { getTextbooksList } from "../../apiHelpers";
 
 const SearchBox = styled("div")(({ theme }) => ({
   border: "1px solid #003fa7",
@@ -72,7 +72,6 @@ function TextBookExchange() {
       </div>
       <div className={styles.TxtExchangeTable}>
         <ExchangeTable searchValue={searchValue} data={textbooks} />{" "}
-        {/* Pass fetched textbooks data */}
       </div>
     </div>
   );

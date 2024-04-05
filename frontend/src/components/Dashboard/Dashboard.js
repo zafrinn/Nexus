@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./dashboard.module.css";
-import adminPic from "../../assets/admin_user.jpg";
-import studentPic from "../../assets/basic_user.jpg";
+import adminPic from "../../assets/Dashboard/admin_user.jpg";
+import studentPic from "../../assets/Dashboard/basic_user.jpg";
 import { IoIosArrowForward } from "react-icons/io";
-import {
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  Button,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  TextField,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import UserPosts from "./Posts.js";
 import EditAccount from "./EditAccount.js";
 import ChangeUserPass from "./ChangePass.js";
 import FullFeaturedCrudGrid from "./ManageUsers.js";
-import ManagePosts from "./ManagePosts.js"; // Import ManagePosts component
+import ManagePosts from "./ManagePosts.js";
 import { getUserInformation, logoutUser } from "../../apiHelpers.js";
 import { useNavigate } from "react-router-dom";
 
@@ -87,7 +77,6 @@ function Dashboard() {
               {userData && <UserProfile data={userData} />}
             </div>
             <div className={`${styles.navigation}s`}>
-              {/* Pass isAdmin property to DashboardNavBar */}
               <DashBoardNavBar
                 selectedTab={selectedTab}
                 handleTabClick={handleTabClick}
@@ -99,7 +88,6 @@ function Dashboard() {
         </div>
 
         <div className={`${styles.dashBoardColSecond} col-md-9`}>
-          {/* Render components based on selected tab */}
           {selectedTab === "EditAccount" && userData && (
             <EditAccount data={userData} updateUser={updateUser} />
           )}

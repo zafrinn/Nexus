@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import navStyle from "./navbar.css";
 import { FaBars, FaTimes, FaSearch } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
-import logo from "./icon.png";
+import logo from "../../assets/NavBar/icon.png";
 
 /**
  * Navbar component for navigation within the application.

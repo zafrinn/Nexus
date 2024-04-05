@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login-signup.css";
-import logo from "../../assets/logo.png";
-import slogan from "../../assets/slogan.png";
+import logo from "../../assets/LogInPage/logo.png";
+import slogan from "../../assets/LogInPage/slogan.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import { resetPassword } from "../../apiHelpers";
 
