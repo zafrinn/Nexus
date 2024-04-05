@@ -19,6 +19,10 @@ import {
 } from "../../apiHelpers";
 import styles from "./dashboard.module.css";
 
+/**
+ * ManagePosts component for displaying and managing advertisements by the admin.
+ * @param {Object} props - Props passed to the component.
+ */
 function ManagePosts(props) {
   const [advertisements, setAdvertisements] = useState([]);
   const [open, setOpen] = useState(false);

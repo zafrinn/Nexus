@@ -12,9 +12,13 @@ import {
   Button,
 } from "@mui/material";
 import styles from "../Dashboard/dashboard.module.css";
-import { contactAdvertisementOwner } from "../../apiHelpers"; // Import the helper function
+import { contactAdvertisementOwner } from "../../apiHelpers";
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
+/**
+ * Ads component for displaying a list of advertisements.
+ * @param {Array} advertisements - An array of advertisement objects to display.
+ */
 function Ads({ advertisements }) {
   const [selectedAdvertisement, setSelectedAdvertisement] = useState(null);
 
@@ -106,7 +110,6 @@ function Ads({ advertisements }) {
       ))}
       <Dialog open={selectedAdvertisement !== null} onClose={handleClose}>
         <DialogContent dividers style={{ minWidth: 500 }}>
-          {/* Display advertisement details in the dialog */}
           {selectedAdvertisement && (
             <>
               <Typography gutterBottom variant="h5" component="div">
@@ -131,7 +134,6 @@ function Ads({ advertisements }) {
                   title="Map"
                   width="100%"
                   height="100%"
-                  frameBorder="0"
                   src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${selectedAdvertisement.location}`}
                   allowFullScreen
                 ></iframe>

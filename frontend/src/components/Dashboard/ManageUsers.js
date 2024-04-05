@@ -2,6 +2,16 @@ import styles from "./dashboard.module.css";
 import React, { useState, useEffect, Fragment } from "react";
 import { getUsersList, updateAdminUser } from "../../apiHelpers";
 
+/**
+ * EditableRow component renders a table row with input fields for editing user data.
+ * @param {Object} props - Props passed to the component.
+ * @param {Object} props.editFormData - Form data for editing user.
+ * @param {Function} props.handleEditFormChange - Function to handle changes in the edit form.
+ * @param {Function} props.handleCancelClick - Function to handle canceling the edit action.
+ * @param {Function} props.handleEditFormSubmit - Function to handle submitting the edit form.
+ * @param {Array} props.roles - List of user roles.
+ */
+
 const EditableRow = ({
   editFormData,
   handleEditFormChange,
@@ -68,6 +78,13 @@ const EditableRow = ({
   );
 };
 
+/**
+ * ReadOnlyRow component renders a table row with read-only user data and action buttons.
+ * @param {Object} props - Props passed to the component.
+ * @param {Object} props.contact - User data.
+ * @param {Function} props.handleEditClick - Function to handle clicking the edit button.
+ * @param {Function} props.handleEnableDisableClick - Function to handle clicking the enable/disable button.
+ */
 const ReadOnlyRow = ({
   contact,
   handleEditClick,
@@ -103,6 +120,9 @@ const ReadOnlyRow = ({
   );
 };
 
+/**
+ * UserTable component renders a table for displaying and managing users.
+ */
 function UserTable() {
   const [usersList, setUsersList] = useState([]);
   const [roles, setRoles] = useState([]);

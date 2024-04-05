@@ -8,8 +8,8 @@ import {
   joinStudyGroup,
   leaveStudyGroup,
   updateStudyGroup,
-} from "../../apiHelpers"; // Import createStudyGroup, getStudyGroupList, joinStudyGroup, leaveStudyGroup, and updateStudyGroup functions
-import { getStudyGroupById } from "../../apiHelpers"; // Import getStudyGroupById function
+} from "../../apiHelpers"; 
+import { getStudyGroupById } from "../../apiHelpers"; 
 
 const Container = styled.div`
   max-width: 1200px;
@@ -71,6 +71,9 @@ const Button2 = styled.button`
   transform: translateX(-50%); /* Adjust to truly center as per left: 50% */
 `;
 
+/**
+ * Component for managing study groups.
+ */
 function StudyGroups(props) {
   const [studyGroupData, setStudyGroupData] = useState([]);
   const [formData, setFormData] = useState({

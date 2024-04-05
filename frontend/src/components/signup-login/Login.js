@@ -8,16 +8,33 @@ import slogan from "../../assets/tmu-logo-new.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import { loginUser } from "../../apiHelpers";
 
+/**
+ * Component for rendering the login page.
+ *
+ * @param {Object} props - The props passed to the component.
+ * @param {Function} props.setUserId - Function to set the user ID after login.
+ * @returns {JSX.Element} The JSX element representing the login page.
+ */
 const LoginPage = ({ setUserId }) => {
   const navigate = useNavigate();
   const [captchaValue, setCaptchaValue] = useState(null);
   const token = "token";
 
+  /**
+   * Handler for the change event of the ReCAPTCHA component.
+   *
+   * @param {string} value - The value of the ReCAPTCHA.
+   */
   const handleCaptchaChange = (value) => {
     console.log("Captcha value:", value);
     setCaptchaValue(value);
   };
 
+  /**
+   * Handler for the form submission.
+   *
+   * @param {Event} e - The form submit event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 

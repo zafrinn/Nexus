@@ -23,6 +23,10 @@ import ManagePosts from "./ManagePosts.js"; // Import ManagePosts component
 import { getUserInformation, logoutUser } from "../../apiHelpers.js";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * UserProfile component for displaying user profile information.
+ * @param {Object} data - User data containing displayName, emailAddress, and roleName.
+ */
 function UserProfile({ data }) {
   const userProfilePic = data.roleName === "Admin" ? adminPic : studentPic;
 
@@ -41,6 +45,9 @@ function UserProfile({ data }) {
   );
 }
 
+/**
+ * Dashboard component for rendering the user dashboard.
+ */
 function Dashboard() {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("EditAccount");
@@ -48,10 +55,9 @@ function Dashboard() {
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/"); 
+      navigate("/");
     }
   }, [navigate]);
-  
 
   useEffect(() => {
     // Fetch user information
@@ -62,7 +68,6 @@ function Dashboard() {
     setSelectedTab(tab);
   };
 
-  
   const handleLogout = () => {
     // Logout user
     logoutUser();
@@ -117,6 +122,13 @@ function Dashboard() {
   );
 }
 
+/**
+ * DashBoardNavBar component for rendering the navigation bar in the dashboard.
+ * @param {Object} selectedTab - Currently selected tab.
+ * @param {Function} handleTabClick - Function to handle tab click events.
+ * @param {Boolean} isAdmin - Boolean indicating whether the user is an admin or not.
+ * @param {Function} handleLogout - Function to handle logout event.
+ */
 function DashBoardNavBar({
   selectedTab,
   handleTabClick,
@@ -175,10 +187,25 @@ function DashBoardNavBar({
           </span>
         </button>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <Button style={{ backgroundColor: '#d73644', border: 'none', cursor: 'pointer', padding: '10px', textAlign: 'center', width: '60%', borderRadius: '5px', fontSize: '15px', fontFamily: 'Poppins, sans-serif', color: '#ffffff' }} onClick={handleLogout}>Logout</Button>
-</div>
-
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          style={{
+            backgroundColor: "#d73644",
+            border: "none",
+            cursor: "pointer",
+            padding: "10px",
+            textAlign: "center",
+            width: "60%",
+            borderRadius: "5px",
+            fontSize: "15px",
+            fontFamily: "Poppins, sans-serif",
+            color: "#ffffff",
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 }

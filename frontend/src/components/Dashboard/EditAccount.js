@@ -13,6 +13,11 @@ import {
 } from "@mui/material";
 import { updateUserAccount } from "../../apiHelpers";
 
+/**
+ * EditAccount component for rendering the user account information and providing functionality to edit it.
+ * @param {Object} data - User data containing displayName and emailAddress.
+ * @param {Function} updateUser - Function to update the user data after editing.
+ */
 function EditAccount({ data, updateUser }) {
   const [open, setOpen] = useState(false);
   const [editedData, setEditedData] = useState(data);
