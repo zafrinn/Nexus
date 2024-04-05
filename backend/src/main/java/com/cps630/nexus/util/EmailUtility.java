@@ -34,6 +34,10 @@ public class EmailUtility {
 		sender.send(mailMessage);
 	}
 	
+	/**
+	 * Set properties to connect to Gmail SMTP server
+	 * @return
+	 */
 	private static JavaMailSender buildMailSender() {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		sender.setHost("smtp.gmail.com");

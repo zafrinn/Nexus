@@ -20,21 +20,40 @@ public class TextbookController {
 	@Autowired
 	private TextbookService service;
 	
+	/**
+	 * Endpoint to create a textbook record
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/internal/basic/textbook/create")
 	public ResponseEntity<Object> createTextbook(@RequestBody @Valid TextbookCreateRequest request) {
 		return service.createTextbook(request);
 	}
 	
+	/**
+	 * Endpoint to update a textbook record
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/internal/basic/textbook/update")
 	public ResponseEntity<Object> updateTextbook(@RequestBody @Valid TextbookUpdateRequest request) {
 		return service.updateTextbook(request);
 	}
 	
+	/**
+	 * Endpoint to get a list of available textbooks
+	 * @return
+	 */
 	@PostMapping("/internal/basic/textbook/list/get")
 	public ResponseEntity<Object> getTextbookList() {
 		return service.getTextbookList();
 	}
 	
+	/**
+	 * Endpoint to contact the poster of a textbook
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/internal/basic/textbook/contact")
 	public ResponseEntity<Object> contactTextbook(@RequestBody @Valid ContactTextbookRequest request) {
 		return service.contactTextbook(request);

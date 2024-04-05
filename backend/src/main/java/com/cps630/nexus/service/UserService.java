@@ -42,6 +42,7 @@ public class UserService {
 	Random random = new Random();
 	
 	public ResponseEntity<Object> updatePassword(PasswordUpdateRequest request) {
+		// Verify that password does not have special characters
 		if(!StringUtils.isAsciiPrintable(request.getPassword1()) || !StringUtils.isAsciiPrintable(request.getPassword2())) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
 		}
@@ -123,10 +124,12 @@ public class UserService {
 	@Transactional
 	@Modifying
 	public ResponseEntity<Object> createUser(UserCreateRequest request) {
+		// Verify that display name is alphanumeric
 		if(!StringUtils.isAlphanumeric(request.getDisplayName())) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_DISPLAY_NAME), HttpStatus.BAD_REQUEST);
 		}
 		
+		// Verify that password does not have special characters
 		if(!StringUtils.isAsciiPrintable(request.getPassword1()) || !StringUtils.isAsciiPrintable(request.getPassword2())) {
 			return new ResponseEntity<>(new ErrorInfo(ConstantUtil.INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
 		}
