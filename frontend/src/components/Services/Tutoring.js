@@ -50,6 +50,7 @@ function Tutoring() {
         tutorLevelId: tutorLevel,
       };
       await createTutoringSession(formData);
+      alert("A new tutoring entry was added.");
       // Refresh tutor sessions list after adding new session
       fetchTutoringSessions();
       setCourseName("");
