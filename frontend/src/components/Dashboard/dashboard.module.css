@@ -1,4 +1,3 @@
-/* dashboard.css */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 .dashboardConatiner {
@@ -22,29 +21,33 @@
   padding-left: 50px;
 }
 
-/* dashboard.module.css */
-
 .accountDisplay {
   margin: 25px 60px 20px;
-  /*background-color: aliceblue;*/
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center content horizontally */
+  align-items: center;
 }
 
 .accountInfo {
-  width: 100%; /* Make the container fill the available width */
+  width: 100%; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center text horizontally */
+  justify-content: center;
+}
+
+.profilePic {
+  width: 50px;
+  height: 50px; 
+  border-radius: 50%; 
+  margin-right: 10px; 
 }
 
 .tmuLogo {
-  width: 180px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
-  margin-bottom: 10px; /* Add spacing between logo and name */
+  width: 180px; 
+  height: auto; 
+  margin-bottom: 10px;
 }
 
 .account {
@@ -53,20 +56,19 @@
   text-align: left;
 }
 .accountName {
-  font-size: 20px; /* Adjust font size as needed */
+  font-size: 20px; 
 
-  margin-bottom: 5px; /* Add spacing between name and email */
+  margin-bottom: 5px; 
   font-family: "Poppins", sans-serif;
   color: #333333;
 }
 
 .accountEmail {
-  font-size: 12px; /* Adjust font size as needed */
+  font-size: 12px; 
   font-family: "Poppins", sans-serif;
   color: #333333;
 }
 
-/* Vertical navigation bar styles */
 .navbar {
   display: flex;
   flex-direction: column;
@@ -90,7 +92,7 @@
   text-align: left;
   width: 100%;
   border-radius: 5px;
-  font-size: 15px; /* Adjust font size as needed */
+  font-size: 15px; 
   font-family: "Poppins", sans-serif;
   color: #333333;
 }
@@ -101,20 +103,19 @@
 }
 
 .active {
-  background-color: #003fa7; /* Change to the desired background color */
+  background-color: #003fa7; 
 }
 
 .active button {
-  color: aliceblue; /* Add any additional styles for the active button */
+  color: aliceblue; 
 }
 
 .arrow {
   float: right;
 }
 
-/*CSS FOR EDIT ACCOUNT*/
 .EditAccountContainer {
-  width: auto; /* Make the container fill the available width */
+  width: auto;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -146,8 +147,8 @@
 .EditAccountLabel {
   margin: 20px 10px 0px 20px;
   text-align: left;
-  display: inline-flexbox; /* Make labels display as block elements */
-  font-weight: 500; /* Make labels bold */
+  display: inline-flexbox;
+  font-weight: 500;
   color: #666666;
   font-family: "Poppins", sans-serif;
 }
@@ -158,7 +159,6 @@
   justify-content: center;
 }
 
-/* CSS FOR USER POSTS*/
 
 .userPostsContainer {
   display: grid;
@@ -172,7 +172,6 @@
   flex-direction: column;
 }
 
-/*CSS FOR CHANGE PASSWORD*/
 
 .changePassContainer {
   margin: 60px 80px;
@@ -186,7 +185,7 @@
   font-family: "Poppins", sans-serif;
 }
 
-/*CSS FOR ADMIN USER TABLE*/
+
 
 .TxtExchangeContainer {
   margin: 20px;
@@ -201,22 +200,20 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  max-height: 80vh; /* Adjust the height as needed */
+  max-height: 80vh;
   overflow-y: auto;
 }
 
-
-/* Admin/user dropdown */
 .editInput {
   padding: 10px;
   margin: 10px 0;
-  width: 100%; /* Adjust as necessary */
+  width: 100%;
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  appearance: none; /* Removes default styling provided by browsers */
+  appearance: none;
   background-color: #003fa7;
   cursor: pointer;
   color:#ffffff
@@ -228,16 +225,13 @@
   box-shadow: 0 0 0 2px #fedb00;
 }
 
-/* Optionally style the dropdown arrow */
 .editInput::-ms-expand {
   display: none;
 }
 .editInput::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* Makes the dropdown arrow darker or lighter based on your needs */
+  filter: invert(1);
 }
 
-
-/* CSS */
 .exchangeBtn {
   align-items: center;
   appearance: none;
@@ -400,7 +394,6 @@
   }
 }
 
-/* Phones */
 @media only screen and (max-width: 767px) {
   .navbar {
     flex-direction: row;
@@ -427,7 +420,7 @@
   }
 }
 
-/* Extra small devices (phones) */
+
 @media (max-width: 576px) {
   .navbar {
     flex-direction: row;
@@ -447,7 +440,6 @@
   }
 }
 
-/* Small devices (tablets) */
 @media (min-width: 576px) and (max-width: 768px) {
   .accountName {
     font-size: 3rem;
@@ -458,6 +450,8 @@
 }
 
 .smallProfilePic {
-  width: 100px; /* Adjust the width as needed */
-  height: auto; /* Maintain aspect ratio */
+  width: 100px; 
+  height: auto;
+  display: block; 
+  margin: 0 auto; 
 }
