@@ -42,8 +42,16 @@ function UserProfile({ data }) {
 }
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("EditAccount");
   const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/"); 
+    }
+  }, [navigate]);
+  
 
   useEffect(() => {
     // Fetch user information
@@ -54,7 +62,7 @@ function Dashboard() {
     setSelectedTab(tab);
   };
 
-  const navigate = useNavigate();
+  
   const handleLogout = () => {
     // Logout user
     logoutUser();

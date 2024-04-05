@@ -5,8 +5,10 @@ import arrow2 from "../../assets/PostAds/arrow2.png";
 import arrow3 from "../../assets/PostAds/arrow3.png";
 import uploadIcon from "../../assets/PostAds/upload_icon.png";
 import { createAdvertisement } from "../../apiHelpers";
+import { useNavigate } from "react-router-dom";
 
 const PostAdsPage = () => {
+  const navigate = useNavigate();
   const [selectedType, setSelectedType] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [dropdownOpenType, setDropdownOpenType] = useState(false);
@@ -17,6 +19,12 @@ const PostAdsPage = () => {
   const dropdownRefLocation = useRef(null);
   const fileInputRef = useRef(null);
 
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/"); 
+    }
+  }, [navigate]);
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -39,6 +47,8 @@ const PostAdsPage = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  
 
   const handleSelectType = (type) => {
     setSelectedType(type);
@@ -98,7 +108,6 @@ const PostAdsPage = () => {
 
     try {
       await createAdvertisement(formData);
-      alert("Advertisement has been posted!");
     } catch (error) {
       console.error("Error creating advertisement:", error);
     }
@@ -252,6 +261,7 @@ const PostAdsPage = () => {
             alt="Third Arrow"
           />
           <div
+          
             style={{
               marginTop: "15px",
               width: "70%",

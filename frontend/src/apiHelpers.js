@@ -58,6 +58,7 @@ export function logoutUser() {
   })
     .then((response) => {
       if (response.ok) {
+        localStorage.removeItem("token");
         console.log("User logged out successfully");
       } else {
         console.error("Failed to logout user");
@@ -67,6 +68,7 @@ export function logoutUser() {
       console.error("Error logging out user:", error);
     });
 }
+
 
 // ============================
 //   SIGN UP / SIGN IN USER FUNCTIONS
@@ -97,6 +99,7 @@ export async function updatePassword(formData) {
 }
 
 export async function loginUser(formData) {
+  //sessionStorage.removeItem("userId");
   try {
     const response = await fetch(
       "http://" + hostname + ":8080/api/v1/external/login",
