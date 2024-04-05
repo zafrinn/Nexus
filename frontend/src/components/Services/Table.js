@@ -150,6 +150,10 @@ function ExchangeTable(props) {
                       required
                       value={addFormData.isbn}
                       onChange={handleAddFormChange}
+                      inputProps={{
+                        pattern: "\\d{13}",
+                        title: "ISBN must be exactly 13 numbers long",
+                      }}
                     />
                   </Grid>
                   <Grid item xs={12} sm={2}>
