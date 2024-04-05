@@ -20,6 +20,10 @@ import {
 } from "@mui/material";
 import { updatePassword } from "../../apiHelpers";
 
+/**
+ * ChangeUserPass component for allowing users to change their password.
+ * @param {Object} props - Additional props to pass to the component.
+ */
 function ChangeUserPass(props) {
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState({

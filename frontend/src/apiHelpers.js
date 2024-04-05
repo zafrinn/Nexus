@@ -1,5 +1,9 @@
 let hostname = process.env.REACT_APP_HOSTNAME;
 
+/**
+ * Fetches user information from the server.
+ * @param {Function} setUserData - Function to set the user data in the component's state.
+ */
 export async function getUserInformation(setUserData) {
   try {
     const response = await fetch(
@@ -14,7 +18,7 @@ export async function getUserInformation(setUserData) {
     );
     if (response.ok) {
       const data = await response.json();
-      setUserData(data); // Assuming setUserData is a function passed from the component
+      setUserData(data);
     } else {
       console.error("Failed to fetch user data");
     }
@@ -23,6 +27,10 @@ export async function getUserInformation(setUserData) {
   }
 }
 
+/**
+ * Updates user account information on the server.
+ * @param {Object} updatedData - Data object containing updated user information.
+ */
 export async function updateUserAccount(updatedData) {
   try {
     const response = await fetch(
@@ -46,8 +54,9 @@ export async function updateUserAccount(updatedData) {
   }
 }
 
-export async function deleteUserAccount(contactId) {}
-
+/**
+ * Logs out the user from the application.
+ */
 export function logoutUser() {
   fetch("http://" + hostname + ":8080/api/v1/internal/basic/logout", {
     method: "POST",
@@ -69,11 +78,14 @@ export function logoutUser() {
     });
 }
 
-
 // ============================
 //   SIGN UP / SIGN IN USER FUNCTIONS
 // ============================
 
+/**
+ * Updates the user's password on the server.
+ * @param {Object} formData - Data object containing user's new password.
+ */
 export async function updatePassword(formData) {
   try {
     const response = await fetch(
@@ -98,8 +110,12 @@ export async function updatePassword(formData) {
   }
 }
 
+/**
+ * Logs in the user to the application.
+ * @param {Object} formData - Data object containing user's login credentials.
+ * @returns {Object} - Object indicating login success or failure along with a message.
+ */
 export async function loginUser(formData) {
-  //sessionStorage.removeItem("userId");
   try {
     const response = await fetch(
       "http://" + hostname + ":8080/api/v1/external/login",
@@ -127,6 +143,11 @@ export async function loginUser(formData) {
   }
 }
 
+/**
+ * Resets the user's password.
+ * @param {Object} formData - Data object containing user's email for password reset.
+ * @returns {Object} - Object indicating password reset success or failure along with a message.
+ */
 export async function resetPassword(formData) {
   try {
     const response = await fetch(
@@ -157,6 +178,11 @@ export async function resetPassword(formData) {
   }
 }
 
+/**
+ * Creates a new user account.
+ * @param {Object} formData - Data object containing new user's information.
+ * @returns {Object} - Object indicating signup success or failure along with a message.
+ */
 export async function createUser(formData) {
   try {
     const response = await fetch(
@@ -188,14 +214,16 @@ export async function createUser(formData) {
 //   BASIC USER ADVERTISEMENT FUNCTIONS
 // ============================
 
+/**
+ * Creates a new advertisement.
+ * @param {Object} formData - Data object containing advertisement information.
+ */
 export async function createAdvertisement(formData) {
   try {
     const requestOptions = {
       method: "POST",
       body: formData,
-      headers: {
-        // "Content-Type": "multipart/form-data",
-      },
+      headers: {},
       credentials: "include",
       redirect: "follow",
     };
@@ -214,6 +242,10 @@ export async function createAdvertisement(formData) {
   }
 }
 
+/**
+ * Fetches advertisements from the server and sets them in the component's state.
+ * @param {Function} setAdvertisementData - Function to set advertisement data in the component's state.
+ */
 export async function getAdvertisements(setAdvertisementData) {
   try {
     const response = await fetch(
@@ -230,7 +262,7 @@ export async function getAdvertisements(setAdvertisementData) {
     );
     if (response.ok) {
       const data = await response.json();
-      setAdvertisementData(data); // Assuming setAdvertisementData is a function passed from the component
+      setAdvertisementData(data);
     } else {
       console.error("Failed to fetch advertisement data");
     }
@@ -239,6 +271,11 @@ export async function getAdvertisements(setAdvertisementData) {
   }
 }
 
+/**
+ * Updates an existing advertisement on the server.
+ *
+ * @param {Object} advertisementData - Data object containing updated advertisement information.
+ */
 export async function updateAdvertisement(advertisementData) {
   try {
     const response = await fetch(
@@ -262,8 +299,12 @@ export async function updateAdvertisement(advertisementData) {
   }
 }
 
-// If the Ad is disabled, it won't be returned to this function
-// Good for HomePage
+/**
+ * Fetches advertisements by category ID from the server.
+ *
+ * @param {string} categoryId - ID of the category for which advertisements are fetched.
+ * @returns {Array} - Array of advertisement objects.
+ */
 export async function getAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
@@ -291,6 +332,11 @@ export async function getAdvertisementsByCategoryId(categoryId) {
   }
 }
 
+/**
+ * Contacts the owner of an advertisement.
+ *
+ * @param {Object} formData - Data object containing contact information.
+ */
 export async function contactAdvertisementOwner(formData) {
   try {
     const response = await fetch(
@@ -320,6 +366,12 @@ export async function contactAdvertisementOwner(formData) {
 // ============================
 //      ADMIN ADVERTISEMENT FUNCTIONS
 // ============================
+
+/**
+ * Updates an existing advertisement by an admin user.
+ *
+ * @param {Object} advertisementData - Data object containing updated advertisement information.
+ */
 export async function updateAdminAdvertisement(advertisementData) {
   try {
     const response = await fetch(
@@ -343,6 +395,12 @@ export async function updateAdminAdvertisement(advertisementData) {
   }
 }
 
+/**
+ * Fetches advertisements by category ID from the server for admin users.
+ *
+ * @param {string} categoryId - ID of the category for which advertisements are fetched.
+ * @returns {Array} - Array of advertisement objects.
+ */
 export async function getAdminAdvertisementsByCategoryId(categoryId) {
   try {
     const response = await fetch(
@@ -373,6 +431,11 @@ export async function getAdminAdvertisementsByCategoryId(categoryId) {
 //      ADMIN FUNCTIONS
 // ============================
 
+/**
+ * Fetches the list of users from the server and sets them in the component's state.
+ *
+ * @param {Function} setUsersList - Function to set user list in the component's state.
+ */
 export async function getUsersList(setUsersList) {
   try {
     const response = await fetch(
@@ -404,6 +467,11 @@ export async function getUsersList(setUsersList) {
   }
 }
 
+/**
+ * Updates user information by an admin user.
+ *
+ * @param {Object} userData - Data object containing updated user information.
+ */
 export async function updateAdminUser(userData) {
   try {
     const response = await fetch(
@@ -431,6 +499,11 @@ export async function updateAdminUser(userData) {
 //      TEXTBOOK FUNCTIONS
 // ============================
 
+/**
+ * Creates a new textbook on the server.
+ *
+ * @param {Object} textbookData - Data object containing textbook information.
+ */
 export async function createTextbook(textbookData) {
   try {
     const response = await fetch(
@@ -454,6 +527,11 @@ export async function createTextbook(textbookData) {
   }
 }
 
+/**
+ * Updates an existing textbook on the server.
+ *
+ * @param {Object} textbookData - Data object containing updated textbook information.
+ */
 export async function updateTextbook(textbookData) {
   try {
     const response = await fetch(
@@ -477,6 +555,11 @@ export async function updateTextbook(textbookData) {
   }
 }
 
+/**
+ * Fetches the list of textbooks from the server and sets them in the component's state.
+ *
+ * @param {Function} setTextbooksList - Function to set textbook list in the component's state.
+ */
 export async function getTextbooksList(setTextbooksList) {
   try {
     const response = await fetch(
@@ -513,6 +596,11 @@ export async function getTextbooksList(setTextbooksList) {
   }
 }
 
+/**
+ * Contacts the owner of a textbook.
+ *
+ * @param {Object} formData - Data object containing contact information.
+ */
 export async function contactTextbookOwner(formData) {
   try {
     const response = await fetch(
@@ -540,6 +628,11 @@ export async function contactTextbookOwner(formData) {
 // Q&A Endpoints
 // ====================
 
+/**
+ * Fetches the list of discussions from the server and sets them in the component's state.
+ *
+ * @param {Function} setDiscussionData - Function to set discussion list in the component's state.
+ */
 export async function getDiscussionList(setDiscussionData) {
   try {
     const response = await fetch(
@@ -565,6 +658,12 @@ export async function getDiscussionList(setDiscussionData) {
   }
 }
 
+/**
+ * Creates a new discussion on the server.
+ *
+ * @param {Object} formData - Data object containing discussion information.
+ * @returns {Object} - Object indicating discussion creation success or failure along with a message.
+ */
 export async function createDiscussion(formData) {
   try {
     const response = await fetch(
@@ -596,6 +695,12 @@ export async function createDiscussion(formData) {
   }
 }
 
+/**
+ * Creates a new reply to a discussion on the server.
+ *
+ * @param {Object} formData - Data object containing reply information.
+ * @returns {Object} - Object indicating reply creation success or failure along with a message.
+ */
 export async function createDiscussionReply(formData) {
   try {
     const response = await fetch(
@@ -633,6 +738,11 @@ export async function createDiscussionReply(formData) {
 // TUTORING FUNCTIONS
 // ====================
 
+/**
+ * Creates a new tutoring session on the server.
+ *
+ * @param {Object} formData - Data object containing tutoring session information.
+ */
 export async function createTutoringSession(formData) {
   try {
     const response = await fetch(
@@ -657,6 +767,11 @@ export async function createTutoringSession(formData) {
   }
 }
 
+/**
+ * Updates an existing tutoring session on the server.
+ *
+ * @param {Object} formData - Data object containing updated tutoring session information.
+ */
 export async function updateTutoringSession(formData) {
   try {
     const response = await fetch(
@@ -681,6 +796,11 @@ export async function updateTutoringSession(formData) {
   }
 }
 
+/**
+ * Fetches the list of tutoring sessions from the server and sets them in the component's state.
+ *
+ * @param {Function} setTutoringSessions - Function to set tutoring session list in the component's state.
+ */
 export async function getTutoringSessions(setTutoringSessions) {
   try {
     const response = await fetch(
@@ -707,7 +827,11 @@ export async function getTutoringSessions(setTutoringSessions) {
   }
 }
 
-// Function to contact textbook owner
+/**
+ * Contacts the owner of a tutoring session.
+ *
+ * @param {Object} formData - Data object containing contact information.
+ */
 export async function contactTutorSessionOwner(formData) {
   try {
     const response = await fetch(
@@ -732,6 +856,11 @@ export async function contactTutorSessionOwner(formData) {
   }
 }
 
+/**
+ * Fetches the list of study groups from the server and sets them in the component's state.
+ *
+ * @param {Function} setStudyGroupData - Function to set study group list in the component's state.
+ */
 export async function getStudyGroupList(setStudyGroupData) {
   try {
     const response = await fetch(
@@ -746,7 +875,7 @@ export async function getStudyGroupList(setStudyGroupData) {
     );
     if (response.ok) {
       const data = await response.json();
-      setStudyGroupData(data); // Assuming setStudyGroupData is a function passed from the component
+      setStudyGroupData(data);
     } else {
       console.error("Failed to fetch study group list");
     }
@@ -759,6 +888,11 @@ export async function getStudyGroupList(setStudyGroupData) {
 //      STUDY GROUP FUNCTIONS
 // ============================
 
+/**
+ * Joins a study group.
+ *
+ * @param {Object} formData - Data object containing study group join information.
+ */
 export async function joinStudyGroup(formData) {
   try {
     const response = await fetch(
@@ -782,6 +916,11 @@ export async function joinStudyGroup(formData) {
   }
 }
 
+/**
+ * Leaves a study group.
+ *
+ * @param {Object} formData - Data object containing study group leave information.
+ */
 export async function leaveStudyGroup(formData) {
   try {
     const response = await fetch(
@@ -805,6 +944,11 @@ export async function leaveStudyGroup(formData) {
   }
 }
 
+/**
+ * Updates an existing study group on the server.
+ *
+ * @param {Object} studyGroupData - Data object containing updated study group information.
+ */
 export async function updateStudyGroup(studyGroupData) {
   try {
     const response = await fetch(
@@ -828,7 +972,12 @@ export async function updateStudyGroup(studyGroupData) {
   }
 }
 
-// THIS IS USED TO KNOW IF YOURE IN A STUDY GROUP OR NOT
+/**
+ * Fetches a study group by its ID from the server.
+ *
+ * @param {string} studyGroupId - ID of the study group to fetch.
+ * @returns {Object|null} - Study group object if found, otherwise null.
+ */
 export async function getStudyGroupById(studyGroupId) {
   try {
     const response = await fetch(
@@ -855,6 +1004,11 @@ export async function getStudyGroupById(studyGroupId) {
   }
 }
 
+/**
+ * Creates a new study group on the server.
+ *
+ * @param {Object} formData - Data object containing study group information.
+ */
 export async function createStudyGroup(formData) {
   try {
     const response = await fetch(

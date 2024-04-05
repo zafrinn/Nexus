@@ -20,6 +20,11 @@ export const pages = {
   messages: "/messages",
 };
 
+/**
+ * Component for managing different pages and their content.
+ * @param {Object} props - Props object containing userId and setUserId functions.
+ * @returns {JSX.Element} - JSX element representing the Pages component.
+ */
 function Pages({ userId, setUserId }) {
   const [page, setPage] = useState(pages.landing);
   const [showLogout, setShowLogout] = useState(false);
@@ -56,6 +61,10 @@ function Pages({ userId, setUserId }) {
   );
 }
 
+/**
+ * Main component for managing different pages and routing in the application.
+ * @returns {JSX.Element} - JSX element representing the AppRouter component.
+ */
 function AppRouter() {
   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
 

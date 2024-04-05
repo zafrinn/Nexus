@@ -7,15 +7,28 @@ import slogan from "../../assets/slogan.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import { resetPassword } from "../../apiHelpers";
 
+/**
+ * Component for resetting the user's password.
+ */
 const PasswordReset = () => {
   const navigate = useNavigate();
   const [captchaValue, setCaptchaValue] = useState(null);
 
+  /**
+   * Handler for the CAPTCHA change event.
+   *
+   * @param {string} value - The new CAPTCHA value.
+   */
   const handleCaptchaChange = (value) => {
     console.log("Captcha value:", value);
     setCaptchaValue(value);
   };
 
+  /**
+   * Handler for the form submission.
+   *
+   * @param {Event} e - The form submit event.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (captchaValue) {

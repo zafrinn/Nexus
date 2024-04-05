@@ -11,46 +11,51 @@ import TmuLogo from "../../assets/TMU_LOGO.png";
 import { getAdvertisementsByCategoryId } from "../../apiHelpers"; // Import the API function
 import { useNavigate } from "react-router-dom";
 
-const SearchBox = styled('div')(({ theme }) => ({
-  border: '1px solid #003fa7', // Add border with color
-  padding: '5px',
-  borderRadius: '5px',
+const SearchBox = styled("div")(({ theme }) => ({
+  border: "1px solid #003fa7", // Add border with color
+  padding: "5px",
+  borderRadius: "5px",
 }));
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
+  backgroundColor: "none",
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
+    width: "auto",
   },
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
+  color: "inherit",
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
 }));
 
+/**
+ * SearchAd component for displaying the search bar.
+ * @param {function} handleSearchChange - Function to handle search input change.
+ * @param {string} searchValue - Value of the search input.
+ */
 function SearchAd({ handleSearchChange, searchValue }) {
   return (
     <div className={styles.searchBar}>
       <SearchBox>
-        <form style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+        <form style={{ display: "flex", alignItems: "center", width: "100%" }}>
           <Search>
             <StyledInputBase
               placeholder="Search..."
-              inputProps={{ 'aria-label': 'search' }}
+              inputProps={{ "aria-label": "search" }}
               value={searchValue}
               onChange={handleSearchChange}
             />
@@ -74,6 +79,17 @@ const StyledFilterCard = styled("div")({
   backgroundColor: "#FAFAFA",
 });
 
+/**
+ * Filter component for displaying filter options.
+ * @param {boolean} itemsWanted - Whether to display items wanted filter option.
+ * @param {boolean} itemsForSale - Whether to display items for sale filter option.
+ * @param {array} priceRange - Range of prices selected by the user.
+ * @param {string} selectedLocation - Selected location filter option.
+ * @param {function} onItemsWantedChange - Function to handle items wanted filter change.
+ * @param {function} onItemsForSaleChange - Function to handle items for sale filter change.
+ * @param {function} onPriceChange - Function to handle price range filter change.
+ * @param {function} onLocationChange - Function to handle location filter change.
+ */
 function Filter({
   itemsWanted,
   itemsForSale,
@@ -144,6 +160,9 @@ function Filter({
   );
 }
 
+/**
+ * HomePage component for displaying the home page content.
+ */
 function HomePage() {
   const navigate = useNavigate();
   const [itemsWanted, setItemsWanted] = useState(true);
@@ -155,10 +174,9 @@ function HomePage() {
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/"); 
+      navigate("/");
     }
   }, [navigate]);
-  
 
   const handleItemsWantedChange = (event) => {
     setItemsWanted(event.target.checked);

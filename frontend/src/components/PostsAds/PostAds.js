@@ -7,6 +7,9 @@ import uploadIcon from "../../assets/PostAds/upload_icon.png";
 import { createAdvertisement } from "../../apiHelpers";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Component for posting advertisements, including selecting type, location, uploading images, and providing details.
+ */
 const PostAdsPage = () => {
   const navigate = useNavigate();
   const [selectedType, setSelectedType] = useState(null);
@@ -21,10 +24,10 @@ const PostAdsPage = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("token")) {
-      navigate("/"); 
+      navigate("/");
     }
   }, [navigate]);
-  
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -47,8 +50,6 @@ const PostAdsPage = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
-
-  
 
   const handleSelectType = (type) => {
     setSelectedType(type);
@@ -261,7 +262,6 @@ const PostAdsPage = () => {
             alt="Third Arrow"
           />
           <div
-          
             style={{
               marginTop: "15px",
               width: "70%",

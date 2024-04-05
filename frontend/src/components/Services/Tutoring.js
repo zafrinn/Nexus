@@ -19,6 +19,9 @@ import {
   getUserInformation,
 } from "../../apiHelpers";
 
+/**
+ * Component for managing tutoring sessions, including adding new sessions and contacting session owners.
+ */
 function Tutoring() {
   const [courseName, setCourseName] = useState("");
   const [tutorLevel, setTutorLevel] = useState("");

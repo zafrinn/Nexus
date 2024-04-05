@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./dashboard.module.css";
 import {
   Card,
@@ -14,19 +14,22 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  MenuItem, // Add MenuItem for dropdown
+  MenuItem,
 } from "@mui/material";
-import { getAdvertisements, updateAdvertisement } from "../../apiHelpers"; // Import the getAdvertisements and updateAdvertisement functions
+import { getAdvertisements, updateAdvertisement } from "../../apiHelpers";
 
+/**
+ * UserPosts component renders a list of user posts with edit functionality.
+ */
 function UserPosts(props) {
-  const [advertisements, setAdvertisements] = useState([]); // State to hold advertisements data
+  const [advertisements, setAdvertisements] = useState([]);
   const [open, setOpen] = useState(false);
   const [editedAdvertisement, setEditedAdvertisement] = useState(null);
   const [editedTitle, setEditedTitle] = useState("");
   const [editedDescription, setEditedDescription] = useState("");
   const [editedPrice, setEditedPrice] = useState("");
   const [editedLocation, setEditedLocation] = useState("");
-  const [editedCategory, setEditedCategory] = useState(""); // Add state for edited category
+  const [editedCategory, setEditedCategory] = useState("");
   const [editedEnabled, setEditedEnabled] = useState("true");
 
   useEffect(() => {

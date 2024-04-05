@@ -17,6 +17,13 @@ import {
   getUserInformation,
 } from "../../apiHelpers"; // Import createTextbook function
 
+/**
+ * Component for displaying and managing a table of textbook exchange entries.
+ *
+ * @param {Object} props - Component props.
+ * @param {Array} props.data - Array of textbook exchange data.
+ * @param {string} props.searchValue - Value to filter the textbook exchange data.
+ */
 function ExchangeTable(props) {
   const data = props.data;
   const [contacts, setContacts] = useState(data);
