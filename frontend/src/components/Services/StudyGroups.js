@@ -43,6 +43,7 @@ const Card = styled.div`
 
 const CardBody = styled.div`
   padding: 15px;
+  padding-bottom: 90px; /* Add additional padding to create space for the CardFooter */
 `;
 
 const CardTitle = styled.h5`
@@ -51,9 +52,12 @@ const CardTitle = styled.h5`
 `;
 
 const CardFooter = styled.div`
-  padding: 10px 15px;
+  padding: 20px 15px; /* Add padding to create space between text and button */
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 `;
 
 const Button2 = styled.button`
@@ -61,36 +65,16 @@ const Button2 = styled.button`
   background-color: rgb(134, 158, 207);
   border: none;
   border-radius: 5px;
-  padding: 8px 16px;
+  padding: 6px 12px; /* Adjust padding to make the button smaller */
+  font-size: 25px; /* Adjust font size */
   color: #fff;
   cursor: pointer;
   position: absolute;
-  bottom: 2px;
+  bottom: 10px; /* Adjust the distance from the bottom */
   left: 50%;
   transform: translateX(-50%);
-  width: auto; /* Start with a default size */
-  padding: 8px 20px; /* Adjust padding to control size */
-
-  /* Adjust the button size at different breakpoints */
-  @media (max-width: 1200px) {
-    padding: 8px 18px; /* Slightly smaller */
-  }
-  
-  @media (max-width: 992px) {
-    padding: 8px 16px; /* Even smaller */
-  }
-  
-  @media (max-width: 768px) {
-    padding: 8px 14px; /* Adjust for small devices */
-  }
-  
-  @media (max-width: 480px) {
-    padding: 8px 12px; /* Adjust for very small devices */
-  }
+  width: auto;
 `;
-
-
-
 /**
  * Component for managing study groups.
  */
