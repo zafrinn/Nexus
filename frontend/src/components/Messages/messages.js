@@ -6,12 +6,21 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import { getDiscussionList, createDiscussion, createDiscussionReply } from "../../apiHelpers";
+import { useNavigate } from "react-router-dom";
 
 function MessagesPage() {
+  const navigate = useNavigate();
   const [newQuestion, setNewQuestion] = useState('');
   const [newReply, setNewReply] = useState('');
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/"); 
+    }
+  }, [navigate]);
+  
 
   useEffect(() => {
     getDiscussionList((data) => {
