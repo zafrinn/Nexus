@@ -18,7 +18,6 @@ const PasswordReset = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate captchaValue and submit form if valid
     if (captchaValue) {
       console.log("Form submitted with captcha value:", captchaValue);
       const formData = {
