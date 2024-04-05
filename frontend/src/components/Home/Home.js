@@ -9,6 +9,7 @@ import Ads from "./Ads.js";
 import { FormControlLabel, Switch, Select, MenuItem } from "@mui/material";
 import TmuLogo from "../../assets/TMU_LOGO.png";
 import { getAdvertisementsByCategoryId } from "../../apiHelpers"; // Import the API function
+import { useNavigate } from "react-router-dom";
 
 const SearchBox = styled('div')(({ theme }) => ({
   border: '1px solid #003fa7', // Add border with color
@@ -144,12 +145,20 @@ function Filter({
 }
 
 function HomePage() {
+  const navigate = useNavigate();
   const [itemsWanted, setItemsWanted] = useState(true);
   const [itemsForSale, setItemsForSale] = useState(true);
   const [priceRange, setPriceRange] = useState([0, 500]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [advertisements, setAdvertisements] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      navigate("/"); 
+    }
+  }, [navigate]);
+  
 
   const handleItemsWantedChange = (event) => {
     setItemsWanted(event.target.checked);
