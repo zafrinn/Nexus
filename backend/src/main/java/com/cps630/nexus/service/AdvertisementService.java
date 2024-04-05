@@ -295,6 +295,7 @@ public class AdvertisementService {
 		
 		List<Advertisement> adList = adRepo.getAllByCategoryIdEnabled(request.getCategoryId());
 		
+		// Set the response object
 		for(Advertisement ad : adList) {
 			AdvertisementResponse responseObj = new AdvertisementResponse();
 			
@@ -334,6 +335,7 @@ public class AdvertisementService {
 		
 		List<Advertisement> adList = adRepo.getAllByCategoryId(request.getCategoryId());
 		
+		// Set the response object
 		for(Advertisement ad : adList) {
 			AdvertisementResponse responseObj = new AdvertisementResponse();
 			
@@ -367,6 +369,7 @@ public class AdvertisementService {
 		
 		List<Advertisement> adList = adRepo.getAllByUserId(Utility.getAuthenticatedUser().getUserId());
 		
+		// Set the response object
 		for(Advertisement ad : adList) {
 			AdvertisementResponse responseObj = new AdvertisementResponse();
 			
