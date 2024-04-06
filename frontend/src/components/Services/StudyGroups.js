@@ -74,6 +74,9 @@ const Button2 = styled.button`
   left: 50%;
   transform: translateX(-50%);
   width: auto;
+  @media only screen and (max-width: 1920px) {
+    padding: 4px 12px;
+  }
 `;
 /**
  * Component for managing study groups.
